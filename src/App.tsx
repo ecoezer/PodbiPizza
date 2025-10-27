@@ -8,7 +8,6 @@ import SearchBar from './components/SearchBar';
 import {
   salads,
   dips,
-  drinks,
   alkoholfreieGetraenke,
   alkoholischeGetraenke,
   fleischgerichte,
@@ -24,19 +23,12 @@ import { useCartStore } from './store/cart.store';
 import { ShoppingCart, ChevronUp, ChevronDown, X } from 'lucide-react';
 import { MenuItem, PizzaSize } from './types';
 
-// Constants (cleaned, no duplicates)
+// Constants
 const SCROLL_CONFIG = {
-  DELAY: 100,
-  NAVBAR_HEIGHT: 140,
-  MOBILE_OFFSET: 120,
-  DESKTOP_OFFSET: 50,
-  ANIMATION_DURATION: 1500,
   MOBILE_BREAKPOINT: 1024
 };
 
 const BUTTON_CLASSES = {
-  whatsapp: 'bg-gradient-to-r from-green-400 to-teal-400 text-white py-2 px-2 group shadow-lg',
-  cart: 'fixed top-2 right-2 hover:scale-105 transition-transform duration-200 drop-shadow-lg border-2 border-white/80 rounded-xl p-1 bg-white/10 backdrop-blur-sm cursor-pointer z-50',
   scrollButton: 'fixed right-2 bottom-20 w-10 h-10 bg-orange-500 text-white rounded-full shadow-lg transition-all duration-300 flex items-center justify-center z-40 border-2 border-white/50 hover:scale-110'
 };
 

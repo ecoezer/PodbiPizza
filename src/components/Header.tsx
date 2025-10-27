@@ -1,11 +1,7 @@
-import React, { memo, useMemo } from 'react';
+import React from 'react';
 
-const Header: React.FC = memo(() => {
-  return (
-    null
-  );
-});
-
-Header.displayName = 'Header';
+const Header: React.FC = () => {
+  return null;
+};
 
 export default Header;

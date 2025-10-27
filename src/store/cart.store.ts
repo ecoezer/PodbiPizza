@@ -112,9 +112,7 @@ export const useCartStore = create<CartState>()(
           };
         }),
 
-      clearCart: () => set({ items: [] }),
-      
-      resetStore: () => set({ items: [] })
+      clearCart: () => set({ items: [] })
     }),
     { name: 'cart-storage' }
   )

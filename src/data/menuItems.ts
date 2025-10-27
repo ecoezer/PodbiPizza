@@ -169,12 +169,6 @@ export const alkoholischeGetraenke: readonly MenuItem[] = [
   { id: 594, number: 94, name: "Einbecker Pils", description: "0,33l", price: 2.50, allergens: "Aa" }
 ];
 
-// Drinks (kept for backward compatibility)
-export const drinks: readonly MenuItem[] = [
-  ...alkoholfreieGetraenke,
-  ...alkoholischeGetraenke
-];
-
 // Drehspieß (Meat dishes)
 export const fleischgerichte: readonly MenuItem[] = [
   { id: 529, number: 1, name: "Drehspieß Tasche", description: "im Fladenbrot mit gemischtem Salat & Soße", price: 7.00, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },

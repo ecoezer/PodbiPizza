@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, Menu } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState('fleischgerichte');
