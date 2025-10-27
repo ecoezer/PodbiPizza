@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ShoppingBag, Clock, Phone, MapPin, Package, LogOut, RefreshCw, Monitor, Smartphone, Calendar, Trash2, Globe } from 'lucide-react';
+import { ShoppingBag, Clock, Phone, MapPin, Package, LogOut, RefreshCw, Monitor, Smartphone, Calendar, Trash2 } from 'lucide-react';
 import { fetchOrders, deleteOrder, OrderData } from '../services/orderService';
 
 interface AdminOrderHistoryProps {

@@ -2,7 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Trash2, Plus, Minus, ShoppingCart, Clock, MapPin, Phone, User, MessageSquare, Send } from 'lucide-react';
+import { Trash2, Plus, Minus, ShoppingCart, Clock, MapPin, Phone } from 'lucide-react';
 import { saveOrder } from '../services/orderService';
 
 interface OrderItem {
@@ -233,61 +233,6 @@ const OrderForm: React.FC<OrderFormProps> = ({
     return encodeURIComponent(message);
   }, [orderItems, subtotal, deliveryFee, total]);
 
-  // Send email notification
-  const sendEmailNotification = async (data: OrderFormData) => {
-    try {
-      const emailData = {
-        orderType: data.orderType,
-        deliveryZone: data.deliveryZone,
-        deliveryTime: data.deliveryTime,
-        specificTime: data.specificTime,
-        name: data.name,
-        phone: data.phone,
-        street: data.street,
-        houseNumber: data.houseNumber,
-        postcode: data.postcode,
-        note: data.note,
-        orderItems: orderItems.map(item => ({
-          menuItemId: item.menuItem.id,
-          menuItemNumber: item.menuItem.number,
-          name: item.menuItem.name,
-          quantity: item.quantity,
-          basePrice: item.selectedSize ? item.selectedSize.price : item.menuItem.price,
-          selectedSize: item.selectedSize || null,
-          selectedIngredients: item.selectedIngredients || null,
-          selectedExtras: item.selectedExtras || null,
-          selectedPastaType: item.selectedPastaType || null,
-          selectedSauce: item.selectedSauce || null,
-          selectedExclusions: item.selectedExclusions || null,
-          selectedSideDish: item.selectedSideDish || null,
-          totalPrice: calculateItemPrice(item) * item.quantity
-        })),
-        subtotal,
-        deliveryFee,
-        total
-      };
-
-      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-      const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-      const response = await fetch(`${supabaseUrl}/functions/v1/send-order-email`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${supabaseAnonKey}`,
-        },
-        body: JSON.stringify(emailData),
-      });
-
-      if (!response.ok) {
-        console.warn('Email notification failed, but continuing with WhatsApp order');
-      } else {
-        console.log('Email notification sent successfully');
-      }
-    } catch (error) {
-      console.warn('Email notification error:', error);
-    }
-  };
 
   const onSubmit = async (data: OrderFormData) => {
     if (!canOrder || orderItems.length === 0) return;
@@ -331,11 +276,6 @@ const OrderForm: React.FC<OrderFormProps> = ({
       saveOrder(orderData)
         .then(() => console.log('Order saved to Firebase successfully'))
         .catch(error => console.error('Error saving order to Firebase:', error));
-
-      // Send email notification in background (don't block WhatsApp)
-      sendEmailNotification(data)
-        .then(() => console.log('Email notification sent successfully'))
-        .catch(error => console.error('Error sending email notification:', error));
 
       // Generate WhatsApp message
       const whatsappMessage = generateWhatsAppMessage(data);

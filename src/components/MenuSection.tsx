@@ -1,4 +1,4 @@
-import React, { useState, useCallback, memo } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Plus, ShoppingCart, ChefHat, Clock, Star } from 'lucide-react';
 import { MenuItem, PizzaSize } from '../types';
 import {
