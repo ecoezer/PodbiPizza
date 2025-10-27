@@ -1,10 +1,5 @@
 import { MenuItem } from '../types';
 
-// Day-based special offers helpers
-const today = new Date().getDay();
-export const isRippchen = () => today === 3;   // Wednesday
-export const isSchnitzelTag = () => today === 4; // Thursday
-
 // Pizza sizes with prices and descriptions
 export const pizzaSizes = [
   { name: 'ø28cm', price: 0, description: 'ø28cm' },

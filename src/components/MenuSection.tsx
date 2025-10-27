@@ -1,10 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Plus, ShoppingCart, ChefHat, Clock, Star } from 'lucide-react';
 import { MenuItem, PizzaSize } from '../types';
-import {
-  wunschPizzaIngredients, pizzaExtras, pastaTypes,
-  sauceTypes, saladSauceTypes, beerTypes
-} from '../data/menuItems';
 import ItemModal from './ItemModal';
 
 interface MenuSectionProps {
