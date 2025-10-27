@@ -20,19 +20,6 @@ export interface PizzaSize {
   description?: string;
 }
 
-export interface PizzaExtra {
-  name: string;
-  price: number;
-}
-
-export interface PastaType {
-  name: string;
-}
-
-export interface SauceType {
-  name: string;
-}
-
 export interface OrderItem {
   menuItem: MenuItem;
   quantity: number;
@@ -49,9 +36,4 @@ export interface CustomerInfo {
   address: string;
   phone: string;
   note?: string;
-}
-
-export interface WunschPizzaIngredient {
-  name: string;
-  disabled?: boolean;
 }
