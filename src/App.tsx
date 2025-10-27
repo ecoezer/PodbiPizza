@@ -216,7 +216,7 @@ function App() {
       {/* Mobile Cart Button */}
       {isMobile && totalItemsCount > 0 && !isModalOpen && (
         <button id="mobile-cart-button" onClick={toggleMobileCart}
-          className={`fixed bottom-4 left-1/2 -translate-x-1/2 w-[90vw] bg-light-blue-400 text-white py-2 px-4 rounded-full shadow-xl flex items-center justify-center z-50 transition-all duration-300 ease-in-out ${isModalOpen ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
+          className={`fixed bottom-4 left-1/2 -translate-x-1/2 w-[90vw] bg-white/20 backdrop-blur-md border-2 border-[#8FA5AA] text-gray-800 py-2 px-4 rounded-full shadow-[0_8px_32px_0_rgba(143,165,170,0.37)] flex items-center justify-center z-50 transition-all duration-300 ease-in-out hover:bg-white/30 ${isModalOpen ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
           <div className="relative flex-shrink-0">
             <div className={`w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center ${cartAnimation ? 'animate-cart-mobile-pulse' : ''}`}>
               <ShoppingCart className={`w-4 h-4 ${cartAnimation ? 'animate-cart-shake' : ''}`} />
