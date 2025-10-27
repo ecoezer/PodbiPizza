@@ -22,7 +22,6 @@ export const sauceTypes = [
 ] as const;
 
 export const saladSauceTypes = ['Joghurt-Dressing', 'Balsamico-Dressing', 'Essig-Öl-Dressing'] as const;
-export const pommesSauceTypes = ['Ketchup', 'Mayonnaise', 'ohne Soße'] as const;
 export const beerTypes = ['Becks', 'Herrenhäuser'] as const;
 
 // Drehspieß sauce options (max 3 selectable)

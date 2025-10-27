@@ -3,7 +3,7 @@ import { X, Plus, ShoppingCart, AlertTriangle, Info } from 'lucide-react';
 import { MenuItem, PizzaSize } from '../types';
 import {
   wunschPizzaIngredients, pizzaExtras, pastaTypes,
-  sauceTypes, saladSauceTypes, pommesSauceTypes, beerTypes, saladExclusionOptions, sideDishOptions, drehspiessaSauceTypes, snackSauceTypes, pizzabroetchenSauceTypes
+  sauceTypes, saladSauceTypes, beerTypes, saladExclusionOptions, sideDishOptions, drehspiessaSauceTypes, snackSauceTypes, pizzabroetchenSauceTypes
 } from '../data/menuItems';
 import { parseAllergens } from '../data/allergenData';
 
