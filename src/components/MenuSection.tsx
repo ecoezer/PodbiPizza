@@ -98,8 +98,8 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                 </div>
               </div>
 
-              <div className="flex flex-col items-end gap-2 flex-shrink-0 ml-3">
-                <div className="text-right">
+              <div className="flex flex-col items-center gap-2 flex-shrink-0 ml-3">
+                <div className="text-center">
                   {hasSizes ? (
                     <>
                       <div className="text-xs text-gray-600">ab</div>
@@ -117,7 +117,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                   title="Hinzufügen"
                 >
                   <ShoppingCart className="w-5 h-5 group-hover:animate-pulse" />
-                  <span className="absolute bottom-full mb-2 hidden group-hover:block bg-gray-900 text-white text-xs py-1 px-2 rounded whitespace-nowrap pointer-events-none">
+                  <span className="absolute bottom-full mb-2 hidden group-hover:block bg-gray-900 text-white text-xs py-1 px-3 rounded whitespace-nowrap pointer-events-none z-10 shadow-lg">
                     Hinzufügen
                   </span>
                 </button>
