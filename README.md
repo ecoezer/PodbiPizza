@@ -1,6 +1,6 @@
-# byAliundMesut 🚕
+# PodbiPizza
 
-A modern food delivery website for byAliundMesut with WhatsApp ordering and email notifications.
+A modern food delivery website for PodbiPizza with WhatsApp ordering and email notifications.
 
 ## Features
 
@@ -29,7 +29,7 @@ A modern food delivery website for byAliundMesut with WhatsApp ordering and emai
 
 ```bash
 git clone <repository-url>
-cd byaliundmesut
+cd podbipizza
 npm install
 ```
 
@@ -145,4 +145,4 @@ The application supports multiple delivery zones with individual:
 
 ## License
 
-This project is proprietary software for Gleis1 Pizza & Döner.
+This project is proprietary software for PodbiPizza.

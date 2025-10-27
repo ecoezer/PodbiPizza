@@ -7,7 +7,7 @@ Follow these steps to configure the email notification system:
 ### 1. Access Supabase Dashboard
 1. Go to [https://supabase.com](https://supabase.com)
 2. Sign in to your account
-3. Select your project (the one used for byAliundMesut)
+3. Select your project (the one used for PodbiPizza)
 
 ### 2. Navigate to Edge Functions Settings
 1. In the left sidebar, click on **"Edge Functions"**
@@ -41,8 +41,8 @@ Add these two environment variables:
 ## Recommended Email Addresses
 
 Use one of these email formats:
-- `orders@byaliundmesut.de` (if you own the domain)
-- `info@byaliundmesut.de`
+- `orders@podbipizza.de` (if you own the domain)
+- `info@podbipizza.de`
 - Your personal email: `your-name@gmail.com`
 - Business email: `restaurant@your-domain.com`
 
