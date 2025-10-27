@@ -18,7 +18,7 @@ import {
   pide,
   schnitzel,
 } from './data/menuItems';
-import { useCartStore } from './store/cart.store';
+import { useCart } from './hooks/useCart';
 import { ShoppingCart, ChevronUp, ChevronDown, X } from 'lucide-react';
 import { MenuItem, PizzaSize } from './types';
 
@@ -47,12 +47,8 @@ const MENU_SECTIONS = [
 ];
 
 function App() {
-  // Cart store logic
-  const items = useCartStore(state => state.items);
-  const addItem = useCartStore(state => state.addItem);
-  const removeItem = useCartStore(state => state.removeItem);
-  const updateQuantity = useCartStore(state => state.updateQuantity);
-  const clearCart = useCartStore(state => state.clearCart);
+  // Cart hook
+  const { items, addItem, removeItem, updateQuantity, clearCart, getTotalItemsCount } = useCart();
 
   // Local state
   const [isMobile, setIsMobile] = useState(window.innerWidth < SCROLL_CONFIG.MOBILE_BREAKPOINT);
@@ -76,7 +72,7 @@ function App() {
   }, []);
 
   // Cart badge calculation
-  const totalItemsCount = useMemo(() => items.reduce((sum, item) => sum + item.quantity, 0), [items]);
+  const totalItemsCount = useMemo(() => getTotalItemsCount(), [getTotalItemsCount]);
 
   // Animation logic
   const triggerCartAnimation = useCallback(() => {
