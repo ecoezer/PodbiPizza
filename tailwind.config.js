@@ -18,6 +18,19 @@ export default {
           800: '#3a555a',
           900: '#2f454a',
         }
+      },
+      keyframes: {
+        'rgb-border': {
+          '0%, 100%': { borderColor: '#ff0000' },
+          '16%': { borderColor: '#ff7f00' },
+          '33%': { borderColor: '#ffff00' },
+          '50%': { borderColor: '#00ff00' },
+          '66%': { borderColor: '#0000ff' },
+          '83%': { borderColor: '#8b00ff' },
+        }
+      },
+      animation: {
+        'rgb-border': 'rgb-border 3s linear infinite',
       }
     }
   },
