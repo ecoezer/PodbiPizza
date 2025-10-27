@@ -229,14 +229,14 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
     return (
       <div className="fixed inset-0 bg-black bg-opacity-70 z-[70] flex items-center justify-center p-4">
         <div className="bg-white rounded-xl max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl">
-          <div className="sticky top-0 bg-orange-500 text-white p-4 rounded-t-xl flex justify-between items-center">
+          <div className="sticky top-0 bg-light-blue-400 text-white p-4 rounded-t-xl flex justify-between items-center">
             <h2 className="text-xl font-bold flex items-center gap-2">
               <Info className="w-6 h-6" />
               Allergene & Zusatzstoffe
             </h2>
             <button
               onClick={() => setShowAllergenPopup(false)}
-              className="p-2 hover:bg-orange-600 rounded-full transition-colors"
+              className="p-2 hover:bg-light-blue-500 rounded-full transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -257,10 +257,10 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                   {allergenList.map((allergen, index) => (
                     <div
                       key={index}
-                      className="bg-orange-50 border border-orange-200 rounded-lg p-3"
+                      className="bg-light-blue-50 border border-light-blue-200 rounded-lg p-3"
                     >
                       <div className="flex items-start gap-2">
-                        <span className="font-bold text-orange-600 flex-shrink-0">
+                        <span className="font-bold text-light-blue-600 flex-shrink-0">
                           ({allergen.code})
                         </span>
                         <span className="text-gray-800 text-sm leading-relaxed">
@@ -280,7 +280,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             <div className="mt-6">
               <button
                 onClick={() => setShowAllergenPopup(false)}
-                className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-lg font-semibold transition-colors"
+                className="w-full bg-light-blue-400 hover:bg-light-blue-500 text-white py-3 px-4 rounded-lg font-semibold transition-colors"
               >
                 Schließen
               </button>
@@ -354,7 +354,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                   setShowAgeWarning(false);
                   onClose();
                 }}
-                className="flex-1 bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
+                className="flex-1 bg-light-blue-400 hover:bg-light-blue-500 text-white py-3 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
               >
                 Hinzufügen
                 <span className="font-bold">{item.price.toFixed(2).replace('.', ',')} €</span>
@@ -370,7 +370,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4">
       <div className="bg-white rounded-xl max-w-lg w-full max-h-[92vh] overflow-y-auto">
         {/* Header */}
-        <div className="sticky top-0 bg-orange-500 text-white p-3 rounded-t-xl flex justify-between items-center">
+        <div className="sticky top-0 bg-light-blue-400 text-white p-3 rounded-t-xl flex justify-between items-center">
           <div>
             <h2 className="text-base sm:text-lg font-bold flex items-center gap-2">
               {getModalTitle()}
@@ -403,7 +403,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             {item.isMeatSelection && (currentStep === 'sauce' || currentStep === 'exclusions' || currentStep === 'sidedish') && (
               <button
                 onClick={currentStep === 'sauce' ? handleBackToMeat : currentStep === 'exclusions' ? handleBackToSauce : handleBackToExclusions}
-                className="p-2 hover:bg-orange-600 rounded-full transition-colors"
+                className="p-2 hover:bg-light-blue-500 rounded-full transition-colors"
                 title={currentStep === 'sauce' ? "Zurück zur Fleischauswahl" : currentStep === 'exclusions' ? "Zurück zur Soßenauswahl" : "Zurück zur Salat-Anpassung"}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -474,29 +474,29 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
           {/* Step indicator for meat selection items */}
           {item.isMeatSelection && (
             <div className="flex items-center justify-center space-x-1 sm:space-x-2 mb-2 sm:mb-3">
-              <div className={`flex items-center space-x-1 ${currentStep === 'meat' ? 'text-orange-600' : 'text-gray-400'}`}>
+              <div className={`flex items-center space-x-1 ${currentStep === 'meat' ? 'text-light-blue-600' : 'text-gray-400'}`}>
                 <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
-                  currentStep === 'meat' ? 'bg-orange-500 text-white' : 'bg-gray-200'
+                  currentStep === 'meat' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
                 }`}>
                   1
                 </div>
                 <span className="text-xs sm:text-sm font-medium hidden sm:inline">Fleisch</span>
                 <span className="text-xs font-medium sm:hidden">F</span>
               </div>
-              <div className={`w-4 h-px ${currentStep === 'sauce' || currentStep === 'exclusions' || currentStep === 'sidedish' ? 'bg-orange-500' : 'bg-gray-300'}`}></div>
-              <div className={`flex items-center space-x-1 ${currentStep === 'sauce' ? 'text-orange-600' : 'text-gray-400'}`}>
+              <div className={`w-4 h-px ${currentStep === 'sauce' || currentStep === 'exclusions' || currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
+              <div className={`flex items-center space-x-1 ${currentStep === 'sauce' ? 'text-light-blue-600' : 'text-gray-400'}`}>
                 <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
-                  currentStep === 'sauce' ? 'bg-orange-500 text-white' : 'bg-gray-200'
+                  currentStep === 'sauce' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
                 }`}>
                   2
                 </div>
                 <span className="text-xs sm:text-sm font-medium hidden sm:inline">Soße</span>
                 <span className="text-xs font-medium sm:hidden">S</span>
               </div>
-              <div className={`w-4 h-px ${currentStep === 'exclusions' || currentStep === 'sidedish' ? 'bg-orange-500' : 'bg-gray-300'}`}></div>
-              <div className={`flex items-center space-x-1 ${currentStep === 'exclusions' ? 'text-orange-600' : 'text-gray-400'}`}>
+              <div className={`w-4 h-px ${currentStep === 'exclusions' || currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
+              <div className={`flex items-center space-x-1 ${currentStep === 'exclusions' ? 'text-light-blue-600' : 'text-gray-400'}`}>
                 <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
-                  currentStep === 'exclusions' ? 'bg-orange-500 text-white' : 'bg-gray-200'
+                  currentStep === 'exclusions' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
                 }`}>
                   3
                 </div>
@@ -505,10 +505,10 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
               </div>
               {item.number === 4 && (
                 <>
-                  <div className={`w-4 h-px ${currentStep === 'sidedish' ? 'bg-orange-500' : 'bg-gray-300'}`}></div>
-                  <div className={`flex items-center space-x-1 ${currentStep === 'sidedish' ? 'text-orange-600' : 'text-gray-400'}`}>
+                  <div className={`w-4 h-px ${currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
+                  <div className={`flex items-center space-x-1 ${currentStep === 'sidedish' ? 'text-light-blue-600' : 'text-gray-400'}`}>
                     <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
-                      currentStep === 'sidedish' ? 'bg-orange-500 text-white' : 'bg-gray-200'
+                      currentStep === 'sidedish' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
                     }`}>
                       4
                     </div>
@@ -530,8 +530,8 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                     key={size.name}
                     className={`flex items-center justify-between p-2 rounded-lg border-2 cursor-pointer transition-all ${
                       selectedSize?.name === size.name
-                        ? 'border-orange-500 bg-orange-50'
-                        : 'border-gray-200 hover:border-orange-300'
+                        ? 'border-light-blue-400 bg-light-blue-50'
+                        : 'border-gray-200 hover:border-light-blue-300'
                     }`}
                   >
                     <div className="flex items-center space-x-2">
@@ -541,7 +541,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                         value={size.name}
                         checked={selectedSize?.name === size.name}
                         onChange={() => setSelectedSize(size)}
-                        className="text-orange-500 focus:ring-orange-500 w-4 h-4"
+                        className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
                       />
                       <div>
                         <div className="font-medium">{size.name}</div>
@@ -550,7 +550,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                         )}
                       </div>
                     </div>
-                    <div className="font-bold text-orange-600">
+                    <div className="font-bold text-light-blue-600">
                       {size.price.toFixed(2).replace('.', ',')} €
                     </div>
                   </label>
@@ -571,8 +571,8 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                     key={ingredient}
                     className={`flex items-center space-x-2 p-1.5 rounded-lg border cursor-pointer transition-all text-sm ${
                       selectedIngredients.includes(ingredient)
-                        ? 'border-orange-500 bg-orange-50'
-                        : 'border-gray-200 hover:border-orange-300'
+                        ? 'border-light-blue-400 bg-light-blue-50'
+                        : 'border-gray-200 hover:border-light-blue-300'
                     } ${
                       !selectedIngredients.includes(ingredient) && selectedIngredients.length >= 4
                         ? 'opacity-50 cursor-not-allowed'
@@ -584,7 +584,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                       checked={selectedIngredients.includes(ingredient)}
                       onChange={() => handleIngredientToggle(ingredient)}
                       disabled={!selectedIngredients.includes(ingredient) && selectedIngredients.length >= 4}
-                      className="text-orange-500 focus:ring-orange-500 w-4 h-4"
+                      className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
                     />
                     <span>{ingredient}</span>
                   </label>
@@ -605,15 +605,15 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                     key={extra}
                     className={`flex items-center space-x-2 p-1.5 rounded-lg border cursor-pointer transition-all text-sm ${
                       selectedExtras.includes(extra)
-                        ? 'border-orange-500 bg-orange-50'
-                        : 'border-gray-200 hover:border-orange-300'
+                        ? 'border-light-blue-400 bg-light-blue-50'
+                        : 'border-gray-200 hover:border-light-blue-300'
                     }`}
                   >
                     <input
                       type="checkbox"
                       checked={selectedExtras.includes(extra)}
                       onChange={() => handleExtraToggle(extra)}
-                      className="text-orange-500 focus:ring-orange-500 w-4 h-4"
+                      className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
                     />
                     <span>{extra}</span>
                   </label>
@@ -632,8 +632,8 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                     key={pastaType}
                     className={`flex items-center space-x-2 p-2 rounded-lg border-2 cursor-pointer transition-all ${
                       selectedPastaType === pastaType
-                        ? 'border-orange-500 bg-orange-50'
-                        : 'border-gray-200 hover:border-orange-300'
+                        ? 'border-light-blue-400 bg-light-blue-50'
+                        : 'border-gray-200 hover:border-light-blue-300'
                     }`}
                   >
                     <input
@@ -642,7 +642,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                       value={pastaType}
                       checked={selectedPastaType === pastaType}
                       onChange={(e) => setSelectedPastaType(e.target.value)}
-                      className="text-orange-500 focus:ring-orange-500 w-4 h-4"
+                      className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
                     />
                     <span className="font-medium">{pastaType}</span>
                   </label>
@@ -655,9 +655,9 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
           {item.isMeatSelection && currentStep === 'meat' && (
             <div>
               <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Fleischauswahl</h3>
-              <div className="p-4 rounded-lg border-2 border-orange-500 bg-orange-50">
+              <div className="p-4 rounded-lg border-2 border-light-blue-400 bg-light-blue-50">
                 <div className="flex items-center space-x-2">
-                  <div className="w-5 h-5 rounded-full bg-orange-500 flex items-center justify-center">
+                  <div className="w-5 h-5 rounded-full bg-light-blue-400 flex items-center justify-center">
                     <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
@@ -700,7 +700,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                           checked={selectedSauces.includes(sauce)}
                           onChange={() => handleSauceToggle(sauce)}
                           disabled={isDisabled}
-                          className="text-orange-500 focus:ring-orange-500 w-4 h-4"
+                          className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
                         />
                         <span className="font-medium">{sauce}</span>
                       </label>
@@ -725,7 +725,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                         value={sauce}
                         checked={selectedSauce === sauce}
                         onChange={(e) => setSelectedSauce(e.target.value)}
-                        className="text-orange-500 focus:ring-orange-500 w-4 h-4"
+                        className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
                       />
                       <span className="font-medium">{sauce}</span>
                     </label>
@@ -739,7 +739,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                   <button
                     type="button"
                     onClick={() => setShowAllSauces(!showAllSauces)}
-                    className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-orange-600 hover:text-orange-700 hover:bg-orange-50 rounded-lg transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-light-blue-600 hover:text-light-blue-700 hover:bg-light-blue-50 rounded-lg transition-colors"
                   >
                     {showAllSauces ? (
                       <>
@@ -772,8 +772,8 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                     key={beer}
                     className={`flex items-center space-x-2 p-2 rounded-lg border-2 cursor-pointer transition-all ${
                       selectedSauce === beer
-                        ? 'border-orange-500 bg-orange-50'
-                        : 'border-gray-200 hover:border-orange-300'
+                        ? 'border-light-blue-400 bg-light-blue-50'
+                        : 'border-gray-200 hover:border-light-blue-300'
                     }`}
                   >
                     <input
@@ -782,7 +782,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                       value={beer}
                       checked={selectedSauce === beer}
                       onChange={(e) => setSelectedSauce(e.target.value)}
-                      className="text-orange-500 focus:ring-orange-500 w-4 h-4"
+                      className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
                     />
                     <span className="font-medium">{beer}</span>
                   </label>
@@ -802,15 +802,15 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                     key={exclusion}
                     className={`flex items-center space-x-2 p-2 rounded-lg border-2 cursor-pointer transition-all ${
                       selectedExclusions.includes(exclusion)
-                        ? 'border-orange-500 bg-orange-50'
-                        : 'border-gray-200 hover:border-orange-300'
+                        ? 'border-light-blue-400 bg-light-blue-50'
+                        : 'border-gray-200 hover:border-light-blue-300'
                     }`}
                   >
                     <input
                       type="checkbox"
                       checked={selectedExclusions.includes(exclusion)}
                       onChange={() => handleExclusionToggle(exclusion)}
-                      className="text-orange-500 focus:ring-orange-500 w-4 h-4"
+                      className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
                     />
                     <span className="font-medium">{exclusion}</span>
                   </label>
@@ -823,7 +823,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                   <button
                     type="button"
                     onClick={() => setShowAllExclusions(!showAllExclusions)}
-                    className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-orange-600 hover:text-orange-700 hover:bg-orange-50 rounded-lg transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-light-blue-600 hover:text-light-blue-700 hover:bg-light-blue-50 rounded-lg transition-colors"
                   >
                     {showAllExclusions ? (
                       <>
@@ -856,8 +856,8 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                     key={sideDish}
                     className={`flex items-center space-x-2 p-2 rounded-lg border-2 cursor-pointer transition-all ${
                       selectedSideDish === sideDish
-                        ? 'border-orange-500 bg-orange-50'
-                        : 'border-gray-200 hover:border-orange-300'
+                        ? 'border-light-blue-400 bg-light-blue-50'
+                        : 'border-gray-200 hover:border-light-blue-300'
                     }`}
                   >
                     <input
@@ -866,7 +866,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                       value={sideDish}
                       checked={selectedSideDish === sideDish}
                       onChange={(e) => setSelectedSideDish(e.target.value)}
-                      className="text-orange-500 focus:ring-orange-500 w-4 h-4"
+                      className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
                     />
                     <span className="font-medium">{sideDish}</span>
                   </label>
@@ -893,7 +893,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
 
                 <button
                   onClick={handleAddToCart}
-                  className="flex-1 bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors"
+                  className="flex-1 bg-light-blue-400 hover:bg-light-blue-500 text-white py-3 px-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors"
                 >
                   {currentStep === 'sauce' || (currentStep === 'exclusions' && item.number === 4) ? (
                     <>
@@ -914,7 +914,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
               /* Single button for other cases */
               <button
                 onClick={handleAddToCart}
-                className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-6 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors"
+                className="w-full bg-light-blue-400 hover:bg-light-blue-500 text-white py-3 px-6 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors"
               >
                 {item.isMeatSelection && currentStep === 'meat' ? (
                   <>

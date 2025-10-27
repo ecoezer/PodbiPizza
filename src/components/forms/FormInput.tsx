@@ -16,7 +16,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
         )}
         <input
           ref={ref}
-          className={`w-full rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 p-2.5 text-sm bg-white ${className}`}
+          className={`w-full rounded-lg border border-gray-300 focus:border-light-blue-400 focus:ring-1 focus:ring-light-blue-400 p-2.5 text-sm bg-white ${className}`}
           {...props}
         />
         {error && (

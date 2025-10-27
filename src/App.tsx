@@ -28,7 +28,7 @@ const SCROLL_CONFIG = {
 };
 
 const BUTTON_CLASSES = {
-  scrollButton: 'fixed right-2 bottom-20 w-10 h-10 bg-orange-500 text-white rounded-full shadow-lg transition-all duration-300 flex items-center justify-center z-40 border-2 border-white/50 hover:scale-110'
+  scrollButton: 'fixed right-2 bottom-20 w-10 h-10 bg-light-blue-400 text-white rounded-full shadow-lg transition-all duration-300 flex items-center justify-center z-40 border-2 border-white/50 hover:scale-110'
 };
 
 const MENU_SECTIONS = [
@@ -157,7 +157,7 @@ function App() {
             <div className="flex-1">
               <SearchBar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
             </div>
-            <img src="/Logo.png" alt="Logo" className="h-10 w-10 rounded-full shadow-lg object-cover border-4 border-orange-200"/>
+            <img src="/Logo.png" alt="Logo" className="h-10 w-10 rounded-full shadow-lg object-cover border-4 border-light-blue-200"/>
           </div>
         </div>
         <Navigation />
@@ -177,8 +177,8 @@ function App() {
         <main className='container mx-auto px-6 py-6 max-w-5xl'>
           {searchQuery.trim() && !hasSearchResults && (
             <div className="text-center py-12 text-gray-500">
-              Keine Ergebnisse für "<span className="font-medium text-orange-600">{searchQuery}</span>"
-              <button onClick={() => setSearchQuery('')} className="text-orange-500 hover:text-orange-600 underline ml-2">Suche zurücksetzen</button>
+              Keine Ergebnisse für "<span className="font-medium text-light-blue-600">{searchQuery}</span>"
+              <button onClick={() => setSearchQuery('')} className="text-light-blue-500 hover:text-light-blue-600 underline ml-2">Suche zurücksetzen</button>
             </div>
           )}
           {hasSearchResults && MENU_SECTIONS.map(section => {
@@ -190,7 +190,7 @@ function App() {
                   title={section.title}
                   description={section.description}
                   items={filtered}
-                  bgColor='bg-orange-500'
+                  bgColor='bg-light-blue-400'
                   onAddToOrder={memoizedAddItem}
                   onModalStateChange={setIsModalOpen}
                 />
@@ -216,7 +216,7 @@ function App() {
       {/* Mobile Cart Button */}
       {isMobile && totalItemsCount > 0 && !isModalOpen && (
         <button id="mobile-cart-button" onClick={toggleMobileCart}
-          className={`fixed bottom-4 left-1/2 -translate-x-1/2 w-[90vw] bg-orange-500 text-white py-2 px-4 rounded-full shadow-xl flex items-center justify-center z-50 transition-all duration-300 ease-in-out ${isModalOpen ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
+          className={`fixed bottom-4 left-1/2 -translate-x-1/2 w-[90vw] bg-light-blue-400 text-white py-2 px-4 rounded-full shadow-xl flex items-center justify-center z-50 transition-all duration-300 ease-in-out ${isModalOpen ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
           <div className="relative flex-shrink-0">
             <div className={`w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center ${cartAnimation ? 'animate-cart-mobile-pulse' : ''}`}>
               <ShoppingCart className={`w-4 h-4 ${cartAnimation ? 'animate-cart-shake' : ''}`} />
@@ -243,13 +243,13 @@ function App() {
           <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={closeMobileCart}/>
           <div id="mobile-cart-sidebar"
             className="fixed bottom-0 left-0 right-0 bg-white rounded-t-xl shadow-xl z-50 max-h-[85vh] flex flex-col animate-slide-up">
-            <div className="flex items-center justify-between p-4 border-b bg-orange-500 text-white rounded-t-xl">
+            <div className="flex items-center justify-between p-4 border-b bg-light-blue-400 text-white rounded-t-xl">
               <h2 className="text-xl font-bold flex items-center gap-2">
                 <ShoppingCart className="w-6 h-6" />
                 Warenkorb ({totalItemsCount})
               </h2>
               <button onClick={closeMobileCart}
-                className="p-2 hover:bg-orange-600 rounded-full">
+                className="p-2 hover:bg-light-blue-500 rounded-full">
                 <X className="w-6 h-6" />
               </button>
             </div>

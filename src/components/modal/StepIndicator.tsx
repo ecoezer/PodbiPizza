@@ -35,11 +35,11 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({ currentStep, showSideDish
       {steps.map((step, index) => (
         <React.Fragment key={step.key}>
           {index > 0 && (
-            <div className={`w-4 h-px ${isStepCompleted(index) || isStepActive(step.key) ? 'bg-orange-500' : 'bg-gray-300'}`} />
+            <div className={`w-4 h-px ${isStepCompleted(index) || isStepActive(step.key) ? 'bg-light-blue-400' : 'bg-gray-300'}`} />
           )}
-          <div className={`flex items-center space-x-1 ${isStepActive(step.key) ? 'text-orange-600' : 'text-gray-400'}`}>
+          <div className={`flex items-center space-x-1 ${isStepActive(step.key) ? 'text-light-blue-600' : 'text-gray-400'}`}>
             <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
-              isStepActive(step.key) ? 'bg-orange-500 text-white' : 'bg-gray-200'
+              isStepActive(step.key) ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
             }`}>
               {step.number}
             </div>

@@ -14,14 +14,14 @@ const AllergenInfoPopup: React.FC<AllergenInfoPopupProps> = ({ item, onClose }) 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 z-[70] flex items-center justify-center p-4">
       <div className="bg-white rounded-xl max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl">
-        <div className="sticky top-0 bg-orange-500 text-white p-4 rounded-t-xl flex justify-between items-center">
+        <div className="sticky top-0 bg-light-blue-400 text-white p-4 rounded-t-xl flex justify-between items-center">
           <h2 className="text-xl font-bold flex items-center gap-2">
             <Info className="w-6 h-6" />
             Allergene & Zusatzstoffe
           </h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-orange-600 rounded-full transition-colors"
+            className="p-2 hover:bg-light-blue-500 rounded-full transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -42,10 +42,10 @@ const AllergenInfoPopup: React.FC<AllergenInfoPopupProps> = ({ item, onClose }) 
                 {allergenList.map((allergen, index) => (
                   <div
                     key={index}
-                    className="bg-orange-50 border border-orange-200 rounded-lg p-3"
+                    className="bg-light-blue-50 border border-light-blue-200 rounded-lg p-3"
                   >
                     <div className="flex items-start gap-2">
-                      <span className="font-bold text-orange-600 flex-shrink-0">
+                      <span className="font-bold text-light-blue-600 flex-shrink-0">
                         ({allergen.code})
                       </span>
                       <span className="text-gray-800 text-sm leading-relaxed">
@@ -65,7 +65,7 @@ const AllergenInfoPopup: React.FC<AllergenInfoPopupProps> = ({ item, onClose }) 
           <div className="mt-6">
             <button
               onClick={onClose}
-              className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-lg font-semibold transition-colors"
+              className="w-full bg-light-blue-400 hover:bg-light-blue-500 text-white py-3 px-4 rounded-lg font-semibold transition-colors"
             >
               Schließen
             </button>

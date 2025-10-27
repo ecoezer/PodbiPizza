@@ -10,5 +10,5 @@ export const UI_CONFIG = {
 } as const;
 
 export const BUTTON_CLASSES = {
-  scrollButton: 'fixed right-2 bottom-20 w-10 h-10 bg-orange-500 text-white rounded-full shadow-lg transition-all duration-300 flex items-center justify-center z-40 border-2 border-white/50 hover:scale-110'
+  scrollButton: 'fixed right-2 bottom-20 w-10 h-10 bg-light-blue-400 text-white rounded-full shadow-lg transition-all duration-300 flex items-center justify-center z-40 border-2 border-white/50 hover:scale-110'
 } as const;

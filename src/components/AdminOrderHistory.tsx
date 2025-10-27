@@ -167,13 +167,13 @@ const AdminOrderHistory: React.FC<AdminOrderHistoryProps> = ({ onLogout }) => {
       <div className="bg-white shadow sticky top-0 z-10 border-b">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-            <ShoppingBag className="w-5 h-5 text-orange-600" />
+            <ShoppingBag className="w-5 h-5 text-light-blue-600" />
             Order History
           </h1>
           <div className="flex items-center gap-2">
             <button
               onClick={loadOrders}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg bg-orange-100 text-orange-700 hover:bg-orange-200 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg bg-light-blue-100 text-light-blue-700 hover:bg-light-blue-200 transition-colors"
             >
               <RefreshCw className="w-4 h-4" />
               Refresh
@@ -196,7 +196,7 @@ const AdminOrderHistory: React.FC<AdminOrderHistoryProps> = ({ onLogout }) => {
               onClick={() => setTimeFilter('all')}
               className={`px-3 py-1.5 text-sm rounded-md font-medium transition-colors ${
                 timeFilter === 'all'
-                  ? 'bg-orange-600 text-white'
+                  ? 'bg-light-blue-500 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
@@ -206,7 +206,7 @@ const AdminOrderHistory: React.FC<AdminOrderHistoryProps> = ({ onLogout }) => {
               onClick={() => setTimeFilter('today')}
               className={`px-3 py-1.5 text-sm rounded-md font-medium transition-colors ${
                 timeFilter === 'today'
-                  ? 'bg-orange-600 text-white'
+                  ? 'bg-light-blue-500 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
@@ -216,7 +216,7 @@ const AdminOrderHistory: React.FC<AdminOrderHistoryProps> = ({ onLogout }) => {
               onClick={() => setTimeFilter('week')}
               className={`px-3 py-1.5 text-sm rounded-md font-medium transition-colors ${
                 timeFilter === 'week'
-                  ? 'bg-orange-600 text-white'
+                  ? 'bg-light-blue-500 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
@@ -226,7 +226,7 @@ const AdminOrderHistory: React.FC<AdminOrderHistoryProps> = ({ onLogout }) => {
               onClick={() => setTimeFilter('month')}
               className={`px-3 py-1.5 text-sm rounded-md font-medium transition-colors ${
                 timeFilter === 'month'
-                  ? 'bg-orange-600 text-white'
+                  ? 'bg-light-blue-500 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
@@ -236,7 +236,7 @@ const AdminOrderHistory: React.FC<AdminOrderHistoryProps> = ({ onLogout }) => {
               onClick={() => setTimeFilter('year')}
               className={`px-3 py-1.5 text-sm rounded-md font-medium transition-colors ${
                 timeFilter === 'year'
-                  ? 'bg-orange-600 text-white'
+                  ? 'bg-light-blue-500 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
@@ -246,7 +246,7 @@ const AdminOrderHistory: React.FC<AdminOrderHistoryProps> = ({ onLogout }) => {
 
           <div className="border-t pt-3 mt-3">
             <div className="flex items-center gap-1.5 mb-2">
-              <Calendar className="w-4 h-4 text-orange-600" />
+              <Calendar className="w-4 h-4 text-light-blue-600" />
               <h3 className="text-sm font-semibold text-gray-900">Custom Range</h3>
             </div>
             <div className="flex flex-wrap gap-2 items-end">
@@ -259,7 +259,7 @@ const AdminOrderHistory: React.FC<AdminOrderHistoryProps> = ({ onLogout }) => {
                   min={minDate}
                   max={maxDate}
                   disabled={!minDate || !maxDate}
-                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-1 focus:ring-orange-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-1 focus:ring-light-blue-400 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
                 />
               </div>
               <div className="flex-1 min-w-[140px]">
@@ -271,13 +271,13 @@ const AdminOrderHistory: React.FC<AdminOrderHistoryProps> = ({ onLogout }) => {
                   min={customStartDate || minDate}
                   max={maxDate}
                   disabled={!minDate || !maxDate}
-                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-1 focus:ring-orange-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-1 focus:ring-light-blue-400 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
                 />
               </div>
               <button
                 onClick={handleCustomDateApply}
                 disabled={!customStartDate || !customEndDate}
-                className="px-4 py-1.5 text-sm rounded-md bg-orange-600 text-white hover:bg-orange-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed font-medium"
+                className="px-4 py-1.5 text-sm rounded-md bg-light-blue-500 text-white hover:bg-light-blue-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed font-medium"
               >
                 Apply
               </button>
@@ -287,10 +287,10 @@ const AdminOrderHistory: React.FC<AdminOrderHistoryProps> = ({ onLogout }) => {
           <div className="border-t pt-3 mt-3">
             <div className="flex justify-between items-center text-sm">
               <p className="font-semibold text-gray-900">
-                Orders: <span className="text-orange-600">{filteredOrders.length}</span>
+                Orders: <span className="text-light-blue-600">{filteredOrders.length}</span>
               </p>
               <p className="font-semibold text-gray-900">
-                Revenue: <span className="text-orange-600">{totalAmount.toFixed(2).replace('.', ',')} €</span>
+                Revenue: <span className="text-light-blue-600">{totalAmount.toFixed(2).replace('.', ',')} €</span>
               </p>
             </div>
           </div>
@@ -298,7 +298,7 @@ const AdminOrderHistory: React.FC<AdminOrderHistoryProps> = ({ onLogout }) => {
 
         {isLoading ? (
           <div className="flex items-center justify-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-light-blue-500"></div>
           </div>
         ) : error ? (
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
@@ -333,19 +333,19 @@ const AdminOrderHistory: React.FC<AdminOrderHistoryProps> = ({ onLogout }) => {
                         <Clock className="w-3.5 h-3.5" />
                         {formatDate(order.created_at)}
                       </div>
-                      <div className="text-sm font-bold text-orange-600">
+                      <div className="text-sm font-bold text-light-blue-600">
                         {order.total_amount.toFixed(2).replace('.', ',')} €
                       </div>
                     </div>
 
                     <div className="space-y-1.5">
                       <div className="flex items-center gap-1.5">
-                        <Package className="w-4 h-4 text-orange-600" />
+                        <Package className="w-4 h-4 text-light-blue-600" />
                         <span className="font-semibold text-sm text-gray-900">{order.customer_name}</span>
                       </div>
                       <div className="flex items-center gap-1.5 text-sm text-gray-700">
                         <Phone className="w-3.5 h-3.5" />
-                        <a href={`tel:${order.customer_phone}`} className="hover:text-orange-600">
+                        <a href={`tel:${order.customer_phone}`} className="hover:text-light-blue-600">
                           {order.customer_phone}
                         </a>
                       </div>
@@ -430,7 +430,7 @@ const AdminOrderHistory: React.FC<AdminOrderHistoryProps> = ({ onLogout }) => {
                               )}
                             </div>
                             <div className="text-right flex-shrink-0">
-                              <p className="font-semibold text-sm text-orange-600">
+                              <p className="font-semibold text-sm text-light-blue-600">
                                 {item.totalPrice.toFixed(2).replace('.', ',')} €
                               </p>
                             </div>

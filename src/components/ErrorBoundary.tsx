@@ -59,7 +59,7 @@ export class ErrorBoundary extends Component<Props, State> {
             )}
             <button
               onClick={this.handleReset}
-              className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-lg font-semibold transition-colors"
+              className="w-full bg-light-blue-400 hover:bg-light-blue-500 text-white py-3 px-4 rounded-lg font-semibold transition-colors"
             >
               Zur Startseite
             </button>

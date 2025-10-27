@@ -49,13 +49,13 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gradient-to-br from-gray-50 to-orange-50 border-t-2 border-orange-400 py-4">
+    <footer className="bg-gradient-to-br from-gray-50 to-light-blue-50 border-t-2 border-light-blue-400 py-4">
       <div className="container mx-auto px-4 max-w-lg text-center space-y-3">
         {/* Address */}
         <div className="bg-white/60 rounded-xl p-3 hover:bg-white/80 transition-colors">
           <div className="flex justify-center mb-1">
-            <div className="p-1.5 bg-orange-100 rounded-full">
-              <MapPin className="h-3.5 w-3.5 text-orange-600" />
+            <div className="p-1.5 bg-light-blue-100 rounded-full">
+              <MapPin className="h-3.5 w-3.5 text-light-blue-600" />
             </div>
           </div>
           <div className="font-bold text-gray-800 text-sm">🏠 BAHNHOFSTRASSE 39</div>
@@ -88,7 +88,7 @@ const Footer = () => {
         {/* Divider */}
         <div className="flex items-center gap-3">
           <div className="flex-1 h-px bg-gray-300" />
-          <Heart className="h-3.5 w-3.5 text-orange-400" />
+          <Heart className="h-3.5 w-3.5 text-light-blue-400" />
           <div className="flex-1 h-px bg-gray-300" />
         </div>
 
@@ -110,7 +110,7 @@ const Footer = () => {
           >
             <h3 className="font-bold text-gray-800 text-sm">
               Allergene und Zusatzstoffe:
-              <span className="text-orange-600 ml-2 underline">
+              <span className="text-light-blue-600 ml-2 underline">
                 {showAllergens ? 'Ausblenden' : 'Hier klicken zum Ansehen'}
               </span>
             </h3>

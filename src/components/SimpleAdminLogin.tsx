@@ -106,11 +106,11 @@ const SimpleAdminLogin: React.FC<SimpleAdminLoginProps> = ({ onLoginSuccess }) =
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-light-blue-50 to-blue-50 flex items-center justify-center p-4">
       <div className={`bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md ${shake ? 'animate-shake' : ''}`}>
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-100 rounded-full mb-4">
-            <Lock className="w-8 h-8 text-orange-600" />
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-light-blue-100 rounded-full mb-4">
+            <Lock className="w-8 h-8 text-light-blue-600" />
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin Login</h1>
           <p className="text-gray-600">Enter password to access order history</p>
@@ -126,7 +126,7 @@ const SimpleAdminLogin: React.FC<SimpleAdminLoginProps> = ({ onLoginSuccess }) =
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-orange-500 focus:ring-orange-500 transition-colors"
+              className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-light-blue-400 focus:ring-light-blue-400 transition-colors"
               placeholder="Enter admin password"
               autoComplete="current-password"
             />
@@ -145,7 +145,7 @@ const SimpleAdminLogin: React.FC<SimpleAdminLoginProps> = ({ onLoginSuccess }) =
             className={`w-full py-3 px-4 rounded-lg font-semibold transition-all ${
               !password || isBlocked
                 ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
-                : 'bg-orange-500 hover:bg-orange-600 text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02]'
+                : 'bg-light-blue-400 hover:bg-light-blue-500 text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02]'
             }`}
           >
             {isBlocked ? `Blocked - ${formatTime(remainingTime)}` : 'Login'}

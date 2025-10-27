@@ -27,7 +27,7 @@ interface MenuSectionProps {
 }
 
 
-const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle, items, bgColor = 'bg-orange-500', onAddToOrder, onModalStateChange }) => {
+const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle, items, bgColor = 'bg-light-blue-400', onAddToOrder, onModalStateChange }) => {
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const today = new Date().getDay();
 
@@ -74,7 +74,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
               }`}
             >
               <div className="flex items-center gap-3 flex-1">
-                <span className="w-9 h-9 bg-orange-100 text-orange-600 rounded-full flex justify-center items-center font-bold text-sm flex-shrink-0">
+                <span className="w-9 h-9 bg-light-blue-100 text-light-blue-600 rounded-full flex justify-center items-center font-bold text-sm flex-shrink-0">
                   {item.number}
                 </span>
                 <div className="flex-1 min-w-0">
@@ -103,7 +103,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                   {hasSizes ? (
                     <>
                       <div className="text-xs text-gray-600">ab</div>
-                      <div className="text-lg font-bold text-orange-600">{formatPriceWithCurrency(minPrice)}</div>
+                      <div className="text-lg font-bold text-light-blue-600">{formatPriceWithCurrency(minPrice)}</div>
                     </>
                   ) : (
                     <PriceDisplay item={item} specialRippchen={rippchenSpecial} specialSchnitzel={schnitzelSpecial} />
@@ -112,7 +112,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
 
                 <button
                   onClick={() => handleItemClick(item)}
-                  className="group relative flex items-center justify-center bg-orange-500 text-white w-10 h-10 rounded-full hover:bg-orange-600 transition-all transform hover:scale-110 shadow-md hover:shadow-xl"
+                  className="group relative flex items-center justify-center bg-light-blue-400 text-white w-10 h-10 rounded-full hover:bg-light-blue-500 transition-all transform hover:scale-110 shadow-md hover:shadow-xl"
                   aria-label="Hinzufügen"
                   title="Hinzufügen"
                 >

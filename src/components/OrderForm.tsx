@@ -395,7 +395,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
         <div className="bg-white border-b sticky top-0 z-10 shadow-sm">
           <div className="p-4 flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <ShoppingCart className="w-5 h-5 text-orange-600" />
+              <ShoppingCart className="w-5 h-5 text-light-blue-600" />
               Warenkorb
             </h2>
             <button
@@ -598,7 +598,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
             </label>
             <div className="grid grid-cols-2 gap-2">
               <label className={`flex items-center justify-center cursor-pointer p-3 rounded-lg border-2 transition-all ${
-                watchOrderType === 'pickup' ? 'border-orange-500 bg-orange-50' : 'border-gray-200 bg-white hover:border-gray-300'
+                watchOrderType === 'pickup' ? 'border-light-blue-400 bg-light-blue-50' : 'border-gray-200 bg-white hover:border-gray-300'
               }`}>
                 <input
                   type="radio"
@@ -609,7 +609,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
                 <span className="text-sm font-medium text-gray-900">Abholung</span>
               </label>
               <label className={`flex items-center justify-center cursor-pointer p-3 rounded-lg border-2 transition-all ${
-                watchOrderType === 'delivery' ? 'border-orange-500 bg-orange-50' : 'border-gray-200 bg-white hover:border-gray-300'
+                watchOrderType === 'delivery' ? 'border-light-blue-400 bg-light-blue-50' : 'border-gray-200 bg-white hover:border-gray-300'
               }`}>
                 <input
                   type="radio"
@@ -629,7 +629,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
               </label>
               <select
                 {...register('deliveryZone')}
-                className="w-full rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 p-2.5 text-sm bg-white"
+                className="w-full rounded-lg border border-gray-300 focus:border-light-blue-400 focus:ring-1 focus:ring-light-blue-400 p-2.5 text-sm bg-white"
               >
                 <option value="">Bitte wählen...</option>
                 {Object.entries(DELIVERY_ZONES).map(([key, zone]) => (
@@ -656,7 +656,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
                   <input
                     type="text"
                     {...register('street')}
-                    className="w-full rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 p-2.5 text-sm bg-white"
+                    className="w-full rounded-lg border border-gray-300 focus:border-light-blue-400 focus:ring-1 focus:ring-light-blue-400 p-2.5 text-sm bg-white"
                     placeholder="Straße"
                   />
                 </div>
@@ -664,7 +664,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
                   <input
                     type="text"
                     {...register('houseNumber')}
-                    className="w-full rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 p-2.5 text-sm bg-white"
+                    className="w-full rounded-lg border border-gray-300 focus:border-light-blue-400 focus:ring-1 focus:ring-light-blue-400 p-2.5 text-sm bg-white"
                     placeholder="Nr."
                   />
                 </div>
@@ -672,7 +672,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
                   <input
                     type="text"
                     {...register('postcode')}
-                    className="w-full rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 p-2.5 text-sm bg-white"
+                    className="w-full rounded-lg border border-gray-300 focus:border-light-blue-400 focus:ring-1 focus:ring-light-blue-400 p-2.5 text-sm bg-white"
                     placeholder="Postleitzahl"
                   />
                 </div>
@@ -686,7 +686,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
             </label>
             <div className="space-y-2">
               <label className={`flex items-center cursor-pointer p-3 rounded-lg border-2 transition-all ${
-                watchDeliveryTime === 'asap' ? 'border-orange-500 bg-orange-50' : 'border-gray-200 bg-white hover:border-gray-300'
+                watchDeliveryTime === 'asap' ? 'border-light-blue-400 bg-light-blue-50' : 'border-gray-200 bg-white hover:border-gray-300'
               }`}>
                 <input
                   type="radio"
@@ -697,7 +697,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
                 <span className="text-sm font-medium text-gray-900">So schnell wie möglich</span>
               </label>
               <label className={`flex items-center cursor-pointer p-3 rounded-lg border-2 transition-all ${
-                watchDeliveryTime === 'specific' ? 'border-orange-500 bg-orange-50' : 'border-gray-200 bg-white hover:border-gray-300'
+                watchDeliveryTime === 'specific' ? 'border-light-blue-400 bg-light-blue-50' : 'border-gray-200 bg-white hover:border-gray-300'
               }`}>
                 <input
                   type="radio"
@@ -713,7 +713,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
               <div className="mt-2 space-y-1">
                 <select
                   {...register('specificTime')}
-                  className="w-full rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 p-2.5 text-sm bg-white"
+                  className="w-full rounded-lg border border-gray-300 focus:border-light-blue-400 focus:ring-1 focus:ring-light-blue-400 p-2.5 text-sm bg-white"
                 >
                   <option value="">Bitte wählen...</option>
                   {(() => {
@@ -769,7 +769,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
               <input
                 type="text"
                 {...register('name')}
-                className="w-full rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 p-2.5 text-sm bg-white"
+                className="w-full rounded-lg border border-gray-300 focus:border-light-blue-400 focus:ring-1 focus:ring-light-blue-400 p-2.5 text-sm bg-white"
                 placeholder="Ihr Name"
               />
               {errors.name && (
@@ -786,7 +786,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
               <input
                 type="tel"
                 {...register('phone')}
-                className="w-full rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 p-2.5 text-sm bg-white"
+                className="w-full rounded-lg border border-gray-300 focus:border-light-blue-400 focus:ring-1 focus:ring-light-blue-400 p-2.5 text-sm bg-white"
                 placeholder="0123 456789"
               />
               {errors.phone && (
@@ -815,7 +815,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
               disabled={!canOrder || orderItems.length === 0 || isSubmitting}
               className={`w-full py-3 px-4 rounded-lg font-medium text-sm flex items-center justify-center gap-2 transition-colors ${
                 canOrder && orderItems.length > 0 && !isSubmitting
-                  ? 'bg-orange-600 hover:bg-orange-700 text-white'
+                  ? 'bg-light-blue-500 hover:bg-light-blue-600 text-white'
                   : 'bg-gray-200 text-gray-400 cursor-not-allowed'
               }`}
             >
