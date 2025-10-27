@@ -28,6 +28,7 @@ export interface OrderItem {
   selectedExtras?: string[];
   selectedPastaType?: string;
   selectedSauce?: string;
+  selectedExclusions?: string[];
   selectedSideDish?: string;
 }
 
@@ -36,4 +37,17 @@ export interface CustomerInfo {
   address: string;
   phone: string;
   note?: string;
+}
+
+export interface MenuSectionConfig {
+  id: string;
+  title: string;
+  description: string;
+  items: readonly MenuItem[];
+}
+
+export interface BadgeProps {
+  color: 'red' | 'blue' | 'green' | 'purple' | 'yellow' | 'indigo' | 'amber';
+  icon: React.ReactNode;
+  text: string;
 }

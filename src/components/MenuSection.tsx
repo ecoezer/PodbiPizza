@@ -1,7 +1,11 @@
 import React, { useState, useCallback } from 'react';
-import { Plus, ShoppingCart, ChefHat, Clock, Star } from 'lucide-react';
+import { ShoppingCart, ChefHat } from 'lucide-react';
 import { MenuItem, PizzaSize } from '../types';
 import ItemModal from './ItemModal';
+import PriceDisplay from './menu/PriceDisplay';
+import MenuItemBadges from './menu/MenuItemBadges';
+import { needsConfiguration, isRippchenSpecial, isSchnitzelSpecial, isAlcoholicItem } from '../utils/itemChecks';
+import { formatPriceWithCurrency } from '../utils/priceCalculations';
 
 interface MenuSectionProps {
   title: string;
@@ -28,12 +32,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
   const today = new Date().getDay();
 
   const handleItemClick = useCallback((item: MenuItem) => {
-    const needsConfig = item.sizes || item.isWunschPizza || item.isPizza || item.isPasta ||
-                        item.isBeerSelection || item.isMeatSelection || (item.isSpezialitaet && ![81, 82, 580, 581, 582, 583].includes(item.id) && !item.isMeatSelection) ||
-                        (item.id >= 564 && item.id <= 568 && item.isSpezialitaet) ||
-                        [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57].includes(item.number) ||
-                        [593, 594].includes(item.id); // Alcoholic drinks need age confirmation
-    if (needsConfig) {
+    if (needsConfiguration(item)) {
       setSelectedItem(item);
       onModalStateChange?.(true);
     } else {
@@ -61,8 +60,8 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
 
       <div className="bg-white rounded-b-xl shadow-lg overflow-hidden border border-gray-100">
         {items.map((item, i) => {
-          const isRippchenSpecial = item.id === 84 && today === 3;
-          const isSchnitzelSpecial = [546,547,548,549].includes(item.id) && today === 4;
+          const rippchenSpecial = isRippchenSpecial(item.id, today);
+          const schnitzelSpecial = isSchnitzelSpecial(item.id, today);
           const hasSizes = item.sizes?.length > 0;
           const minPrice = hasSizes ? Math.min(...item.sizes!.map(s => s.price)) : item.price;
           const isLastItem = i === items.length - 1;
@@ -79,9 +78,9 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                   {item.number}
                 </span>
                 <div className="flex-1 min-w-0">
-                  <h3 className={`text-base font-bold ${isRippchenSpecial || isSchnitzelSpecial ? 'text-red-600' : 'text-gray-900'} flex items-center gap-2`}>
+                  <h3 className={`text-base font-bold ${rippchenSpecial || schnitzelSpecial ? 'text-red-600' : 'text-gray-900'} flex items-center gap-2`}>
                     {item.name}
-                    {[593, 594].includes(item.id) && (
+                    {isAlcoholicItem(item.id) && (
                       <span className="text-xs font-bold px-2 py-0.5 rounded bg-gray-900 text-white">
                         18+
                       </span>
@@ -90,17 +89,12 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                   {item.description && <p className="text-sm text-gray-600 mt-0.5 leading-snug">{item.description}</p>}
                   {item.allergens && <p className="text-xs text-gray-500 mt-1.5"><strong>Allergene:</strong> <span className="italic">{item.allergens}</span></p>}
 
-                  <div className="flex flex-wrap gap-1.5 mt-2">
-                    {isRippchenSpecial && <Badge color="red" icon={<Star className="w-3 h-3" />} text="🔥 RIPPCHEN-TAG SPEZIAL" />}
-                    {isSchnitzelSpecial && <Badge color="red" icon={<Star className="w-3 h-3" />} text="🔥 SCHNITZEL-TAG SPEZIAL" />}
-                    {hasSizes && <Badge color="blue" icon={<Star className="w-3 h-3" />} text="Größen verfügbar" />}
-                    {item.isWunschPizza && <Badge color="purple" icon={<ChefHat className="w-3 h-3" />} text="4 Zutaten wählbar" />}
-                    {(item.isPizza || item.isWunschPizza) && <Badge color="green" icon={<Plus className="w-3 h-3" />} text="Extras verfügbar" />}
-                    {item.isPasta && <Badge color="yellow" icon={<Clock className="w-3 h-3" />} text="Nudelsorte wählbar" />}
-                    {([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57].includes(item.number) || (item.isSpezialitaet && ![81, 82, 580, 581, 582, 583].includes(item.id) && !item.isMeatSelection && !(item.id >= 564 && item.id <= 568))) && <Badge color="red" icon={<ChefHat className="w-3 h-3" />} text="Soße wählbar" />}
-                    {item.id >= 564 && item.id <= 568 && item.isSpezialitaet && <Badge color="indigo" icon={<ChefHat className="w-3 h-3" />} text="Dressing wählbar" />}
-                    {item.isBeerSelection && <Badge color="amber" icon={<ChefHat className="w-3 h-3" />} text="Bier wählbar" />}
-                  </div>
+                  <MenuItemBadges
+                    item={item}
+                    isRippchenSpecial={rippchenSpecial}
+                    isSchnitzelSpecial={schnitzelSpecial}
+                    hasSizes={hasSizes}
+                  />
                 </div>
               </div>
 
@@ -109,10 +103,10 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                   {hasSizes ? (
                     <>
                       <div className="text-xs text-gray-600">ab</div>
-                      <div className="text-lg font-bold text-orange-600">{minPrice.toFixed(2).replace('.', ',')} €</div>
+                      <div className="text-lg font-bold text-orange-600">{formatPriceWithCurrency(minPrice)}</div>
                     </>
                   ) : (
-                    <PriceDisplay item={item} specialRippchen={isRippchenSpecial} specialSchnitzel={isSchnitzelSpecial} />
+                    <PriceDisplay item={item} specialRippchen={rippchenSpecial} specialSchnitzel={schnitzelSpecial} />
                   )}
                 </div>
 
@@ -145,41 +139,4 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
   );
 };
 
-interface BadgeProps {
-  color: 'red' | 'blue' | 'green' | 'purple' | 'yellow' | 'indigo' | 'amber';
-  icon: React.ReactNode;
-  text: string;
-}
-
-const Badge: React.FC<BadgeProps> = ({ color, icon, text }) => {
-  const colors = {
-    red: 'bg-red-100 text-red-800',
-    blue: 'bg-blue-100 text-blue-800',
-    green: 'bg-green-100 text-green-800',
-    purple: 'bg-purple-100 text-purple-800',
-    yellow: 'bg-yellow-100 text-yellow-800',
-    indigo: 'bg-indigo-100 text-indigo-800',
-    amber: 'bg-amber-100 text-amber-800'
-  };
-
-  return (
-    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs ${colors[color]}`}>
-      {icon} {text}
-    </span>
-  );
-};
-
-const PriceDisplay: React.FC<{ item: MenuItem; specialRippchen: boolean; specialSchnitzel: boolean }> = ({ item, specialRippchen, specialSchnitzel }) => {
-  if (specialRippchen || specialSchnitzel) {
-    const oldPrice = specialRippchen ? 14.90 : 12.90;
-    return (
-      <>
-        <div className="text-xs text-gray-500 line-through">{oldPrice.toFixed(2).replace('.', ',')} €</div>
-        <div className="text-lg text-red-600 font-bold animate-pulse">{item.price.toFixed(2).replace('.', ',')} €</div>
-      </>
-    );
-  }
-  return <div className="text-lg font-bold text-gray-900">{item.price.toFixed(2).replace('.', ',')} €</div>;
-};
-
-export default MenuSection;
+export default React.memo(MenuSection);
