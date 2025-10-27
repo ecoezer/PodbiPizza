@@ -58,20 +58,17 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
         {subTitle && <p className="text-xs opacity-80 mt-0.5 italic">{subTitle}</p>}
       </header>
 
-      <div className="bg-white rounded-b-xl shadow-lg overflow-hidden border border-gray-100">
+      <div className="space-y-4 pb-2">
         {items.map((item, i) => {
           const rippchenSpecial = isRippchenSpecial(item.id, today);
           const schnitzelSpecial = isSchnitzelSpecial(item.id, today);
           const hasSizes = item.sizes?.length > 0;
           const minPrice = hasSizes ? Math.min(...item.sizes!.map(s => s.price)) : item.price;
-          const isLastItem = i === items.length - 1;
 
           return (
             <div
               key={`${item.id}-${i}`}
-              className={`p-4 hover:bg-gray-50 transition flex justify-between items-center ${
-                !isLastItem ? 'border-b border-gray-200' : ''
-              }`}
+              className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-4 flex justify-between items-center border border-gray-100"
             >
               <div className="flex items-center gap-3 flex-1">
                 <span className="w-9 h-9 bg-light-blue-100 text-light-blue-600 rounded-full flex justify-center items-center font-bold text-sm flex-shrink-0">
