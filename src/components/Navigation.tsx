@@ -115,7 +115,17 @@ const Navigation = () => {
 
   const handleItemClick = (id: string) => {
     setActiveSection(id);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const element = document.getElementById(id);
+    if (element) {
+      const headerOffset = 130;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
   };
 
   return (
