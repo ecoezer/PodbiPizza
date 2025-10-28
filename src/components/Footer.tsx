@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Phone, Heart } from 'lucide-react';
+import { MapPin, Phone, Heart, FileText } from 'lucide-react';
 
 const Footer = () => {
   const [copied, setCopied] = useState(false);
@@ -51,6 +51,47 @@ const Footer = () => {
   return (
     <footer className="bg-gradient-to-br from-gray-50 to-light-blue-50 border-t-2 border-light-blue-400 py-4">
       <div className="container mx-auto px-4 max-w-lg text-center space-y-3">
+        {/* Impressum */}
+        <div className="bg-white/60 rounded-xl p-4 hover:bg-white/80 transition-colors">
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <FileText className="h-4 w-4 text-light-blue-600" />
+            <h3 className="font-bold text-gray-800 text-base">Impressum</h3>
+          </div>
+          <div className="text-left text-sm text-gray-700 space-y-2">
+            <div>
+              <p className="font-semibold">Domino's Pizza</p>
+              <p>Domino's Pizza Deutschland GmbH</p>
+              <p>Am Sandtorkai 75-77</p>
+              <p>20457 Hamburg</p>
+            </div>
+            <div>
+              <p className="font-semibold">Vertretungsberechtigt: Alexander Markus Tauer</p>
+              <p className="text-xs">
+                <a href="mailto:contact@example.com" className="text-light-blue-600 hover:underline">
+                  Sende uns eine E-Mail
+                </a>
+              </p>
+              <p className="text-xs">Fax: 0800 202 07 702</p>
+            </div>
+            <div className="text-xs">
+              <p>Registergericht: Amtsgericht Hamburg</p>
+              <p>Registernummer: HRB 106171</p>
+              <p className="mt-1">MwSt-Nummer: DE305196524</p>
+            </div>
+            <div className="text-xs pt-2 border-t border-gray-300">
+              <p>Plattform der EU-Kommission zur Online-Streitbeilegung:</p>
+              <a
+                href="https://ec.europa.eu/consumers/odr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-light-blue-600 hover:underline break-all"
+              >
+                https://ec.europa.eu/consumers/odr
+              </a>
+            </div>
+          </div>
+        </div>
+
         {/* Address */}
         <div className="bg-white/60 rounded-xl p-3 hover:bg-white/80 transition-colors">
           <div className="flex justify-center mb-1">
