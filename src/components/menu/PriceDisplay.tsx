@@ -15,14 +15,14 @@ const PriceDisplay: React.FC<PriceDisplayProps> = ({ item, specialRippchen, spec
     return (
       <>
         <div className="text-sm text-gray-500 line-through mb-1">{formatPriceWithCurrency(oldPrice)}</div>
-        <div className="sm:px-2.5 sm:py-1.5 px-1.5 py-1 rounded-full inline-block hover:opacity-90 transition-opacity" style={{ backgroundColor: '#8fa9b3' }}>
+        <div className="sm:px-2.5 sm:py-1.5 px-1.5 py-1 rounded-full block hover:opacity-90 hover:scale-105 transition-all cursor-pointer" style={{ backgroundColor: '#8fa9b3' }}>
           <div className="sm:text-xl text-[13px] text-white font-bold animate-pulse">{formatPriceWithCurrency(item.price)}</div>
         </div>
       </>
     );
   }
   return (
-    <div className="sm:px-2.5 sm:py-1.5 px-1.5 py-1 rounded-full inline-block hover:opacity-90 transition-opacity" style={{ backgroundColor: '#8fa9b3' }}>
+    <div className="sm:px-2.5 sm:py-1.5 px-1.5 py-1 rounded-full block hover:opacity-90 hover:scale-105 transition-all cursor-pointer" style={{ backgroundColor: '#8fa9b3' }}>
       <div className="sm:text-xl text-[13px] font-bold text-white">{formatPriceWithCurrency(item.price)}</div>
     </div>
   );
