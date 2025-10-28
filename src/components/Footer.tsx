@@ -4,7 +4,9 @@ import { MapPin, Phone, Heart, FileText } from 'lucide-react';
 const Footer = () => {
   const [copied, setCopied] = useState(false);
   const [showAllergens, setShowAllergens] = useState(false);
+  const [showImpressum, setShowImpressum] = useState(false);
   const allergensRef = React.useRef<HTMLDivElement>(null);
+  const impressumRef = React.useRef<HTMLDivElement>(null);
   const phoneNumber = '+4915565206955';
   const displayNumber = '01556 5206955';
 
@@ -15,6 +17,20 @@ const Footer = () => {
     if (newState && allergensRef.current) {
       setTimeout(() => {
         allergensRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+      }, 100);
+    }
+  };
+
+  const handleImpressumToggle = () => {
+    const newState = !showImpressum;
+    setShowImpressum(newState);
+
+    if (newState && impressumRef.current) {
+      setTimeout(() => {
+        impressumRef.current?.scrollIntoView({
           behavior: 'smooth',
           block: 'center',
         });
@@ -51,45 +67,58 @@ const Footer = () => {
   return (
     <footer className="bg-gradient-to-br from-gray-50 to-light-blue-50 border-t-2 border-light-blue-400 py-4">
       <div className="container mx-auto px-4 max-w-lg text-center space-y-3">
-        {/* Impressum */}
-        <div className="bg-white/60 rounded-xl p-4 hover:bg-white/80 transition-colors">
-          <div className="flex items-center justify-center gap-2 mb-3">
-            <FileText className="h-4 w-4 text-light-blue-600" />
-            <h3 className="font-bold text-gray-800 text-base">Impressum</h3>
-          </div>
-          <div className="text-left text-sm text-gray-700 space-y-2">
-            <div>
-              <p className="font-semibold">Domino's Pizza</p>
-              <p>Domino's Pizza Deutschland GmbH</p>
-              <p>Am Sandtorkai 75-77</p>
-              <p>20457 Hamburg</p>
+        {/* Impressum - Expandable */}
+        <div ref={impressumRef} className="bg-white/60 rounded-xl p-4">
+          <button
+            onClick={handleImpressumToggle}
+            className="w-full text-center hover:bg-white/80 transition-colors rounded-lg p-2"
+          >
+            <div className="flex items-center justify-center gap-2">
+              <FileText className="h-4 w-4 text-light-blue-600" />
+              <h3 className="font-bold text-gray-800 text-base">
+                Impressum
+                <span className="text-light-blue-600 ml-2 underline text-sm">
+                  {showImpressum ? 'Ausblenden' : 'Hier klicken zum Ansehen'}
+                </span>
+              </h3>
             </div>
-            <div>
-              <p className="font-semibold">Vertretungsberechtigt: Alexander Markus Tauer</p>
-              <p className="text-xs">
-                <a href="mailto:contact@example.com" className="text-light-blue-600 hover:underline">
-                  Sende uns eine E-Mail
+          </button>
+
+          {showImpressum && (
+            <div className="mt-4 text-left text-sm text-gray-700 space-y-2 border-t border-gray-300 pt-4">
+              <div>
+                <p className="font-semibold">Domino's Pizza</p>
+                <p>Domino's Pizza Deutschland GmbH</p>
+                <p>Am Sandtorkai 75-77</p>
+                <p>20457 Hamburg</p>
+              </div>
+              <div>
+                <p className="font-semibold">Vertretungsberechtigt: Alexander Markus Tauer</p>
+                <p className="text-xs">
+                  <a href="mailto:contact@example.com" className="text-light-blue-600 hover:underline">
+                    Sende uns eine E-Mail
+                  </a>
+                </p>
+                <p className="text-xs">Fax: 0800 202 07 702</p>
+              </div>
+              <div className="text-xs">
+                <p>Registergericht: Amtsgericht Hamburg</p>
+                <p>Registernummer: HRB 106171</p>
+                <p className="mt-1">MwSt-Nummer: DE305196524</p>
+              </div>
+              <div className="text-xs pt-2 border-t border-gray-300">
+                <p>Plattform der EU-Kommission zur Online-Streitbeilegung:</p>
+                <a
+                  href="https://ec.europa.eu/consumers/odr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-light-blue-600 hover:underline break-all"
+                >
+                  https://ec.europa.eu/consumers/odr
                 </a>
-              </p>
-              <p className="text-xs">Fax: 0800 202 07 702</p>
+              </div>
             </div>
-            <div className="text-xs">
-              <p>Registergericht: Amtsgericht Hamburg</p>
-              <p>Registernummer: HRB 106171</p>
-              <p className="mt-1">MwSt-Nummer: DE305196524</p>
-            </div>
-            <div className="text-xs pt-2 border-t border-gray-300">
-              <p>Plattform der EU-Kommission zur Online-Streitbeilegung:</p>
-              <a
-                href="https://ec.europa.eu/consumers/odr"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-light-blue-600 hover:underline break-all"
-              >
-                https://ec.europa.eu/consumers/odr
-              </a>
-            </div>
-          </div>
+          )}
         </div>
 
         {/* Address */}
