@@ -95,7 +95,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 flex-shrink-0 ml-3">
+              <div className="flex sm:flex-row flex-col-reverse items-center sm:gap-3 gap-1 flex-shrink-0 ml-3">
                 <button
                   onClick={() => handleItemClick(item)}
                   className="text-center cursor-pointer hover:scale-105 transition-transform"
