@@ -68,7 +68,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
           return (
             <div
               key={`${item.id}-${i}`}
-              className="bg-white hover:bg-gray-100 rounded-xl shadow-md hover:shadow-lg transition-all p-4 flex justify-between items-center border border-gray-100"
+              className="bg-white hover:bg-gray-100 rounded-xl shadow-md hover:shadow-lg transition-all p-4 flex items-center border border-gray-100"
             >
               <div className="flex items-center gap-3 flex-1">
                 <span className="w-9 h-9 bg-light-blue-100 text-light-blue-600 rounded-full flex justify-center items-center font-bold text-sm flex-shrink-0">
@@ -95,7 +95,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                 </div>
               </div>
 
-              <div className="flex flex-col items-center gap-2 flex-shrink-0 ml-3">
+              <div className="flex items-center gap-3 flex-shrink-0 ml-3">
                 <button
                   onClick={() => handleItemClick(item)}
                   className="text-center cursor-pointer hover:scale-105 transition-transform"
