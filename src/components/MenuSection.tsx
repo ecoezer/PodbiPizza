@@ -75,7 +75,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                   {item.number}
                 </span>
                 <div className="flex-1 min-w-0">
-                  <h3 className={`text-base font-bold ${rippchenSpecial || schnitzelSpecial ? 'text-red-600' : 'text-gray-900'} flex items-center gap-2`}>
+                  <h3 className={`text-lg font-bold ${rippchenSpecial || schnitzelSpecial ? 'text-red-600' : 'text-gray-900'} flex items-center gap-2`}>
                     {item.name}
                     {isAlcoholicItem(item.id) && (
                       <span className="text-xs font-bold px-2 py-0.5 rounded bg-gray-900 text-white">
@@ -83,7 +83,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                       </span>
                     )}
                   </h3>
-                  {item.description && <p className="text-sm text-gray-600 mt-0.5 leading-snug">{item.description}</p>}
+                  {item.description && <p className="text-base text-gray-600 mt-1 leading-relaxed">{item.description}</p>}
                   {item.allergens && <p className="text-xs text-gray-500 mt-1.5"><strong>Allergene:</strong> <span className="italic">{item.allergens}</span></p>}
 
                   <MenuItemBadges
@@ -99,8 +99,8 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                 <div className="text-center">
                   {hasSizes ? (
                     <>
-                      <div className="text-xs text-gray-600">ab</div>
-                      <div className="text-lg font-bold text-light-blue-600">{formatPriceWithCurrency(minPrice)}</div>
+                      <div className="text-sm text-gray-600">ab</div>
+                      <div className="text-xl font-bold text-light-blue-600">{formatPriceWithCurrency(minPrice)}</div>
                     </>
                   ) : (
                     <PriceDisplay item={item} specialRippchen={rippchenSpecial} specialSchnitzel={schnitzelSpecial} />
