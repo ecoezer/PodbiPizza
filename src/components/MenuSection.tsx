@@ -49,13 +49,13 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
 
   return (
     <section className={`mb-6 ${title === 'Fleischgerichte' ? 'mt-8' : ''}`}>
-      <header className={`${bgColor} text-white px-3 py-2 rounded-xl mb-4 shadow-lg`}>
-        <div className="flex items-center gap-2">
-          <ChefHat className="w-5 h-5" />
-          <h2 className="text-base font-bold">{title}</h2>
+      <header className="mb-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
+          <span className="text-lg text-gray-600">{items.length} Artikel</span>
         </div>
-        {description && <p className="text-xs opacity-90 leading-relaxed mt-1">{description}</p>}
-        {subTitle && <p className="text-xs opacity-80 mt-0.5 italic">{subTitle}</p>}
+        {description && <p className="text-sm text-gray-600 mt-2 leading-relaxed">{description}</p>}
+        {subTitle && <p className="text-xs text-gray-500 mt-1 italic">{subTitle}</p>}
       </header>
 
       <div className="space-y-4 pb-2">
