@@ -100,10 +100,8 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                   {hasSizes ? (
                     <>
                       <div className="text-sm text-gray-600 mb-1">ab</div>
-                      <div className="bg-light-blue-100 px-3 py-2 rounded-full inline-block">
-                        <div className="text-xl font-bold text-light-blue-600" style={{
-                          textShadow: '2px 2px 4px rgba(56, 189, 248, 0.3), 0px 1px 0px rgba(56, 189, 248, 0.4)'
-                        }}>{formatPriceWithCurrency(minPrice)}</div>
+                      <div className="px-3 py-2 rounded-full inline-block" style={{ backgroundColor: '#8fa9b3' }}>
+                        <div className="text-xl font-bold text-white">{formatPriceWithCurrency(minPrice)}</div>
                       </div>
                     </>
                   ) : (

@@ -15,19 +15,15 @@ const PriceDisplay: React.FC<PriceDisplayProps> = ({ item, specialRippchen, spec
     return (
       <>
         <div className="text-sm text-gray-500 line-through mb-1">{formatPriceWithCurrency(oldPrice)}</div>
-        <div className="bg-red-100 px-3 py-2 rounded-full inline-block">
-          <div className="text-xl text-red-600 font-bold animate-pulse" style={{
-            textShadow: '2px 2px 4px rgba(220, 38, 38, 0.3), 0px 1px 0px rgba(220, 38, 38, 0.5)'
-          }}>{formatPriceWithCurrency(item.price)}</div>
+        <div className="px-3 py-2 rounded-full inline-block" style={{ backgroundColor: '#8fa9b3' }}>
+          <div className="text-xl text-white font-bold animate-pulse">{formatPriceWithCurrency(item.price)}</div>
         </div>
       </>
     );
   }
   return (
-    <div className="bg-gray-100 px-3 py-2 rounded-full inline-block">
-      <div className="text-xl font-bold text-gray-900" style={{
-        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.15), 0px 1px 0px rgba(0, 0, 0, 0.2)'
-      }}>{formatPriceWithCurrency(item.price)}</div>
+    <div className="px-3 py-2 rounded-full inline-block" style={{ backgroundColor: '#8fa9b3' }}>
+      <div className="text-xl font-bold text-white">{formatPriceWithCurrency(item.price)}</div>
     </div>
   );
 };
