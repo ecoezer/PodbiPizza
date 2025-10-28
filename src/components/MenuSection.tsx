@@ -96,18 +96,22 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
               </div>
 
               <div className="flex flex-col items-center gap-2 flex-shrink-0 ml-3">
-                <div className="text-center">
+                <button
+                  onClick={() => handleItemClick(item)}
+                  className="text-center cursor-pointer hover:scale-105 transition-transform"
+                  aria-label="Hinzufügen"
+                >
                   {hasSizes ? (
                     <>
                       <div className="text-sm text-gray-600 mb-1">ab</div>
-                      <div className="px-3 py-2 rounded-full inline-block" style={{ backgroundColor: '#8fa9b3' }}>
+                      <div className="px-3 py-2 rounded-full inline-block hover:opacity-90 transition-opacity" style={{ backgroundColor: '#8fa9b3' }}>
                         <div className="text-xl font-bold text-white">{formatPriceWithCurrency(minPrice)}</div>
                       </div>
                     </>
                   ) : (
                     <PriceDisplay item={item} specialRippchen={rippchenSpecial} specialSchnitzel={schnitzelSpecial} />
                   )}
-                </div>
+                </button>
 
                 <button
                   onClick={() => handleItemClick(item)}
