@@ -75,10 +75,10 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                   {item.number}
                 </span>
                 <div className="flex-1 min-w-0">
-                  <h3 className={`text-lg font-bold ${rippchenSpecial || schnitzelSpecial ? 'text-red-600' : 'text-gray-900'} flex items-center gap-2`}>
+                  <h3 className={`text-lg font-bold ${rippchenSpecial || schnitzelSpecial ? 'text-red-600' : 'text-gray-900'} flex items-center gap-2 whitespace-nowrap overflow-hidden text-ellipsis`}>
                     {item.name}
                     {isAlcoholicItem(item.id) && (
-                      <span className="text-xs font-bold px-2 py-0.5 rounded bg-gray-900 text-white">
+                      <span className="text-xs font-bold px-2 py-0.5 rounded bg-gray-900 text-white flex-shrink-0">
                         18+
                       </span>
                     )}
@@ -95,7 +95,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                 </div>
               </div>
 
-              <div className="flex sm:flex-row flex-col-reverse items-center sm:gap-3 gap-1 flex-shrink-0 ml-3">
+              <div className="flex flex-col items-center gap-1 flex-shrink-0 ml-3">
                 <button
                   onClick={() => handleItemClick(item)}
                   className="text-center cursor-pointer hover:scale-105 transition-transform"
@@ -104,8 +104,8 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                   {hasSizes ? (
                     <>
                       <div className="text-sm text-gray-600 mb-1">ab</div>
-                      <div className="px-3 py-2 rounded-full inline-block hover:opacity-90 transition-opacity" style={{ backgroundColor: '#8fa9b3' }}>
-                        <div className="text-xl font-bold text-white">{formatPriceWithCurrency(minPrice)}</div>
+                      <div className="sm:px-3 sm:py-2 px-2 py-1.5 rounded-full inline-block hover:opacity-90 transition-opacity" style={{ backgroundColor: '#8fa9b3' }}>
+                        <div className="sm:text-xl text-[13px] font-bold text-white">{formatPriceWithCurrency(minPrice)}</div>
                       </div>
                     </>
                   ) : (
