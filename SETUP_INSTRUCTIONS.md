@@ -7,7 +7,7 @@ Follow these steps to configure the email notification system:
 ### 1. Access Supabase Dashboard
 1. Go to [https://supabase.com](https://supabase.com)
 2. Sign in to your account
-3. Select your project (the one used for PodbiPizza)
+3. Select your project (the one used for Saray Kebap Café54)
 
 ### 2. Navigate to Edge Functions Settings
 1. In the left sidebar, click on **"Edge Functions"**

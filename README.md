@@ -1,6 +1,6 @@
-# PodbiPizza
+# Saray Kebap Café54
 
-A modern food delivery website for PodbiPizza with WhatsApp ordering and email notifications.
+A modern food delivery website for Saray Kebap Café54 with WhatsApp ordering and email notifications.
 
 ## Features
 
@@ -29,7 +29,7 @@ A modern food delivery website for PodbiPizza with WhatsApp ordering and email n
 
 ```bash
 git clone <repository-url>
-cd podbipizza
+cd saray-kebap-cafe54
 npm install
 ```
 
@@ -145,4 +145,4 @@ The application supports multiple delivery zones with individual:
 
 ## License
 
-This project is proprietary software for PodbiPizza.
+This project is proprietary software for Saray Kebap Café54.

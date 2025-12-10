@@ -1,7 +1,7 @@
 # Architecture Refactoring Summary
 
 ## Overview
-Comprehensive refactoring of the PodbiPizza application to improve code maintainability, testability, and developer experience. The refactoring maintains all existing functionality including Firebase database persistence and localStorage cart management.
+Comprehensive refactoring of the Saray Kebap Café54 application to improve code maintainability, testability, and developer experience. The refactoring maintains all existing functionality including Firebase database persistence and localStorage cart management.
 
 ## What Was Implemented
 

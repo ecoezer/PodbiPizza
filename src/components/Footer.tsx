@@ -128,9 +128,9 @@ const Footer = () => {
               <MapPin className="h-3.5 w-3.5 text-light-blue-600" />
             </div>
           </div>
-          <div className="font-bold text-gray-800 text-sm">🏠 BAHNHOFSTRASSE 39</div>
-          <div className="text-xs text-gray-600">📮 21435 STELLE (ASHAUSEN)</div>
-          <p className="text-xs text-gray-500">🚗 PodbiPizza Lieferservice</p>
+          <div className="font-bold text-gray-800 text-sm">🏠 HAUPTSTRASSE 96C</div>
+          <div className="text-xs text-gray-600">📮 31171 NORDSTEMMEN</div>
+          <p className="text-xs text-gray-500">🚗 Saray Kebap Café54 Lieferservice</p>
         </div>
 
         {/* WhatsApp Button */}
@@ -165,10 +165,10 @@ const Footer = () => {
         {/* Footer Text */}
         <div className="space-y-0.5">
           <div className="font-medium text-gray-700 text-sm">
-            🍽️ Leckere Döner, Pizza & mehr in Stelle
+            🍽️ Leckere Döner, Pizza & mehr in Nordstemmen
           </div>
           <p className="text-xs text-gray-500">
-            © 2025 PodbiPizza - Alle Rechte vorbehalten
+            © 2025 Saray Kebap Café54 - Alle Rechte vorbehalten
           </p>
         </div>
 

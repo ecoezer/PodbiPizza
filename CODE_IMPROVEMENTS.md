@@ -1,6 +1,6 @@
 # Code Quality and Performance Improvements
 
-This document outlines the comprehensive code quality and performance enhancements made to the PodbiPizza application.
+This document outlines the comprehensive code quality and performance enhancements made to the Saray Kebap Café54 application.
 
 ## Summary of Improvements
 
