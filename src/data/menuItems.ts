@@ -37,8 +37,8 @@ export const saladExclusionOptions = [
   'ohne Gurken'
 ] as const;
 
-// Side dish options for Drehspieß Teller
-export const sideDishOptions = ['Pommes frites', 'Bulgur'] as const;
+// Side dish options for Döner Teller and Hähnchen-Döner Teller
+export const sideDishOptions = ['Pommes frites', 'Reis'] as const;
 
 // Wunsch Pizza ingredients
 export const wunschPizzaIngredients = [
@@ -165,15 +165,18 @@ export const alkoholischeGetraenke: readonly MenuItem[] = [
 
 // Drehspieß (Meat dishes)
 export const fleischgerichte: readonly MenuItem[] = [
-  { id: 529, number: 1, name: "Drehspieß Tasche", description: "im Fladenbrot mit gemischtem Salat & Soße", price: 7.00, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
-  { id: 530, number: 2, name: "Drehspieß Dürüm", description: "Döner-Rolle mit gemischtem Salat & Soße", price: 8.00, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
-  { id: 531, number: 3, name: "Drehspieß Box", description: "mit Drehspießfleisch, Pommes frites & Soße", price: 8.50, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
-  { id: 532, number: 4, name: "Drehspieß Teller (mit Pommes)", description: "mit Drehspießfleisch, Pommes frites & Soße", price: 11.50, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
-  { id: 533, number: 5, name: "Drehspieß Teller (mit Salat)", description: "mit Drehspießfleisch, Salat & Soße", price: 11.50, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
-  { id: 534, number: 6, name: "Jalapeño Drehspieß Tasche", description: "im Fladenbrot mit gemischtem Salat, Sauce Hollandaise und Jalapeños", price: 7.50, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
-  { id: 535, number: 7, name: "Drehspieß Überbacken", description: "mit Sauce Hollandaise, Zwiebeln", price: 8.50, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
-  { id: 536, number: 6, name: "Lahmacun mit Salat", description: "Rolle mit gemischtem Salat & Soße", price: 6.50, isSpezialitaet: true, allergens: "A1" },
-  { id: 537, number: 7, name: "Lahmacun Spezial", description: "Rolle mit gemischtem Salat, Weichkäse & Soße", price: 7.00, isSpezialitaet: true, allergens: "A1, G" }
+  { id: 529, number: 1, name: "Döner Kebabtasche", description: "Salat, Tomaten, Zwiebeln, Sauce", price: 9.00, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
+  { id: 5291, number: "1a", name: "Döner Kebabtasche XL", description: "Salat, Tomaten, Zwiebeln, Sauce", price: 10.00, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
+  { id: 530, number: 2, name: "Döner Kebabtasche mit Weichkäse", description: "Salat, Tomaten, Zwiebeln, Sauce", price: 9.50, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, I, 1, M, 14, 17, 18" },
+  { id: 531, number: 3, name: "Dürüm Döner", description: "Salat, Tomaten, Zwiebeln, Sauce", price: 9.50, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
+  { id: 532, number: 4, name: "Dönerbox", description: "Pommes oder Salat, Kalb- oder Hähnchendöner, Sauce", price: 8.00, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
+  { id: 574, number: 5, name: "Vegetarisch im Fladenbrot", description: "Salat, Tomaten, Zwiebeln, Weichkäse, Sauce", price: 7.50, isSpezialitaet: true, allergens: "A1, I" },
+  { id: 575, number: 6, name: "Vegetarisch Dürüm", description: "Salat, Tomaten, Zwiebeln, Weichkäse, Sauce", price: 8.50, isSpezialitaet: true, allergens: "A1, I" },
+  { id: 533, number: 7, name: "Hähnchen Kebabtasche", description: "Salat, Tomaten, Zwiebeln, Sauce (Weichkäse +1,00 € extra)", price: 8.50, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
+  { id: 534, number: 8, name: "Hähnchen Dürüm", description: "Salat, Tomaten, Zwiebeln, Sauce (Weichkäse +1,00 € extra)", price: 9.00, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
+  { id: 535, number: 9, name: "Döner Teller", description: "Pommes oder Reis, gemischter Salat, Krautsalat, Sauce", price: 13.00, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
+  { id: 5351, number: 10, name: "Hähnchen-Döner Teller", description: "Pommes oder Reis, gemischter Salat, Krautsalat, Sauce", price: 12.50, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
+  { id: 536, number: "10a", name: "Pom-Dürüm", description: "mit Kalb- oder Hähnchendöner, Pommes & Hollandaise-Sauce", price: 10.50, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, E, I, K, 1, M, 14, 17, 18" }
 ];
 
 // Pizza dishes - sizes: ø28cm, ø32cm, ø40cm

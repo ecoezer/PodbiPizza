@@ -20,7 +20,7 @@ export const useItemModal = (item: MenuItem) => {
   const [selectedSauces, setSelectedSauces] = useState<string[]>([]);
   const [selectedExclusions, setSelectedExclusions] = useState<string[]>([]);
   const [selectedSideDish, setSelectedSideDish] = useState<string>(
-    item.number === 4 ? sideDishOptions[0] : ''
+    (item.number === 9 || item.number === 10) ? sideDishOptions[0] : ''
   );
   const [showAllSauces, setShowAllSauces] = useState(false);
   const [showAllExclusions, setShowAllExclusions] = useState(false);
@@ -29,7 +29,7 @@ export const useItemModal = (item: MenuItem) => {
     requiresMeatSelection: !!item.isMeatSelection,
     requiresSauceSelection: !!item.isMeatSelection,
     requiresExclusionSelection: !!item.isMeatSelection,
-    requiresSideDishSelection: item.number === 4 && !!item.isMeatSelection
+    requiresSideDishSelection: (item.number === 9 || item.number === 10) && !!item.isMeatSelection
   }), [item.isMeatSelection, item.number]);
 
   const modalState = useMemo(() => ({
