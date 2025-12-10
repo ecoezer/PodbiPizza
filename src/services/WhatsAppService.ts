@@ -31,7 +31,7 @@ interface OrderFormData {
 }
 
 export class WhatsAppService {
-  private static readonly PHONE_NUMBER = '+4915565206955';
+  private static readonly PHONE_NUMBER = '+4915771459166';
 
   static generateMessage(
     data: OrderFormData,
