@@ -249,5 +249,75 @@ export const pizzas: readonly MenuItem[] = [
     { name: 'ø24cm', price: 9.50, description: 'Klein ø24cm' },
     { name: 'ø28cm', price: 12.00, description: 'Groß ø28cm' },
     { name: 'ø40cm', price: 21.00, description: 'Familien ø40cm' }
+  ]},
+  { id: 531, number: 31, name: "Sucuk", description: "mit türkischer Knoblauchwurst und Ei", price: 9.50, isPizza: true, allergens: "Aa, B, G, I, K, M, 3, 6, 9, 14, 17, 18", sizes: [
+    { name: 'ø24cm', price: 9.50, description: 'Klein ø24cm' },
+    { name: 'ø28cm', price: 12.00, description: 'Groß ø28cm' },
+    { name: 'ø40cm', price: 22.00, description: 'Familien ø40cm' }
+  ]},
+  { id: 532, number: "31a", name: "Pizza Azo", description: "mit Döner, türkischer Knoblauchwurst, Peperoni & Hollandaise-Sauce", price: 11.50, isPizza: true, allergens: "Aa, B, G, E, I, K, M, 3, 6, 9, 14, 17, 18", sizes: [
+    { name: 'ø24cm', price: 11.50, description: 'Klein ø24cm' },
+    { name: 'ø28cm', price: 13.50, description: 'Groß ø28cm' },
+    { name: 'ø40cm', price: 25.00, description: 'Familien ø40cm' }
+  ]},
+  { id: 533, number: "31b", name: "Pizza Jako", description: "mit Hähnchenbrustfilet, Jalapeños & Hollandaise-Sauce", price: 11.50, isPizza: true, allergens: "Aa, B, G, E, I, K, M, 3, 14, 17, 18", sizes: [
+    { name: 'ø24cm', price: 11.50, description: 'Klein ø24cm' },
+    { name: 'ø28cm', price: 13.50, description: 'Groß ø28cm' },
+    { name: 'ø40cm', price: 25.00, description: 'Familien ø40cm' }
+  ]},
+  { id: 534, number: "31c", name: "Pizza Berro", description: "mit Döner, Weichkäse, Peperoni und Zwiebeln", price: 11.50, isPizza: true, allergens: "Aa, G, I, M, 14, 17, 18", sizes: [
+    { name: 'ø24cm', price: 11.50, description: 'Klein ø24cm' },
+    { name: 'ø28cm', price: 13.50, description: 'Groß ø28cm' },
+    { name: 'ø40cm', price: 24.00, description: 'Familien ø40cm' }
+  ]},
+  { id: 535, number: "31d", name: "Funghi", description: "mit frischen Champignons", price: 7.50, isPizza: true, allergens: "Aa, I", sizes: [
+    { name: 'ø24cm', price: 7.50, description: 'Klein ø24cm' },
+    { name: 'ø28cm', price: 9.00, description: 'Groß ø28cm' },
+    { name: 'ø40cm', price: 17.00, description: 'Familien ø40cm' }
+  ]},
+  { id: 536, number: 32, name: "Döner", description: "mit Kalbdönerfleisch & Sauce", price: 9.50, isPizza: true, allergens: "Aa, G, I, M, 14, 17, 18", sizes: [
+    { name: 'ø24cm', price: 9.50, description: 'Klein ø24cm' },
+    { name: 'ø28cm', price: 12.00, description: 'Groß ø28cm' },
+    { name: 'ø40cm', price: 23.00, description: 'Familien ø40cm' }
+  ]},
+  { id: 537, number: 33, name: "Hähnchendöner", description: "mit Hähnchendönerfleisch & Sauce", price: 9.50, isPizza: true, allergens: "Aa, G, I, M, 14, 17, 18", sizes: [
+    { name: 'ø24cm', price: 9.50, description: 'Klein ø24cm' },
+    { name: 'ø28cm', price: 12.00, description: 'Groß ø28cm' },
+    { name: 'ø40cm', price: 23.00, description: 'Familien ø40cm' }
+  ]},
+  { id: 538, number: 34, name: "Döner Hollandaise", description: "mit Kalbdönerfleisch, Zwiebeln, Jalapeños & Hollandaise", price: 11.50, isPizza: true, allergens: "Aa, B, G, E, I, K, M, 3, 14, 17, 18", sizes: [
+    { name: 'ø24cm', price: 11.50, description: 'Klein ø24cm' },
+    { name: 'ø28cm', price: 13.50, description: 'Groß ø28cm' },
+    { name: 'ø40cm', price: 25.00, description: 'Familien ø40cm' }
+  ]},
+  { id: 539, number: 35, name: "Saray", description: "mit Kalb- & Hähnchendönerfleisch, Jalapeños, Mais & Hollandaise", price: 11.50, isPizza: true, allergens: "Aa, B, G, E, I, K, M, 3, 14, 17, 18", sizes: [
+    { name: 'ø24cm', price: 11.50, description: 'Klein ø24cm' },
+    { name: 'ø28cm', price: 13.50, description: 'Groß ø28cm' },
+    { name: 'ø40cm', price: 25.00, description: 'Familien ø40cm' }
+  ]},
+  { id: 540, number: 36, name: "Vegetarisch", description: "mit Spinat, Broccoli & Paprika", price: 9.00, isPizza: true, allergens: "Aa, I", sizes: [
+    { name: 'ø24cm', price: 9.00, description: 'Klein ø24cm' },
+    { name: 'ø28cm', price: 11.50, description: 'Groß ø28cm' },
+    { name: 'ø40cm', price: 20.00, description: 'Familien ø40cm' }
+  ]},
+  { id: 541, number: 37, name: "Mozzarella", description: "mit Mozzarella, Zwiebeln & Tomaten", price: 9.50, isPizza: true, allergens: "Aa, I", sizes: [
+    { name: 'ø24cm', price: 9.50, description: 'Klein ø24cm' },
+    { name: 'ø28cm', price: 11.50, description: 'Groß ø28cm' },
+    { name: 'ø40cm', price: 21.00, description: 'Familien ø40cm' }
+  ]},
+  { id: 542, number: 38, name: "Gemüse", description: "mit Spinat, Mais & Knoblauch", price: 10.00, isPizza: true, allergens: "Aa, I", sizes: [
+    { name: 'ø24cm', price: 10.00, description: 'Klein ø24cm' },
+    { name: 'ø28cm', price: 12.00, description: 'Groß ø28cm' },
+    { name: 'ø40cm', price: 22.00, description: 'Familien ø40cm' }
+  ]},
+  { id: 543, number: 39, name: "Vier Käse", description: "mit Gouda, Gorgonzola, Mozzarella & Weichkäse", price: 9.50, isPizza: true, allergens: "Aa, I", sizes: [
+    { name: 'ø24cm', price: 9.50, description: 'Klein ø24cm' },
+    { name: 'ø28cm', price: 11.50, description: 'Groß ø28cm' },
+    { name: 'ø40cm', price: 21.00, description: 'Familien ø40cm' }
+  ]},
+  { id: 544, number: 40, name: "Meeresfrüchte", description: "mit Meeresfrüchten, Knoblauch & Oliven", price: 10.50, isPizza: true, allergens: "Aa, I, L", sizes: [
+    { name: 'ø24cm', price: 10.50, description: 'Klein ø24cm' },
+    { name: 'ø28cm', price: 12.00, description: 'Groß ø28cm' },
+    { name: 'ø40cm', price: 23.00, description: 'Familien ø40cm' }
   ]}
 ];
