@@ -18,5 +18,5 @@ export const SPECIAL_ITEM_IDS = {
 } as const;
 
 export const WHATSAPP_CONFIG = {
-  PHONE_NUMBER: '+4915771459166'
+  PHONE_NUMBER: '+4915224290621'
 } as const;

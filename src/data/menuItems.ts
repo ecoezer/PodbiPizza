@@ -69,28 +69,6 @@ export const pasta: readonly MenuItem[] = [
   { id: 599, number: 99, name: "Makaroni Carbonara", description: "mit Geflügelformschinken, Sahnesauce & Parmesan", price: 9.50, allergens: "Aa, B, I, G, 6, 9, 9.I, 17" }
 ];
 
-// Vegetarian dishes
-export const vegetarischeGerichte: readonly MenuItem[] = [
-  { id: 574, number: 74, name: "Vegetarische Tasche", description: "mit frischem Salat, Tomaten, Gurken, Kraut und Sauce nach Wahl", price: 5.50, isSpezialitaet: true, allergens: "Aa, I" },
-  { id: 575, number: 75, name: "Falafel Tasche", description: "mit Falafel, frischem Salat, Tomaten, Gurken, Kraut und Sauce nach Wahl", price: 6.00, isSpezialitaet: true, allergens: "Aa, E, G" },
-  { id: 576, number: 76, name: "Falafel Dürüm (Rolle)", description: "mit Falafel, frischem Salat, Tomaten, Gurken, Kraut und Sauce nach Wahl", price: 6.50, isSpezialitaet: true, allergens: "Aa, E, G" },
-  { id: 577, number: 77, name: "Falafel Teller", description: "mit Falafel, Pommes frites, frischem Salat und Sauce nach Wahl", price: 9.00, isSpezialitaet: true, allergens: "Aa, E, G" },
-  { id: 578, number: 78, name: "Falafel Box", description: "mit Falafel, Pommes frites, frischem Salat und Sauce nach Wahl", price: 8.00, isSpezialitaet: true, allergens: "Aa, E, G" },
-  { id: 579, number: 79, name: "Halloumi Tasche", description: "mit Halloumi, frischem Salat und Sauce nach Wahl", price: 7.50, isSpezialitaet: true, allergens: "Aa, I" }
-];
-
-// Pizzabrötchen
-export const pizzabroetchen: readonly MenuItem[] = [
-  { id: 550, number: 50, name: "Pizzabrötchen Classic", description: "", price: 7.00, allergens: "Aa, I" },
-  { id: 551, number: 51, name: "Pizzabrötchen mit Käse", description: "", price: 8.00, allergens: "Aa, I" },
-  { id: 552, number: 52, name: "Pizzabrötchen mit Thunfisch", description: "", price: 8.50, allergens: "Aa, F, I" },
-  { id: 553, number: 53, name: "Pizzabrötchen mit Salami", description: "", price: 8.00, allergens: "Aa, B, I, G, 6, 9, 9.I" },
-  { id: 554, number: 54, name: "Pizzabrötchen mit Schinken", description: "", price: 9.00, allergens: "Aa, B, I, G, 6, 9, 9.I, 17" },
-  { id: 555, number: 55, name: "Pizzabrötchen mit Sucuk", description: "", price: 9.50, allergens: "Aa, B, G, I, M, 3, 6, 9, 14, 17, 18" },
-  { id: 556, number: 56, name: "Pizzabrötchen mit Spinat", description: "", price: 9.50, allergens: "Aa, I" },
-  { id: 557, number: 57, name: "Pizzabrötchen mit Kebab", description: "", price: 9.50, allergens: "Aa, G, I, M, 14, 17, 18" }
-];
-
 // Pide
 export const pide: readonly MenuItem[] = [
   { id: 570, number: 70, name: "Pide Döner", description: "mit Dönerfleisch & Pizzakäse", price: 11.00, allergens: "Aa, G, I, M, 14, 17, 18" },
@@ -124,16 +102,6 @@ export const croques: readonly MenuItem[] = [
   { id: 692, number: "M1", name: "Hamburger Menü", description: "Hamburger, Pommes & Cola (0,33l)", price: 10.50, allergens: "Aa, B, G, 3, 4, 18" },
   { id: 693, number: "M2", name: "Döner Menü", description: "Dönerfleisch (Hähnchen oder Rind), Pommes & Cola (0,33l)", price: 13.50, allergens: "G, I, M, 14, 17, 18, 3, 4" },
   { id: 694, number: "M3", name: "Döner-Burger Menü", description: "Döner-Burger, Pommes & Cola (0,33l)", price: 12.50, allergens: "Aa, G, I, M, 14, 17, 18, 3, 4" }
-];
-
-// Snacks
-export const snacks: readonly MenuItem[] = [
-  { id: 586, number: 16, name: "Pommes klein", description: "", price: 3.00, isSpezialitaet: true },
-  { id: 5861, number: 16, name: "Pommes groß", description: "", price: 4.50, isSpezialitaet: true },
-  { id: 587, number: 17, name: "Chicken-Nuggets", description: "6 Stk.", price: 5.50, isSpezialitaet: true, allergens: "Ao, I, 8.2" },
-  { id: 588, number: 18, name: "Chicken-Nuggets", description: "12 Stk.", price: 8.00, isSpezialitaet: true, allergens: "Ao, I, 8.2" },
-  { id: 589, number: 19, name: "Loaded Fries mit Hackfleisch", description: "mit Pommes, Rinderhackfleisch, Sauce und Käse", price: 7.50, isSpezialitaet: true },
-  { id: 5891, number: 20, name: "Currywurst Pommes", description: "", price: 7.00, isSpezialitaet: true, allergens: "Ao, G, I, K, 6, 8.2, 9, 9.I, 17" }
 ];
 
 // Schnitzel
