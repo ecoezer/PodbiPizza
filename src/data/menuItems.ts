@@ -157,21 +157,25 @@ export const auflauf: readonly MenuItem[] = [
 
 // Salads
 export const salads: readonly MenuItem[] = [
-  { id: 564, number: 64, name: "Bauernsalat", description: "mit Eisbergsalat, Gurken, Tomaten und Zwiebeln", price: 7.00, isSpezialitaet: true },
-  { id: 565, number: 65, name: "Hirtensalat", description: "mit Eisbergsalat, Gurken, Tomaten, Zwiebeln und Feta-Käse", price: 7.00, isSpezialitaet: true, allergens: "I" },
-  { id: 566, number: 66, name: "Thunfischsalat", description: "mit Eisbergsalat, Gurken, Tomaten, Zwiebeln und Thunfisch", price: 8.00, isSpezialitaet: true, allergens: "F" },
-  { id: 567, number: 67, name: "Hähnchenbrustsalat", description: "mit Eisbergsalat, Gurken, Tomaten, Zwiebeln und gegrillter Hähnchenbrust", price: 8.50, isSpezialitaet: true },
-  { id: 568, number: 68, name: "Mozzarella-Salat", description: "mit Eisbergsalat, Tomaten, frischem Mozzarella und Basilikum", price: 8.00, isSpezialitaet: true, allergens: "I" }
+  { id: 564, number: 105, name: "Bauernsalat", description: "mit Eisbergsalat, Tomaten, Paprika & Oliven", price: 8.00, isSpezialitaet: true, allergens: "Aa, I" },
+  { id: 565, number: 106, name: "Weichkäsesalat", description: "mit Weichkäse, Tomaten, Gurken, Paprika & Oliven", price: 9.00, isSpezialitaet: true, allergens: "Aa, I" },
+  { id: 566, number: 107, name: "Schinken-Käse-Salat", description: "mit Eisbergsalat, Tomaten, Gurken, Paprika, Zwiebeln & Goudakäse", price: 8.50, isSpezialitaet: true, allergens: "Aa, B, I, G, 6, 9, 9.I, 17" },
+  { id: 567, number: 108, name: "Thunfischsalat", description: "mit Eisbergsalat, Tomaten, Gurken, Paprika & Thunfisch", price: 8.50, isSpezialitaet: true, allergens: "Aa, F, I" },
+  { id: 568, number: 109, name: "Maissalat", description: "mit Tomaten, Gurken, Paprika & Mais", price: 9.00, isSpezialitaet: true, allergens: "Aa, I" },
+  { id: 569, number: 110, name: "Krautsalat", description: "mit Krautsalat & Zaziki", price: 7.00, isSpezialitaet: true, allergens: "Aa, I" },
+  { id: 570, number: 111, name: "Tomatensalat", description: "mit Tomaten, Gurken, Zwiebeln, Paprika & Weichkäse", price: 9.00, isSpezialitaet: true, allergens: "Aa, I" },
+  { id: 571, number: 112, name: "Happy Salat", description: "mit Tomaten, Gurken, Eisbergsalat & Hähnchenfleisch", price: 9.00, isSpezialitaet: true, allergens: "Aa, I" },
+  { id: 572, number: 113, name: "Saray Salat", description: "mit gemischtem Salat, Reis, Dönerfleisch & Sauce", price: 11.00, isSpezialitaet: true, allergens: "Aa, G, I, M, 14, 17, 18" }
 ];
 
 // Dips
 export const dips: readonly MenuItem[] = [
-  { id: 569, number: 69, name: "Tzatziki", description: "", price: 2.00 },
-  { id: 570, number: 70, name: "Chili-Sauce", description: "", price: 2.00 },
-  { id: 571, number: 71, name: "Kräutersoße", description: "", price: 2.00 },
-  { id: 572, number: 72, name: "Curry Sauce", description: "", price: 2.00 },
-  { id: 573, number: 73, name: "Ketchup", description: "", price: 1.00 },
-  { id: 574, number: 74, name: "Mayonnaise", description: "", price: 1.00 }
+  { id: 573, number: 69, name: "Tzatziki", description: "", price: 2.00 },
+  { id: 574, number: 70, name: "Chili-Sauce", description: "", price: 2.00 },
+  { id: 575, number: 71, name: "Kräutersoße", description: "", price: 2.00 },
+  { id: 576, number: 72, name: "Curry Sauce", description: "", price: 2.00 },
+  { id: 577, number: 73, name: "Ketchup", description: "", price: 1.00 },
+  { id: 578, number: 74, name: "Mayonnaise", description: "", price: 1.00 }
 ];
 
 // Alkoholfreie Getränke
