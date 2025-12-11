@@ -10,6 +10,7 @@ import {
   alkoholfreieGetraenke,
   alkoholischeGetraenke,
   fleischgerichte,
+  grillspezialitaeten,
   pizzas,
   snacks,
   vegetarischeGerichte,
@@ -38,6 +39,7 @@ const BUTTON_CLASSES = {
 
 const MENU_SECTIONS = [
   { id: 'fleischgerichte', title: 'Drehspieß', description: 'Döner, Dürüm und mehr', items: fleischgerichte },
+  { id: 'grillspezialitaeten', title: 'Grillspezialitäten', description: 'Köfte, Hähnchen und weitere Grillspezialitäten', items: grillspezialitaeten },
   { id: 'lahmacun', title: 'Lahmacun', description: 'Türkische Pizza mit Salat, Tomaten & Sauce', items: lahmacun },
   { id: 'baguette', title: 'Baguette', description: 'Alle Baguettes werden mit Käse, Salat und Remoulade zubereitet.', items: baguette },
   { id: 'auflauf', title: 'Auflauf', description: 'Überbackene Aufläufe mit Käse, Salat und Brot', items: auflauf },
@@ -139,6 +141,7 @@ function App() {
     if (!searchQuery.trim()) return true;
     const allItems = [
       ...fleischgerichte,
+      ...grillspezialitaeten,
       ...lahmacun,
       ...baguette,
       ...snacks,

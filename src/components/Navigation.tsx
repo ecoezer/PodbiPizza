@@ -9,6 +9,7 @@ const Navigation = () => {
 
   const navigationItems = [
     ['fleischgerichte', 'Drehspieß'],
+    ['grillspezialitaeten', 'Grillspezialitäten'],
     ['lahmacun', 'Lahmacun'],
     ['baguette', 'Baguette'],
     ['auflauf', 'Auflauf'],

@@ -201,6 +201,17 @@ export const alkoholischeGetraenke: readonly MenuItem[] = [
   { id: 7941, number: 94, name: "Einbecker Pils", description: "0,33l", price: 2.50, allergens: "Aa" }
 ];
 
+// Grillspezialitäten
+export const grillspezialitaeten: readonly MenuItem[] = [
+  { id: 720, number: 120, name: "Köfte Teller", description: "mit 5 Frikadellen, Salat, Sauce & Pommes oder Reis", price: 13.50, allergens: "Aa" },
+  { id: 721, number: 121, name: "Mix Köfte Teller", description: "mit 4 Frikadellen, Hähnchenbrustfilet, Salat, Sauce & Pommes oder Reis", price: 15.50, allergens: "Aa" },
+  { id: 722, number: 122, name: "Hähnchenteller", description: "mit Hähnchenbrustfilet, Salat, Sauce & Pommes oder Reis", price: 13.50, allergens: "Aa" },
+  { id: 723, number: 123, name: "Köfte-Tasche", description: "mit 3 Frikadellen, Tomaten, Zwiebeln & Sauce", price: 9.50, allergens: "Aa" },
+  { id: 724, number: 124, name: "Köfte-Dürüm", description: "mit 3 Frikadellen, Tomaten & Zwiebeln", price: 10.00, allergens: "Aa" },
+  { id: 725, number: 125, name: "Sucuk Teller", description: "mit Knoblauchwurst, Salat, Sauce, Tomaten, Zwiebeln & Pommes oder Reis", price: 13.50, allergens: "Aa, B, G, M, 3, 6, 9, 14, 17, 18" },
+  { id: 726, number: 126, name: "Sucuk-Dürüm", description: "mit Knoblauchwurst, Salat, Sauce, Tomaten & Zwiebeln", price: 10.00, allergens: "Aa, B, G, M, 3, 6, 9, 14, 17, 18" }
+];
+
 // Drehspieß (Meat dishes)
 export const fleischgerichte: readonly MenuItem[] = [
   { id: 529, number: 1, name: "Döner Kebabtasche", description: "Salat, Tomaten, Zwiebeln, Sauce", price: 9.00, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
