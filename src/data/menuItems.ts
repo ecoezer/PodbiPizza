@@ -193,6 +193,20 @@ export const lahmacun: readonly MenuItem[] = [
   { id: 600, number: 67, name: "Lahmacun-Döner", description: "mit Lahmacun, Dönerfleisch, Salat, Tomaten & Sauce", price: 9.00, isSpezialitaet: true, isMeatSelection: true, allergens: "Aa, G, M, 14, 17, 18" }
 ];
 
+// Baguette
+export const baguette: readonly MenuItem[] = [
+  { id: 607, number: 55, name: "Schinken", description: "mit Geflügelformschinken", price: 8.50, allergens: "Aa, B, I, G, 6, 9, 9.I, 17" },
+  { id: 608, number: 56, name: "Salami", description: "mit Geflügelsalami", price: 8.50, allergens: "Aa, B, I, G, 6, 9, 9.I" },
+  { id: 609, number: 57, name: "Bomba", description: "mit Geflügelsalami & Peperoni", price: 9.00, allergens: "Aa, B, I, G, 6, 9, 9.I" },
+  { id: 610, number: 58, name: "Thunfisch", description: "mit Thunfisch & Zwiebeln", price: 9.00, allergens: "Aa, F, I" },
+  { id: 611, number: 59, name: "Hawaii", description: "mit Geflügelformschinken & Ananas", price: 9.00, allergens: "Aa, B, I, G, 6, 9, 9.I, 17" },
+  { id: 612, number: 60, name: "Sucuk", description: "mit Knoblauchwurst & Weichkäse", price: 10.00, allergens: "Aa, B, G, I, M, 3, 6, 9, 14, 17, 18" },
+  { id: 613, number: 61, name: "Döner", description: "mit Kalbdöner", price: 10.00, allergens: "Aa, G, I, M, 14, 17, 18" },
+  { id: 614, number: 62, name: "Hähnchendöner", description: "mit Hähnchendönerfleisch", price: 10.00, allergens: "Aa, G, I, M, 14, 17, 18" },
+  { id: 615, number: 63, name: "Hähnchenbrust", description: "mit Hähnchenbrustfilet", price: 10.00, allergens: "Aa, I" },
+  { id: 616, number: 64, name: "Vegetarisch", description: "mit Tomaten & Weichkäse", price: 8.50, allergens: "Aa, I" }
+];
+
 // Calzone sizes
 export const calzoneSizes = [
   { name: 'Normal', price: 0, description: 'Normal' },

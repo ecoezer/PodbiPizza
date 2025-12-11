@@ -19,6 +19,7 @@ import {
   schnitzel,
   auflauf,
   lahmacun,
+  baguette,
   calzone,
 } from './data/menuItems';
 import { useCart } from './hooks/useCart';
@@ -37,6 +38,7 @@ const BUTTON_CLASSES = {
 const MENU_SECTIONS = [
   { id: 'fleischgerichte', title: 'Drehspieß', description: 'Döner, Dürüm und mehr', items: fleischgerichte },
   { id: 'lahmacun', title: 'Lahmacun', description: 'Türkische Pizza mit Salat, Tomaten & Sauce', items: lahmacun },
+  { id: 'baguette', title: 'Baguette', description: 'Alle Baguettes werden mit Käse, Salat und Remoulade zubereitet.', items: baguette },
   { id: 'auflauf', title: 'Auflauf', description: 'Überbackene Aufläufe mit Käse, Salat und Brot', items: auflauf },
   { id: 'snacks', title: 'Snacks', description: 'Kleine Gerichte und Menüs', items: snacks },
   { id: 'vegetarische-gerichte', title: 'Vegetarische Gerichte', description: 'Fleischlose Alternativen', items: vegetarischeGerichte },
@@ -136,6 +138,7 @@ function App() {
     const allItems = [
       ...fleischgerichte,
       ...lahmacun,
+      ...baguette,
       ...snacks,
       ...vegetarischeGerichte,
       ...pizzas,
