@@ -9,6 +9,7 @@ const Navigation = () => {
 
   const navigationItems = [
     ['fleischgerichte', 'Drehspieß'],
+    ['auflauf', 'Auflauf'],
     ['snacks', 'Snacks'],
     ['vegetarische-gerichte', 'Vegetarische Gerichte'],
     ['pizza', 'Pizza'],
@@ -16,7 +17,6 @@ const Navigation = () => {
     ['pide', 'Pide'],
     ['croques', 'Hamburger'],
     ['schnitzel', 'Schnitzel'],
-    ['auflauf', 'Auflauf'],
     ['salate', 'Salate'],
     ['dips', 'Dips & Soßen'],
     ['alkoholfreie-getraenke', 'Alkoholfreie Getränke'],

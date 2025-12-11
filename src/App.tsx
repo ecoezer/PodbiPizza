@@ -34,6 +34,7 @@ const BUTTON_CLASSES = {
 
 const MENU_SECTIONS = [
   { id: 'fleischgerichte', title: 'Drehspieß', description: 'Döner, Dürüm, Lahmacun und mehr', items: fleischgerichte },
+  { id: 'auflauf', title: 'Auflauf', description: 'Überbackene Aufläufe mit Käse, Salat und Brot', items: auflauf },
   { id: 'snacks', title: 'Snacks', description: 'Kleine Gerichte und Menüs', items: snacks },
   { id: 'vegetarische-gerichte', title: 'Vegetarische Gerichte', description: 'Fleischlose Alternativen', items: vegetarischeGerichte },
   { id: 'pizza', title: 'Pizza', description: 'Frisch gebackene Pizzen', items: pizzas },
@@ -41,7 +42,6 @@ const MENU_SECTIONS = [
   { id: 'pide', title: 'Pide', description: 'Alle Pides werden mit Gouda-Käse zubereitet', items: pide },
   { id: 'croques', title: 'Hamburger', description: 'Alle Burger werden mit frischem Salat, Ketchup sowie Burger-Dressing serviert', items: croques },
   { id: 'schnitzel', title: 'Schnitzel', description: 'Knusprige Schnitzel mit Beilagen', items: schnitzel },
-  { id: 'auflauf', title: 'Auflauf', description: 'Überbackene Aufläufe mit Käse, Salat und Brot', items: auflauf },
   { id: 'salate', title: 'Salate', description: 'Alle Salate werden mit einem Dressing Ihrer Wahl zubereitet (z. B. Joghurt-, Balsamico- oder Essig-Öl-Dressing)', items: salads },
   { id: 'dips', title: 'Dips & Soßen', description: 'Leckere Dips und Soßen', items: dips },
   { id: 'alkoholfreie-getraenke', title: 'Alkoholfreie Getränke', description: 'Erfrischende alkoholfreie Getränke', items: alkoholfreieGetraenke },
