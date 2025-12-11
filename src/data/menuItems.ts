@@ -121,6 +121,14 @@ export const schnitzel: readonly MenuItem[] = [
   { id: 583, number: 73, name: "Sauce Hollandaise Schnitzel", description: "mit Sauce Hollandaise", price: 12.00, isSpezialitaet: true, allergens: "Aa, B, G, E, I, K, M, 3, 14, 17, 18" }
 ];
 
+// Auflauf
+export const auflauf: readonly MenuItem[] = [
+  { id: 595, number: 15, name: "Döner-Auflauf (Mixfleisch)", description: "Kalb- und Hähnchendöner, Hollandaise-Sauce, mit Käse überbacken dazu Salat und Brot", price: 13.50, isSpezialitaet: true, allergens: "Aa, B, G, E, I, K, M, 3, 14, 17, 18" },
+  { id: 596, number: 16, name: "Döner-Auflauf", description: "Kalbdöner, Tomatensauce, Jägersauce, Paprikasauce mit Käse überbacken dazu Salat und Brot", price: 13.00, isSpezialitaet: true, allergens: "Aa, G, I, M, 14, 17, 18" },
+  { id: 597, number: 17, name: "Hähnchendöner-Auflauf", description: "Hähnchendöner, Tomatensauce, Jägersauce, Paprikasauce mit Käse überbacken dazu Salat und Brot", price: 12.50, isSpezialitaet: true, allergens: "Aa, G, I, M, 14, 17, 18" },
+  { id: 598, number: 18, name: "Gemüse-Auflauf", description: "Paprika, Brokkoli, Champignons, Tomaten-Sahnesauce, mit Käse überbacken dazu Salat und Brot", price: 12.00, isSpezialitaet: true, allergens: "Aa, I" }
+];
+
 // Salads
 export const salads: readonly MenuItem[] = [
   { id: 564, number: 64, name: "Bauernsalat", description: "mit Eisbergsalat, Gurken, Tomaten und Zwiebeln", price: 7.00, isSpezialitaet: true },

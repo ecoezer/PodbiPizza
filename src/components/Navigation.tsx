@@ -16,6 +16,7 @@ const Navigation = () => {
     ['pide', 'Pide'],
     ['croques', 'Hamburger'],
     ['schnitzel', 'Schnitzel'],
+    ['auflauf', 'Auflauf'],
     ['salate', 'Salate'],
     ['dips', 'Dips & Soßen'],
     ['alkoholfreie-getraenke', 'Alkoholfreie Getränke'],

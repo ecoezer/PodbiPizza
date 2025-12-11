@@ -17,6 +17,7 @@ import {
   pizzabroetchen,
   pide,
   schnitzel,
+  auflauf,
 } from './data/menuItems';
 import { useCart } from './hooks/useCart';
 import { ShoppingCart, ChevronUp, ChevronDown, X } from 'lucide-react';
@@ -40,6 +41,7 @@ const MENU_SECTIONS = [
   { id: 'pide', title: 'Pide', description: 'Alle Pides werden mit Gouda-Käse zubereitet', items: pide },
   { id: 'croques', title: 'Hamburger', description: 'Alle Burger werden mit frischem Salat, Ketchup sowie Burger-Dressing serviert', items: croques },
   { id: 'schnitzel', title: 'Schnitzel', description: 'Knusprige Schnitzel mit Beilagen', items: schnitzel },
+  { id: 'auflauf', title: 'Auflauf', description: 'Überbackene Aufläufe mit Käse, Salat und Brot', items: auflauf },
   { id: 'salate', title: 'Salate', description: 'Alle Salate werden mit einem Dressing Ihrer Wahl zubereitet (z. B. Joghurt-, Balsamico- oder Essig-Öl-Dressing)', items: salads },
   { id: 'dips', title: 'Dips & Soßen', description: 'Leckere Dips und Soßen', items: dips },
   { id: 'alkoholfreie-getraenke', title: 'Alkoholfreie Getränke', description: 'Erfrischende alkoholfreie Getränke', items: alkoholfreieGetraenke },
@@ -136,6 +138,7 @@ function App() {
       ...pide,
       ...croques,
       ...schnitzel,
+      ...auflauf,
       ...salads,
       ...dips,
       ...alkoholfreieGetraenke,
