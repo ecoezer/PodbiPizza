@@ -279,7 +279,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
 
       // Generate WhatsApp message
       const whatsappMessage = generateWhatsAppMessage(data);
-      const whatsappUrl = `https://wa.me/+4915771459166?text=${whatsappMessage}`;
+      const whatsappUrl = `https://wa.me/+4915224290621?text=${whatsappMessage}`;
 
       // Open WhatsApp
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
