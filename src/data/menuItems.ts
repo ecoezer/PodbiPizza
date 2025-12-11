@@ -180,25 +180,24 @@ export const dips: readonly MenuItem[] = [
 
 // Alkoholfreie Getränke
 export const alkoholfreieGetraenke: readonly MenuItem[] = [
-  { id: 580, number: 80, name: "Coca Cola", description: "0,33l", price: 2.00, allergens: "3, 4, 18" },
-  { id: 581, number: 81, name: "Coca Cola Zero", description: "0,33l", price: 2.00, allergens: "1, 3, 4, 13, 18" },
-  { id: 582, number: 82, name: "Fanta", description: "0,33l", price: 2.00, allergens: "3, 6, 17, 18" },
-  { id: 583, number: 83, name: "Fanta Exotic", description: "0,33l", price: 2.00, allergens: "1, 3, 13, 17, 18" },
-  { id: 584, number: 84, name: "Sprite", description: "0,33l", price: 2.00, allergens: "18" },
-  { id: 585, number: 85, name: "Mezzo Mix", description: "0,33l", price: 2.00, allergens: "3, 4, 17, 18" },
-  { id: 586, number: 86, name: "Ayran", description: "0,25l", price: 2.00, allergens: "I" },
-  { id: 587, number: 87, name: "Wasser", description: "0,5l", price: 1.50 },
-  { id: 7881, number: 88, name: "Coca Cola", description: "1,0l", price: 3.20, allergens: "3, 4, 18" },
-  { id: 7891, number: 89, name: "Coca Cola Zero", description: "1,0l", price: 3.20, allergens: "1, 3, 4, 13, 18" },
-  { id: 7901, number: 90, name: "Fanta", description: "1,0l", price: 3.20, allergens: "3, 6, 17, 18" },
-  { id: 7911, number: 91, name: "Sprite", description: "1,0l", price: 3.20, allergens: "18" },
-  { id: 7921, number: 92, name: "Mezzo Mix", description: "1,0l", price: 3.20, allergens: "3, 4, 17, 18" }
+  { id: 580, number: 130, name: "Coca Cola", description: "0,33l", price: 2.50, allergens: "3, 4, 18" },
+  { id: 581, number: 131, name: "Coca Cola Light", description: "0,33l", price: 2.50, allergens: "1, 3, 4, 13, 18" },
+  { id: 582, number: 132, name: "Uludag", description: "0,33l", price: 2.50 },
+  { id: 583, number: 133, name: "Sprite", description: "0,33l", price: 2.50, allergens: "18" },
+  { id: 584, number: 134, name: "Mezzo Mix", description: "0,33l", price: 2.50, allergens: "3, 4, 17, 18" },
+  { id: 585, number: 135, name: "Fanta", description: "0,33l", price: 2.50, allergens: "3, 6, 17, 18" },
+  { id: 586, number: 136, name: "Coca Cola", description: "1,1l", price: 3.50, allergens: "3, 4, 18" },
+  { id: 587, number: 137, name: "Coca Cola Light", description: "1,1l", price: 3.50, allergens: "1, 3, 4, 13, 18" },
+  { id: 588, number: 138, name: "Mezzo Mix", description: "1,1l", price: 3.50, allergens: "3, 4, 17, 18" },
+  { id: 589, number: 139, name: "Fanta", description: "1,1l", price: 3.50, allergens: "3, 6, 17, 18" },
+  { id: 590, number: 140, name: "Sprite", description: "1,1l", price: 3.50, allergens: "18" },
+  { id: 591, number: 141, name: "Ayran", description: "0,25l", price: 2.00, allergens: "I" }
 ];
 
 // Alkoholische Getränke
 export const alkoholischeGetraenke: readonly MenuItem[] = [
-  { id: 7931, number: 93, name: "Becks Pils", description: "0,33l", price: 2.50, allergens: "Aa" },
-  { id: 7941, number: 94, name: "Einbecker Pils", description: "0,33l", price: 2.50, allergens: "Aa" }
+  { id: 7931, number: 142, name: "Becks Pils", description: "0,33l", price: 2.50, allergens: "Aa" },
+  { id: 7941, number: 143, name: "Einbecker Pils", description: "0,33l", price: 2.50, allergens: "Aa" }
 ];
 
 // Grillspezialitäten
