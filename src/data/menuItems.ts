@@ -193,6 +193,37 @@ export const lahmacun: readonly MenuItem[] = [
   { id: 600, number: 67, name: "Lahmacun-Döner", description: "mit Lahmacun, Dönerfleisch, Salat, Tomaten & Sauce", price: 9.00, isSpezialitaet: true, isMeatSelection: true, allergens: "Aa, G, M, 14, 17, 18" }
 ];
 
+// Calzone sizes
+export const calzoneSizes = [
+  { name: 'Normal', price: 0, description: 'Normal' },
+  { name: 'Groß', price: 0, description: 'Groß' }
+] as const;
+
+// Calzone
+export const calzone: readonly MenuItem[] = [
+  { id: 601, number: 46, name: "Döner", description: "mit Dönerfleisch & Sauce", price: 10.50, allergens: "Aa, G, I, M, 14, 17, 18", sizes: [
+    { name: 'Normal', price: 10.50, description: 'Normal' },
+    { name: 'Groß', price: 12.50, description: 'Groß' }
+  ]},
+  { id: 602, number: 47, name: "Hähnchendöner", description: "mit Hähnchendönerfleisch & Sauce", price: 10.50, allergens: "Aa, G, I, M, 14, 17, 18", sizes: [
+    { name: 'Normal', price: 10.50, description: 'Normal' },
+    { name: 'Groß', price: 12.50, description: 'Groß' }
+  ]},
+  { id: 603, number: 48, name: "Döner Mais", description: "mit Dönerfleisch, Zwiebeln, Mais & Tabasco", price: 11.00, allergens: "Aa, G, I, M, 14, 17, 18", sizes: [
+    { name: 'Normal', price: 11.00, description: 'Normal' },
+    { name: 'Groß', price: 13.00, description: 'Groß' }
+  ]},
+  { id: 604, number: 49, name: "Schinken-Salami", description: "mit Geflügelformschinken, Geflügelsalami & Champignons", price: 10.00, allergens: "Aa, B, I, G, 6, 9, 9.I, 17", sizes: [
+    { name: 'Normal', price: 10.00, description: 'Normal' },
+    { name: 'Groß', price: 12.00, description: 'Groß' }
+  ]},
+  { id: 605, number: 50, name: "Spinat", description: "mit Spinat, Weichkäse & Knoblauch", price: 9.00, allergens: "Aa, I", sizes: [
+    { name: 'Normal', price: 9.00, description: 'Normal' },
+    { name: 'Groß', price: 11.50, description: 'Groß' }
+  ]},
+  { id: 606, number: 52, name: "Partypizza", description: "mit Tomatensauce & Käse (60x40cm) - Jeder Extra-Belag +3 €", price: 22.00, allergens: "Aa, I" }
+];
+
 // Pizza dishes - Alle Pizzen werden mit Tomatensauce und Käse zubereitet
 export const pizzas: readonly MenuItem[] = [
   { id: 520, number: 20, name: "Margherita", description: "mit Tomatensauce & Käse", price: 7.00, isPizza: true, allergens: "Aa, I", sizes: [

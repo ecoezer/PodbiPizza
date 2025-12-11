@@ -19,6 +19,7 @@ import {
   schnitzel,
   auflauf,
   lahmacun,
+  calzone,
 } from './data/menuItems';
 import { useCart } from './hooks/useCart';
 import { ShoppingCart, ChevronUp, ChevronDown, X } from 'lucide-react';
@@ -40,6 +41,7 @@ const MENU_SECTIONS = [
   { id: 'snacks', title: 'Snacks', description: 'Kleine Gerichte und Menüs', items: snacks },
   { id: 'vegetarische-gerichte', title: 'Vegetarische Gerichte', description: 'Fleischlose Alternativen', items: vegetarischeGerichte },
   { id: 'pizza', title: 'Pizza', description: 'Alle Pizzen werden mit Tomatensauce und Käse zubereitet', items: pizzas },
+  { id: 'calzone', title: 'Calzone', description: 'Gefüllte Teigtaschen - Extras: Hollandaise, Dönerfleisch, Meeresfrüchte, Hähnchenbrustfilet verfügbar', items: calzone },
   { id: 'pizzabroetchen', title: 'Pizzabrötchen', description: 'Sauce nach Wahl: Joghurt, Kräuterremoulade, Chilicheese, Cocktail, Aioli oder Tzatziki', items: pizzabroetchen },
   { id: 'pide', title: 'Pide', description: 'Alle Pides werden mit Gouda-Käse zubereitet', items: pide },
   { id: 'croques', title: 'Hamburger', description: 'Alle Burger werden mit frischem Salat, Ketchup sowie Burger-Dressing serviert', items: croques },
