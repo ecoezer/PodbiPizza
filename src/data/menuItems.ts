@@ -187,6 +187,12 @@ export const fleischgerichte: readonly MenuItem[] = [
   { id: 536, number: "10a", name: "Pom-Dürüm", description: "mit Kalb- oder Hähnchendöner, Pommes & Hollandaise-Sauce", price: 10.50, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, E, I, K, 1, M, 14, 17, 18" }
 ];
 
+// Lahmacun
+export const lahmacun: readonly MenuItem[] = [
+  { id: 599, number: 66, name: "Lahmacun", description: "mit Salat, Tomaten & Sauce", price: 7.00, isSpezialitaet: true, allergens: "Aa" },
+  { id: 600, number: 67, name: "Lahmacun-Döner", description: "mit Lahmacun, Dönerfleisch, Salat, Tomaten & Sauce", price: 9.00, isSpezialitaet: true, isMeatSelection: true, allergens: "Aa, G, M, 14, 17, 18" }
+];
+
 // Pizza dishes - sizes: ø28cm, ø32cm, ø40cm
 export const pizzas: readonly MenuItem[] = [
   { id: 521, number: 21, name: "Margherita", description: "", price: 7.00, isPizza: true, allergens: "Aa, I", sizes: [
