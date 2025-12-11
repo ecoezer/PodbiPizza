@@ -28,6 +28,9 @@ export const snackSauceTypes = ['Cocktail-Soße', 'scharfe Soße', 'Tzatziki', '
 // Pizzabrötchen sauce options
 export const pizzabroetchenSauceTypes = ['Joghurt', 'Kräuterremoulade', 'Chilicheese', 'Cocktail', 'Aioli', 'Tzatziki'] as const;
 
+// Sauce bottle selection for item #89
+export const sauceBottleTypes = ['Zaziki', 'Scharfer Sauce', 'Ezme', 'Currysauce', 'Cocktailsauce'] as const;
+
 // Salad exclusion options for Drehspieß items
 export const saladExclusionOptions = [
   'ohne Eisbergsalat',
@@ -106,7 +109,10 @@ export const croques: readonly MenuItem[] = [
   { id: 687, number: 86, name: "Pommes Klein", description: "", price: 3.50 },
   { id: 688, number: 87, name: "Sigara Börek", description: "mit 5 Stück", price: 6.50, allergens: "Aa, I" },
   { id: 689, number: 88, name: "Sigara Börek Menü", description: "mit 5 Stück, Salat & Sauce", price: 9.00, allergens: "Aa, I" },
-  { id: 690, number: 89, name: "Saucen", description: "Zaziki, Scharfer Sauce, Ezme, Currysauce & Cocktailsauce - 125g / 250g", price: 2.50 },
+  { id: 690, number: 89, name: "Saucen", description: "Zaziki, Scharfer Sauce, Ezme, Currysauce & Cocktailsauce", price: 2.50, isSauceSelection: true, sizes: [
+    { name: '125g', price: 2.50, description: '125g' },
+    { name: '250g', price: 3.50, description: '250g' }
+  ]},
   { id: 691, number: "89a", name: "Ketchup, Mayonnaise", description: "", price: 0.50 },
   { id: 692, number: "M1", name: "Hamburger Menü", description: "Hamburger, Pommes & Cola (0,33l)", price: 10.50, allergens: "Aa, B, G, 3, 4, 18" },
   { id: 693, number: "M2", name: "Döner Menü", description: "Dönerfleisch (Hähnchen oder Rind), Pommes & Cola (0,33l)", price: 13.50, allergens: "G, I, M, 14, 17, 18, 3, 4" },

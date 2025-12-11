@@ -9,6 +9,7 @@ export const needsConfiguration = (item: MenuItem): boolean => {
     item.isPasta ||
     item.isBeerSelection ||
     item.isMeatSelection ||
+    item.isSauceSelection ||
     (item.isSpezialitaet && !SPECIAL_ITEM_IDS.SCHNITZEL_WITHOUT_SAUCE.includes(item.id) && !item.isMeatSelection) ||
     (item.id >= 564 && item.id <= 568 && item.isSpezialitaet) ||
     SPECIAL_ITEM_IDS.MEAT_SELECTION_NUMBERS.concat(

@@ -3,7 +3,7 @@ import { X, Plus, ShoppingCart, AlertTriangle, Info } from 'lucide-react';
 import { MenuItem, PizzaSize } from '../types';
 import {
   wunschPizzaIngredients, pizzaExtras, pastaTypes,
-  sauceTypes, saladSauceTypes, beerTypes, saladExclusionOptions, sideDishOptions, drehspiessaSauceTypes, snackSauceTypes, pizzabroetchenSauceTypes
+  sauceTypes, saladSauceTypes, beerTypes, saladExclusionOptions, sideDishOptions, drehspiessaSauceTypes, snackSauceTypes, pizzabroetchenSauceTypes, sauceBottleTypes
 } from '../data/menuItems';
 import { parseAllergens } from '../data/allergenData';
 
@@ -41,7 +41,9 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   const [selectedSideDish, setSelectedSideDish] = useState<string>(
     (item.number === 9 || item.number === 10) ? sideDishOptions[0] : ''
   );
-  const [currentStep, setCurrentStep] = useState<'meat' | 'sauce' | 'exclusions' | 'sidedish' | 'complete'>('meat');
+  const [currentStep, setCurrentStep] = useState<'meat' | 'sauce' | 'exclusions' | 'sidedish' | 'saucetype' | 'complete'>(
+    item.isSauceSelection ? 'saucetype' : 'meat'
+  );
   const [showAllSauces, setShowAllSauces] = useState(false);
   const [showAllExclusions, setShowAllExclusions] = useState(false);
   const [showAgeWarning, setShowAgeWarning] = useState(false);
@@ -102,6 +104,13 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   }, [item.price, selectedSize, selectedExtras]);
 
   const handleAddToCart = useCallback(() => {
+    // For sauce selection items (item #89), first select sauce type, then size
+    if (item.isSauceSelection && currentStep === 'saucetype') {
+      if (!selectedSauce) return;
+      setCurrentStep('complete');
+      return;
+    }
+
     // For meat selection items, check if we need to go to sauce selection step
     if (item.isMeatSelection && currentStep === 'meat') {
       setCurrentStep('sauce');
@@ -195,6 +204,13 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   }, []);
 
   const getModalTitle = useCallback(() => {
+    if (item.isSauceSelection) {
+      if (currentStep === 'saucetype') {
+        return 'Schritt 1: Soße wählen';
+      } else if (currentStep === 'complete') {
+        return 'Schritt 2: Größe wählen';
+      }
+    }
     if (item.isMeatSelection) {
       if (currentStep === 'meat') {
         return 'Schritt 1: Fleischauswahl';
@@ -210,6 +226,9 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   }, [item, currentStep]);
 
   const getButtonText = useCallback(() => {
+    if (item.isSauceSelection && currentStep === 'saucetype') {
+      return 'Weiter zur Größenauswahl';
+    }
     if (item.isMeatSelection && currentStep === 'meat') {
       return 'Weiter zur Soßenauswahl';
     } else if (item.isMeatSelection && currentStep === 'sauce') {
@@ -471,6 +490,31 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             </div>
           )}
 
+          {/* Step indicator for sauce selection items */}
+          {item.isSauceSelection && (
+            <div className="flex items-center justify-center space-x-1 sm:space-x-2 mb-2 sm:mb-3">
+              <div className={`flex items-center space-x-1 ${currentStep === 'saucetype' ? 'text-light-blue-600' : 'text-gray-400'}`}>
+                <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
+                  currentStep === 'saucetype' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
+                }`}>
+                  1
+                </div>
+                <span className="text-xs sm:text-sm font-medium hidden sm:inline">Soße</span>
+                <span className="text-xs font-medium sm:hidden">S</span>
+              </div>
+              <div className={`w-4 h-px ${currentStep === 'complete' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
+              <div className={`flex items-center space-x-1 ${currentStep === 'complete' ? 'text-light-blue-600' : 'text-gray-400'}`}>
+                <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
+                  currentStep === 'complete' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
+                }`}>
+                  2
+                </div>
+                <span className="text-xs sm:text-sm font-medium hidden sm:inline">Größe</span>
+                <span className="text-xs font-medium sm:hidden">G</span>
+              </div>
+            </div>
+          )}
+
           {/* Step indicator for meat selection items */}
           {item.isMeatSelection && (
             <div className="flex items-center justify-center space-x-1 sm:space-x-2 mb-2 sm:mb-3">
@@ -520,8 +564,37 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             </div>
           )}
 
+          {/* Sauce Type Selection for item #89 */}
+          {item.isSauceSelection && currentStep === 'saucetype' && (
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Soße wählen *</h3>
+              <div className="space-y-2">
+                {sauceBottleTypes.map((sauce) => (
+                  <label
+                    key={sauce}
+                    className={`flex items-center space-x-2 p-2 rounded-lg border-2 cursor-pointer transition-all ${
+                      selectedSauce === sauce
+                        ? 'border-light-blue-400 bg-light-blue-50'
+                        : 'border-gray-200 hover:border-light-blue-300'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="saucetype"
+                      value={sauce}
+                      checked={selectedSauce === sauce}
+                      onChange={(e) => setSelectedSauce(e.target.value)}
+                      className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
+                    />
+                    <span className="font-medium">{sauce}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Size Selection */}
-          {item.sizes && (!item.isMeatSelection || (currentStep !== 'sauce' && currentStep !== 'exclusions')) && (
+          {item.sizes && (!item.isMeatSelection || (currentStep !== 'sauce' && currentStep !== 'exclusions')) && (!item.isSauceSelection || currentStep === 'complete') && (
             <div>
               <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Größe wählen *</h3>
               <div className="space-y-2">

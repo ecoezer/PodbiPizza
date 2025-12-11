@@ -12,6 +12,7 @@ export interface MenuItem {
   isSpezialitaet?: boolean;
   isBeerSelection?: boolean;
   isMeatSelection?: boolean;
+  isSauceSelection?: boolean;
 }
 
 export interface PizzaSize {
