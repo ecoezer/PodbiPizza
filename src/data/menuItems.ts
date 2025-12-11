@@ -196,8 +196,8 @@ export const alkoholfreieGetraenke: readonly MenuItem[] = [
 
 // Alkoholische Getränke
 export const alkoholischeGetraenke: readonly MenuItem[] = [
-  { id: 7931, number: 142, name: "Becks Pils", description: "0,33l", price: 2.50, allergens: "Aa" },
-  { id: 7941, number: 143, name: "Einbecker Pils", description: "0,33l", price: 2.50, allergens: "Aa" }
+  { id: 7931, number: 142, name: "Bier (Becks oder Krombacher)", description: "0,33l", price: 2.50, allergens: "Aa" },
+  { id: 7941, number: 143, name: "Schneider Weisse Hefeweissbier", description: "0,5l", price: 3.80, allergens: "Aa" }
 ];
 
 // Grillspezialitäten
