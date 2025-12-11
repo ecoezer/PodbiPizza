@@ -122,27 +122,30 @@ export const croques: readonly MenuItem[] = [
 // Snacks
 export const snacks: readonly MenuItem[] = [
   { id: 586, number: 16, name: "Pommes klein", description: "", price: 3.00, isSpezialitaet: true },
-  { id: 586, number: 16, name: "Pommes groß", description: "", price: 4.50, isSpezialitaet: true },
+  { id: 5861, number: 16, name: "Pommes groß", description: "", price: 4.50, isSpezialitaet: true },
   { id: 587, number: 17, name: "Chicken-Nuggets", description: "6 Stk.", price: 5.50, isSpezialitaet: true, allergens: "Ao, I, 8.2" },
   { id: 588, number: 18, name: "Chicken-Nuggets", description: "12 Stk.", price: 8.00, isSpezialitaet: true, allergens: "Ao, I, 8.2" },
   { id: 589, number: 19, name: "Loaded Fries mit Hackfleisch", description: "mit Pommes, Rinderhackfleisch, Sauce und Käse", price: 7.50, isSpezialitaet: true },
-  { id: 590, number: 20, name: "Currywurst Pommes", description: "", price: 7.00, isSpezialitaet: true, allergens: "Ao, G, I, K, 6, 8.2, 9, 9.I, 17" }
+  { id: 5891, number: 20, name: "Currywurst Pommes", description: "", price: 7.00, isSpezialitaet: true, allergens: "Ao, G, I, K, 6, 8.2, 9, 9.I, 17" }
 ];
 
 // Schnitzel
 export const schnitzel: readonly MenuItem[] = [
-  { id: 580, number: 70, name: "Jäger Schnitzel", description: "mit Champignonsauce & Pommes", price: 11.50, isSpezialitaet: true, allergens: "1, 3, 8.2, 9, 14" },
-  { id: 581, number: 71, name: "Wiener Art Schnitzel", description: "mit Zitrone", price: 11.50, isSpezialitaet: true },
-  { id: 582, number: 72, name: "Zigeunerschnitzel", description: "mit Zigeunersauce", price: 11.50, isSpezialitaet: true, allergens: "1, 3, 8.2, 9, 14" },
-  { id: 583, number: 73, name: "Sauce Hollandaise Schnitzel", description: "mit Sauce Hollandaise", price: 12.00, isSpezialitaet: true, allergens: "Aa, B, G, E, I, K, M, 3, 14, 17, 18" }
+  { id: 590, number: 90, name: "Chili-Schnitzel", description: "mit Chilisauce", price: 12.00, isSpezialitaet: true },
+  { id: 591, number: 91, name: "Jägerschnitzel", description: "mit Champignon-Sahne-Sauce", price: 12.00, isSpezialitaet: true },
+  { id: 592, number: 92, name: "Zigeunerschnitzel", description: "mit cremiger Paprika-Sahne-Sauce", price: 12.00, isSpezialitaet: true },
+  { id: 593, number: 93, name: "Hollandaise Schnitzel", description: "mit Hollandaisesauce", price: 13.00, isSpezialitaet: true },
+  { id: 594, number: 94, name: "Wiener Schnitzel", description: "mit Zitrone", price: 11.00, isSpezialitaet: true },
+  { id: 595, number: 95, name: "Schnitzel Überbacken", description: "mit Hollandaisesauce & Hartkäse überbacken", price: 13.50, isSpezialitaet: true },
+  { id: 596, number: 96, name: "Hawaii Schnitzel", description: "mit Ananas", price: 12.00, isSpezialitaet: true }
 ];
 
 // Auflauf
 export const auflauf: readonly MenuItem[] = [
-  { id: 595, number: 15, name: "Döner-Auflauf (Mixfleisch)", description: "Kalb- und Hähnchendöner, Hollandaise-Sauce, mit Käse überbacken dazu Salat und Brot", price: 13.50, isSpezialitaet: true, allergens: "Aa, B, G, E, I, K, M, 3, 14, 17, 18" },
-  { id: 596, number: 16, name: "Döner-Auflauf", description: "Kalbdöner, Tomatensauce, Jägersauce, Paprikasauce mit Käse überbacken dazu Salat und Brot", price: 13.00, isSpezialitaet: true, allergens: "Aa, G, I, M, 14, 17, 18" },
-  { id: 597, number: 17, name: "Hähnchendöner-Auflauf", description: "Hähnchendöner, Tomatensauce, Jägersauce, Paprikasauce mit Käse überbacken dazu Salat und Brot", price: 12.50, isSpezialitaet: true, allergens: "Aa, G, I, M, 14, 17, 18" },
-  { id: 598, number: 18, name: "Gemüse-Auflauf", description: "Paprika, Brokkoli, Champignons, Tomaten-Sahnesauce, mit Käse überbacken dazu Salat und Brot", price: 12.00, isSpezialitaet: true, allergens: "Aa, I" }
+  { id: 6951, number: 15, name: "Döner-Auflauf (Mixfleisch)", description: "Kalb- und Hähnchendöner, Hollandaise-Sauce, mit Käse überbacken dazu Salat und Brot", price: 13.50, isSpezialitaet: true, allergens: "Aa, B, G, E, I, K, M, 3, 14, 17, 18" },
+  { id: 6961, number: 16, name: "Döner-Auflauf", description: "Kalbdöner, Tomatensauce, Jägersauce, Paprikasauce mit Käse überbacken dazu Salat und Brot", price: 13.00, isSpezialitaet: true, allergens: "Aa, G, I, M, 14, 17, 18" },
+  { id: 6971, number: 17, name: "Hähnchendöner-Auflauf", description: "Hähnchendöner, Tomatensauce, Jägersauce, Paprikasauce mit Käse überbacken dazu Salat und Brot", price: 12.50, isSpezialitaet: true, allergens: "Aa, G, I, M, 14, 17, 18" },
+  { id: 6981, number: 18, name: "Gemüse-Auflauf", description: "Paprika, Brokkoli, Champignons, Tomaten-Sahnesauce, mit Käse überbacken dazu Salat und Brot", price: 12.00, isSpezialitaet: true, allergens: "Aa, I" }
 ];
 
 // Salads
@@ -174,17 +177,17 @@ export const alkoholfreieGetraenke: readonly MenuItem[] = [
   { id: 585, number: 85, name: "Mezzo Mix", description: "0,33l", price: 2.00, allergens: "3, 4, 17, 18" },
   { id: 586, number: 86, name: "Ayran", description: "0,25l", price: 2.00, allergens: "I" },
   { id: 587, number: 87, name: "Wasser", description: "0,5l", price: 1.50 },
-  { id: 588, number: 88, name: "Coca Cola", description: "1,0l", price: 3.20, allergens: "3, 4, 18" },
-  { id: 589, number: 89, name: "Coca Cola Zero", description: "1,0l", price: 3.20, allergens: "1, 3, 4, 13, 18" },
-  { id: 590, number: 90, name: "Fanta", description: "1,0l", price: 3.20, allergens: "3, 6, 17, 18" },
-  { id: 591, number: 91, name: "Sprite", description: "1,0l", price: 3.20, allergens: "18" },
-  { id: 592, number: 92, name: "Mezzo Mix", description: "1,0l", price: 3.20, allergens: "3, 4, 17, 18" }
+  { id: 7881, number: 88, name: "Coca Cola", description: "1,0l", price: 3.20, allergens: "3, 4, 18" },
+  { id: 7891, number: 89, name: "Coca Cola Zero", description: "1,0l", price: 3.20, allergens: "1, 3, 4, 13, 18" },
+  { id: 7901, number: 90, name: "Fanta", description: "1,0l", price: 3.20, allergens: "3, 6, 17, 18" },
+  { id: 7911, number: 91, name: "Sprite", description: "1,0l", price: 3.20, allergens: "18" },
+  { id: 7921, number: 92, name: "Mezzo Mix", description: "1,0l", price: 3.20, allergens: "3, 4, 17, 18" }
 ];
 
 // Alkoholische Getränke
 export const alkoholischeGetraenke: readonly MenuItem[] = [
-  { id: 593, number: 93, name: "Becks Pils", description: "0,33l", price: 2.50, allergens: "Aa" },
-  { id: 594, number: 94, name: "Einbecker Pils", description: "0,33l", price: 2.50, allergens: "Aa" }
+  { id: 7931, number: 93, name: "Becks Pils", description: "0,33l", price: 2.50, allergens: "Aa" },
+  { id: 7941, number: 94, name: "Einbecker Pils", description: "0,33l", price: 2.50, allergens: "Aa" }
 ];
 
 // Drehspieß (Meat dishes)
