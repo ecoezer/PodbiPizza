@@ -17,7 +17,7 @@ export const sauceTypes = [
 ] as const;
 
 export const saladSauceTypes = ['Joghurt-Dressing', 'Balsamico-Dressing', 'Essig-Öl-Dressing'] as const;
-export const beerTypes = ['Becks', 'Herrenhäuser'] as const;
+export const beerTypes = ['Becks', 'Krombacher'] as const;
 
 // Drehspieß sauce options (max 3 selectable)
 export const drehspiessaSauceTypes = ['Cocktail-Soße', 'scharfe Soße', 'Tzatziki', 'ohne Soße'] as const;
@@ -163,41 +163,41 @@ export const salads: readonly MenuItem[] = [
   { id: 567, number: 108, name: "Thunfischsalat", description: "mit Eisbergsalat, Tomaten, Gurken, Paprika & Thunfisch", price: 8.50, isSpezialitaet: true, allergens: "Aa, F, I" },
   { id: 568, number: 109, name: "Maissalat", description: "mit Tomaten, Gurken, Paprika & Mais", price: 9.00, isSpezialitaet: true, allergens: "Aa, I" },
   { id: 569, number: 110, name: "Krautsalat", description: "mit Krautsalat & Zaziki", price: 7.00, isSpezialitaet: true, allergens: "Aa, I" },
-  { id: 570, number: 111, name: "Tomatensalat", description: "mit Tomaten, Gurken, Zwiebeln, Paprika & Weichkäse", price: 9.00, isSpezialitaet: true, allergens: "Aa, I" },
-  { id: 571, number: 112, name: "Happy Salat", description: "mit Tomaten, Gurken, Eisbergsalat & Hähnchenfleisch", price: 9.00, isSpezialitaet: true, allergens: "Aa, I" },
-  { id: 572, number: 113, name: "Saray Salat", description: "mit gemischtem Salat, Reis, Dönerfleisch & Sauce", price: 11.00, isSpezialitaet: true, allergens: "Aa, G, I, M, 14, 17, 18" }
+  { id: 810, number: 111, name: "Tomatensalat", description: "mit Tomaten, Gurken, Zwiebeln, Paprika & Weichkäse", price: 9.00, isSpezialitaet: true, allergens: "Aa, I" },
+  { id: 811, number: 112, name: "Happy Salat", description: "mit Tomaten, Gurken, Eisbergsalat & Hähnchenfleisch", price: 9.00, isSpezialitaet: true, allergens: "Aa, I" },
+  { id: 812, number: 113, name: "Saray Salat", description: "mit gemischtem Salat, Reis, Dönerfleisch & Sauce", price: 11.00, isSpezialitaet: true, allergens: "Aa, G, I, M, 14, 17, 18" }
 ];
 
 // Dips
 export const dips: readonly MenuItem[] = [
-  { id: 573, number: 69, name: "Tzatziki", description: "", price: 2.00 },
-  { id: 574, number: 70, name: "Chili-Sauce", description: "", price: 2.00 },
-  { id: 575, number: 71, name: "Kräutersoße", description: "", price: 2.00 },
-  { id: 576, number: 72, name: "Curry Sauce", description: "", price: 2.00 },
-  { id: 577, number: 73, name: "Ketchup", description: "", price: 1.00 },
-  { id: 578, number: 74, name: "Mayonnaise", description: "", price: 1.00 }
+  { id: 800, number: 69, name: "Tzatziki", description: "", price: 2.00 },
+  { id: 801, number: 70, name: "Chili-Sauce", description: "", price: 2.00 },
+  { id: 802, number: 71, name: "Kräutersoße", description: "", price: 2.00 },
+  { id: 803, number: 72, name: "Curry Sauce", description: "", price: 2.00 },
+  { id: 804, number: 73, name: "Ketchup", description: "", price: 1.00 },
+  { id: 805, number: 74, name: "Mayonnaise", description: "", price: 1.00 }
 ];
 
 // Alkoholfreie Getränke
 export const alkoholfreieGetraenke: readonly MenuItem[] = [
-  { id: 580, number: "", name: "Coca Cola", description: "0,33l", price: 2.50, allergens: "3, 4, 18" },
-  { id: 581, number: "", name: "Coca Cola Light", description: "0,33l", price: 2.50, allergens: "1, 3, 4, 13, 18" },
-  { id: 582, number: "", name: "Uludag", description: "0,33l", price: 2.50 },
-  { id: 583, number: "", name: "Sprite", description: "0,33l", price: 2.50, allergens: "18" },
-  { id: 584, number: "", name: "Mezzo Mix", description: "0,33l", price: 2.50, allergens: "3, 4, 17, 18" },
-  { id: 585, number: "", name: "Fanta", description: "0,33l", price: 2.50, allergens: "3, 6, 17, 18" },
-  { id: 586, number: "", name: "Coca Cola", description: "1,0l", price: 3.50, allergens: "3, 4, 18" },
-  { id: 587, number: "", name: "Coca Cola Light", description: "1,0l", price: 3.50, allergens: "1, 3, 4, 13, 18" },
-  { id: 588, number: "", name: "Mezzo Mix", description: "1,0l", price: 3.50, allergens: "3, 4, 17, 18" },
-  { id: 589, number: "", name: "Fanta", description: "1,0l", price: 3.50, allergens: "3, 6, 17, 18" },
-  { id: 590, number: "", name: "Sprite", description: "1,0l", price: 3.50, allergens: "18" },
-  { id: 700, number: "", name: "Ayran", description: "0,25l", price: 2.00, allergens: "I" }
+  { id: 820, number: "", name: "Coca Cola", description: "0,33l", price: 2.50, allergens: "3, 4, 18" },
+  { id: 821, number: "", name: "Coca Cola Light", description: "0,33l", price: 2.50, allergens: "1, 3, 4, 13, 18" },
+  { id: 822, number: "", name: "Uludag", description: "0,33l", price: 2.50 },
+  { id: 823, number: "", name: "Sprite", description: "0,33l", price: 2.50, allergens: "18" },
+  { id: 824, number: "", name: "Mezzo Mix", description: "0,33l", price: 2.50, allergens: "3, 4, 17, 18" },
+  { id: 825, number: "", name: "Fanta", description: "0,33l", price: 2.50, allergens: "3, 6, 17, 18" },
+  { id: 826, number: "", name: "Coca Cola", description: "1,0l", price: 3.50, allergens: "3, 4, 18" },
+  { id: 827, number: "", name: "Coca Cola Light", description: "1,0l", price: 3.50, allergens: "1, 3, 4, 13, 18" },
+  { id: 828, number: "", name: "Mezzo Mix", description: "1,0l", price: 3.50, allergens: "3, 4, 17, 18" },
+  { id: 829, number: "", name: "Fanta", description: "1,0l", price: 3.50, allergens: "3, 6, 17, 18" },
+  { id: 830, number: "", name: "Sprite", description: "1,0l", price: 3.50, allergens: "18" },
+  { id: 831, number: "", name: "Ayran", description: "0,25l", price: 2.00, allergens: "I" }
 ];
 
 // Alkoholische Getränke
 export const alkoholischeGetraenke: readonly MenuItem[] = [
-  { id: 7931, number: 142, name: "Bier (Becks oder Krombacher)", description: "0,33l", price: 2.50, allergens: "Aa" },
-  { id: 7941, number: 143, name: "Schneider Weisse Hefeweissbier", description: "0,5l", price: 3.80, allergens: "Aa" }
+  { id: 7931, number: "", name: "Bier (Becks oder Krombacher)", description: "0,33l", price: 2.50, allergens: "Aa", isBeerSelection: true },
+  { id: 7941, number: "", name: "Schneider Weisse Hefeweissbier", description: "0,5l", price: 3.80, allergens: "Aa" }
 ];
 
 // Grillspezialitäten
@@ -218,8 +218,8 @@ export const fleischgerichte: readonly MenuItem[] = [
   { id: 530, number: 2, name: "Döner Kebabtasche mit Weichkäse", description: "Salat, Tomaten, Zwiebeln, Sauce", price: 9.50, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, I, 1, M, 14, 17, 18" },
   { id: 531, number: 3, name: "Dürüm Döner", description: "Salat, Tomaten, Zwiebeln, Sauce", price: 9.50, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
   { id: 532, number: 4, name: "Dönerbox", description: "Pommes oder Salat, Kalb- oder Hähnchendöner, Sauce", price: 8.00, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
-  { id: 574, number: 5, name: "Vegetarisch im Fladenbrot", description: "Salat, Tomaten, Zwiebeln, Weichkäse, Sauce", price: 7.50, isSpezialitaet: true, allergens: "A1, I" },
-  { id: 575, number: 6, name: "Vegetarisch Dürüm", description: "Salat, Tomaten, Zwiebeln, Weichkäse, Sauce", price: 8.50, isSpezialitaet: true, allergens: "A1, I" },
+  { id: 840, number: 5, name: "Vegetarisch im Fladenbrot", description: "Salat, Tomaten, Zwiebeln, Weichkäse, Sauce", price: 7.50, isSpezialitaet: true, allergens: "A1, I" },
+  { id: 841, number: 6, name: "Vegetarisch Dürüm", description: "Salat, Tomaten, Zwiebeln, Weichkäse, Sauce", price: 8.50, isSpezialitaet: true, allergens: "A1, I" },
   { id: 533, number: 7, name: "Hähnchen Kebabtasche", description: "Salat, Tomaten, Zwiebeln, Sauce (Weichkäse +1,00 € extra)", price: 8.50, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
   { id: 534, number: 8, name: "Hähnchen Dürüm", description: "Salat, Tomaten, Zwiebeln, Sauce (Weichkäse +1,00 € extra)", price: 9.00, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
   { id: 535, number: 9, name: "Döner Teller", description: "Pommes oder Reis, gemischter Salat, Krautsalat, Sauce", price: 13.00, isSpezialitaet: true, isMeatSelection: true, allergens: "A1, G, 1, M, 14, 17, 18" },
