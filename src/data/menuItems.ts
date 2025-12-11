@@ -319,5 +319,20 @@ export const pizzas: readonly MenuItem[] = [
     { name: 'ø24cm', price: 10.50, description: 'Klein ø24cm' },
     { name: 'ø28cm', price: 12.00, description: 'Groß ø28cm' },
     { name: 'ø40cm', price: 23.00, description: 'Familien ø40cm' }
+  ]},
+  { id: 545, number: 41, name: "Hamburger", description: "mit Hamburgerpatty, Eisberg, Tomaten, Zwiebeln & Burger Sauce", price: 11.00, isPizza: true, allergens: "Aa, I, K", sizes: [
+    { name: 'ø24cm', price: 11.00, description: 'Klein ø24cm' },
+    { name: 'ø28cm', price: 13.50, description: 'Groß ø28cm' },
+    { name: 'ø40cm', price: 25.00, description: 'Familien ø40cm' }
+  ]},
+  { id: 546, number: 42, name: "Chef", description: "mit Hähnchenbrustfilet, Broccoli, Hollandaise & Mais", price: 11.50, isPizza: true, allergens: "Aa, B, E, I, K, M, 3, 14, 17, 18", sizes: [
+    { name: 'ø24cm', price: 11.50, description: 'Klein ø24cm' },
+    { name: 'ø28cm', price: 13.50, description: 'Groß ø28cm' },
+    { name: 'ø40cm', price: 25.00, description: 'Familien ø40cm' }
+  ]},
+  { id: 547, number: 43, name: "Pizzabrot", description: "mit Knoblauchsauce", price: 7.00, isPizza: true, allergens: "Aa, I", sizes: [
+    { name: 'ø24cm', price: 7.00, description: 'Klein ø24cm' },
+    { name: 'ø28cm', price: 7.00, description: 'Groß ø28cm' },
+    { name: 'ø40cm', price: 7.00, description: 'Familien ø40cm' }
   ]}
 ];
