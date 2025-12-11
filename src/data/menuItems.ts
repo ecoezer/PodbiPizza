@@ -62,6 +62,13 @@ export const pizzaExtras = [
   'Sucuk', 'Tomaten', 'Zwiebeln'
 ] as const;
 
+// Pasta
+export const pasta: readonly MenuItem[] = [
+  { id: 597, number: 97, name: "Spaghetti Bolognese", description: "mit Tomaten-Fleischsauce", price: 9.00, allergens: "Aa, I" },
+  { id: 598, number: 98, name: "Makaroni Pikante", description: "mit Sahnesauce & Käse überbacken", price: 9.50, allergens: "Aa, I" },
+  { id: 599, number: 99, name: "Makaroni Carbonara", description: "mit Geflügelformschinken, Sahnesauce & Parmesan", price: 9.50, allergens: "Aa, B, I, G, 6, 9, 9.I, 17" }
+];
+
 // Vegetarian dishes
 export const vegetarischeGerichte: readonly MenuItem[] = [
   { id: 574, number: 74, name: "Vegetarische Tasche", description: "mit frischem Salat, Tomaten, Gurken, Kraut und Sauce nach Wahl", price: 5.50, isSpezialitaet: true, allergens: "Aa, I" },
@@ -208,8 +215,8 @@ export const fleischgerichte: readonly MenuItem[] = [
 
 // Lahmacun
 export const lahmacun: readonly MenuItem[] = [
-  { id: 599, number: 66, name: "Lahmacun", description: "mit Salat, Tomaten & Sauce", price: 7.00, isSpezialitaet: true, allergens: "Aa" },
-  { id: 600, number: 67, name: "Lahmacun-Döner", description: "mit Lahmacun, Dönerfleisch, Salat, Tomaten & Sauce", price: 9.00, isSpezialitaet: true, isMeatSelection: true, allergens: "Aa, G, M, 14, 17, 18" }
+  { id: 666, number: 66, name: "Lahmacun", description: "mit Salat, Tomaten & Sauce", price: 7.00, isSpezialitaet: true, allergens: "Aa" },
+  { id: 667, number: 67, name: "Lahmacun-Döner", description: "mit Lahmacun, Dönerfleisch, Salat, Tomaten & Sauce", price: 9.00, isSpezialitaet: true, isMeatSelection: true, allergens: "Aa, G, M, 14, 17, 18" }
 ];
 
 // Baguette

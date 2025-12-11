@@ -13,6 +13,7 @@ const Navigation = () => {
     ['baguette', 'Baguette'],
     ['auflauf', 'Auflauf'],
     ['snacks', 'Snacks'],
+    ['pasta', 'Pasta'],
     ['vegetarische-gerichte', 'Vegetarische Gerichte'],
     ['pizza', 'Pizza'],
     ['calzone', 'Calzone'],

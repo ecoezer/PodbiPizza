@@ -21,6 +21,7 @@ import {
   lahmacun,
   baguette,
   calzone,
+  pasta,
 } from './data/menuItems';
 import { useCart } from './hooks/useCart';
 import { ShoppingCart, ChevronUp, ChevronDown, X } from 'lucide-react';
@@ -41,6 +42,7 @@ const MENU_SECTIONS = [
   { id: 'baguette', title: 'Baguette', description: 'Alle Baguettes werden mit Käse, Salat und Remoulade zubereitet.', items: baguette },
   { id: 'auflauf', title: 'Auflauf', description: 'Überbackene Aufläufe mit Käse, Salat und Brot', items: auflauf },
   { id: 'snacks', title: 'Snacks', description: 'Kleine Gerichte und Menüs', items: snacks },
+  { id: 'pasta', title: 'Pasta', description: 'Leckere Pasta-Gerichte', items: pasta },
   { id: 'vegetarische-gerichte', title: 'Vegetarische Gerichte', description: 'Fleischlose Alternativen', items: vegetarischeGerichte },
   { id: 'pizza', title: 'Pizza', description: 'Alle Pizzen werden mit Tomatensauce und Käse zubereitet', items: pizzas },
   { id: 'calzone', title: 'Calzone', description: 'Gefüllte Teigtaschen - Extras: Hollandaise, Dönerfleisch, Meeresfrüchte, Hähnchenbrustfilet verfügbar', items: calzone },
