@@ -83,12 +83,10 @@ export const pizzabroetchen: readonly MenuItem[] = [
 
 // Pide
 export const pide: readonly MenuItem[] = [
-  { id: 558, number: 58, name: "Käse Pide", description: "mit Gouda-Käse", price: 7.50, allergens: "Aa, I" },
-  { id: 559, number: 59, name: "Hackfleisch Pide", description: "mit würzigem Hackfleisch, Zwiebeln und Tomaten", price: 8.50, allergens: "Aa, I" },
-  { id: 560, number: 60, name: "Sucuk Pide", description: "mit würziger Knoblauchwurst, Zwiebeln und Tomaten", price: 8.50, allergens: "Aa, B, G, I, M, 3, 6, 9, 14, 17, 18" },
-  { id: 561, number: 61, name: "Sucuk Pide mit Ei", description: "mit würziger Knoblauchwurst und Ei oben drauf", price: 9.00, allergens: "Aa, B, G, I, K, M, 3, 6, 9, 14, 17, 18" },
-  { id: 562, number: 62, name: "Spinat Pide", description: "mit frischem Spinat und Hirtenkäse", price: 9.00, allergens: "Aa, I" },
-  { id: 563, number: 63, name: "Drehspieß Pide", description: "mit Drehspießfleisch", price: 9.00, allergens: "Aa, G, I, M, 14, 17, 18" }
+  { id: 570, number: 70, name: "Pide Döner", description: "mit Dönerfleisch & Pizzakäse", price: 11.00, allergens: "Aa, G, I, M, 14, 17, 18" },
+  { id: 571, number: 71, name: "Pide Sucuk", description: "mit Knoblauchwurst & Ei", price: 11.00, allergens: "Aa, B, G, I, K, M, 3, 6, 9, 14, 17, 18" },
+  { id: 572, number: 72, name: "Pide Spinat", description: "mit Spinat, Ei & Weichkäse", price: 10.50, allergens: "Aa, I, K" },
+  { id: 573, number: 73, name: "Pide Gouda", description: "mit Pizzakäse", price: 9.50, allergens: "Aa, I" }
 ];
 
 // Hamburger
