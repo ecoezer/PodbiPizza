@@ -46,7 +46,7 @@ const MENU_SECTIONS = [
   { id: 'calzone', title: 'Calzone', description: 'Gefüllte Teigtaschen - Extras: Hollandaise, Dönerfleisch, Meeresfrüchte, Hähnchenbrustfilet verfügbar', items: calzone },
   { id: 'pizzabroetchen', title: 'Pizzabrötchen', description: 'Sauce nach Wahl: Joghurt, Kräuterremoulade, Chilicheese, Cocktail, Aioli oder Tzatziki', items: pizzabroetchen },
   { id: 'pide', title: 'Pide', description: 'Alle Pides werden mit Gouda-Käse zubereitet', items: pide },
-  { id: 'croques', title: 'Hamburger', description: 'Alle Burger werden mit frischem Salat, Ketchup sowie Burger-Dressing serviert', items: croques },
+  { id: 'croques', title: 'Falafel, Burger & co', description: '', items: croques },
   { id: 'schnitzel', title: 'Schnitzel', description: 'Knusprige Schnitzel mit Beilagen', items: schnitzel },
   { id: 'salate', title: 'Salate', description: 'Alle Salate werden mit einem Dressing Ihrer Wahl zubereitet (z. B. Joghurt-, Balsamico- oder Essig-Öl-Dressing)', items: salads },
   { id: 'dips', title: 'Dips & Soßen', description: 'Leckere Dips und Soßen', items: dips },

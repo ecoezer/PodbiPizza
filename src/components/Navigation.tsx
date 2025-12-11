@@ -18,7 +18,7 @@ const Navigation = () => {
     ['calzone', 'Calzone'],
     ['pizzabroetchen', 'Pizzabrötchen'],
     ['pide', 'Pide'],
-    ['croques', 'Hamburger'],
+    ['croques', 'Falafel, Burger & co'],
     ['schnitzel', 'Schnitzel'],
     ['salate', 'Salate'],
     ['dips', 'Dips & Soßen'],

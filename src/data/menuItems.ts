@@ -89,16 +89,28 @@ export const pide: readonly MenuItem[] = [
   { id: 573, number: 73, name: "Pide Gouda", description: "mit Pizzakäse", price: 9.50, allergens: "Aa, I" }
 ];
 
-// Hamburger
+// Falafel, Burger & co
 export const croques: readonly MenuItem[] = [
-  { id: 548, number: 8, name: "Crunchy Chicken Burger", description: "", price: 6.00, allergens: "Aa, I, 8.2" },
-  { id: 549, number: 9, name: "Crunchy Chicken Cheeseburger", description: "mit Schmelzkäse", price: 6.50, allergens: "Aa, I, 8.2" },
-  { id: 550, number: 10, name: "Hot Crunchy Chicken Burger", description: "mit Chilicheese, Jalapeños", price: 7.00, allergens: "Aa, I, 8.2" },
-  { id: 551, number: 11, name: "Hamburger", description: "Rindfleisch-Patty", price: 6.00, allergens: "Aa, B, G" },
-  { id: 552, number: 12, name: "Cheeseburger", description: "mit Schmelzkäse", price: 6.50, allergens: "Aa, B, G, I" },
-  { id: 553, number: 13, name: "Bacon Burger", description: "mit Bacon", price: 7.00, allergens: "Aa, B, G" },
-  { id: 554, number: 14, name: "BBQ Burger", description: "mit BBQ-Sauce & Bacon", price: 7.50, allergens: "Aa, B, G" },
-  { id: 555, number: 15, name: "Steakhouse Burger Cheese", description: "mit BBQ-Sauce, Bacon, Röstzwiebeln", price: 7.50, allergens: "" }
+  { id: 675, number: 75, name: "Falafel-Tasche", description: "mit Salat & Sauce", price: 7.50, allergens: "Aa, E, G" },
+  { id: 676, number: 76, name: "Falafel-Dürüm", description: "mit Salat & Sauce", price: 8.50, allergens: "Aa, E, G" },
+  { id: 677, number: 77, name: "Falafel-Teller", description: "mit 6 Falafelstücken, Pommes, gemischtem Salat, Krautsalat & Sauce", price: 11.00, allergens: "Aa, E, G" },
+  { id: 678, number: 78, name: "Chicken Nuggets", description: "mit 4 Stück & Pommes", price: 6.50, allergens: "Ao, I, 8.2" },
+  { id: 679, number: 79, name: "Chicken Nuggets Teller", description: "mit 6 Stück, Pommes, gemischtem Salat, Krautsalat & Sauce", price: 11.00, allergens: "Ao, I, 8.2" },
+  { id: 680, number: 80, name: "Currywurst", description: "mit Geflügelcurrywurst, Pommes & Currysauce", price: 8.50, allergens: "Ao, G, I, K, 6, 8.2, 9, 9.I, 17" },
+  { id: 681, number: 81, name: "Hamburger", description: "mit 125 g Patty", price: 5.50, allergens: "Aa, B, G" },
+  { id: 682, number: 82, name: "Cheeseburger", description: "mit 125 g Patty & Käse", price: 6.00, allergens: "Aa, B, G, I" },
+  { id: 683, number: 82, name: "Chili-Cheese-Burger", description: "mit 125 g Patty Jalapeños", price: 6.50, allergens: "Aa, B, G, I" },
+  { id: 684, number: 83, name: "Chickenburger", description: "mit 125 g Patty", price: 6.50, allergens: "Aa, I, 8.2" },
+  { id: 685, number: 84, name: "Dönerburger", description: "mit Weichkäse, Zwiebeln & Sauce", price: 8.00, allergens: "Aa, G, I, M, 14, 17, 18" },
+  { id: 686, number: 85, name: "Pommes Groß", description: "", price: 4.50 },
+  { id: 687, number: 86, name: "Pommes Klein", description: "", price: 3.50 },
+  { id: 688, number: 87, name: "Sigara Börek", description: "mit 5 Stück", price: 6.50, allergens: "Aa, I" },
+  { id: 689, number: 88, name: "Sigara Börek Menü", description: "mit 5 Stück, Salat & Sauce", price: 9.00, allergens: "Aa, I" },
+  { id: 690, number: 89, name: "Saucen", description: "Zaziki, Scharfer Sauce, Ezme, Currysauce & Cocktailsauce - 125g / 250g", price: 2.50 },
+  { id: 691, number: "89a", name: "Ketchup, Mayonnaise", description: "", price: 0.50 },
+  { id: 692, number: "M1", name: "Hamburger Menü", description: "Hamburger, Pommes & Cola (0,33l)", price: 10.50, allergens: "Aa, B, G, 3, 4, 18" },
+  { id: 693, number: "M2", name: "Döner Menü", description: "Dönerfleisch (Hähnchen oder Rind), Pommes & Cola (0,33l)", price: 13.50, allergens: "G, I, M, 14, 17, 18, 3, 4" },
+  { id: 694, number: "M3", name: "Döner-Burger Menü", description: "Döner-Burger, Pommes & Cola (0,33l)", price: 12.50, allergens: "Aa, G, I, M, 14, 17, 18, 3, 4" }
 ];
 
 // Snacks
