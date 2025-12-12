@@ -34,7 +34,6 @@ const MenuItemBadges: React.FC<MenuItemBadgesProps> = ({
       {item.isPasta && <Badge color="yellow" icon={<Clock className="w-3 h-3" />} text="Nudelsorte wählbar" />}
       {showSauceSelectionBadge && <Badge color="red" icon={<ChefHat className="w-3 h-3" />} text="Soße wählbar" />}
       {showDressingBadge && <Badge color="indigo" icon={<ChefHat className="w-3 h-3" />} text="Dressing wählbar" />}
-      {item.isBeerSelection && <Badge color="amber" icon={<ChefHat className="w-3 h-3" />} text="Bier wählbar" />}
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { X, Plus, ShoppingCart, AlertTriangle, Info } from 'lucide-react';
 import { MenuItem, PizzaSize } from '../types';
 import {
   wunschPizzaIngredients, pizzaExtras, pastaTypes,
-  sauceTypes, saladSauceTypes, beerTypes, saladExclusionOptions, sideDishOptions, drehspiessaSauceTypes, snackSauceTypes, pizzabroetchenSauceTypes, sauceBottleTypes, pizzaExtrasPricing, donerExtras, baguetteSauceTypes, granatapfelOptions, burgerSaladExclusions, burgerSauceTypes, burgerExtras
+  sauceTypes, saladSauceTypes, saladExclusionOptions, sideDishOptions, drehspiessaSauceTypes, snackSauceTypes, pizzabroetchenSauceTypes, sauceBottleTypes, pizzaExtrasPricing, donerExtras, baguetteSauceTypes, granatapfelOptions, burgerSaladExclusions, burgerSauceTypes, burgerExtras
 } from '../data/menuItems';
 import { parseAllergens } from '../data/allergenData';
 import { getSizePrice } from '../utils/sizeNormalization';
@@ -1204,35 +1204,6 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                   </button>
                 </div>
               )}
-            </div>
-          )}
-
-          {/* Beer Selection */}
-          {item.isBeerSelection && (!item.isMeatSelection || (currentStep !== 'sauce' && currentStep !== 'exclusions')) && (
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Bier wählen *</h3>
-              <div className="space-y-2">
-                {beerTypes.map((beer) => (
-                  <label
-                    key={beer}
-                    className={`flex items-center space-x-2 p-2 rounded-lg border-2 cursor-pointer transition-all ${
-                      selectedSauce === beer
-                        ? 'border-light-blue-400 bg-light-blue-50'
-                        : 'border-gray-200 hover:border-light-blue-300'
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name="beer"
-                      value={beer}
-                      checked={selectedSauce === beer}
-                      onChange={(e) => setSelectedSauce(e.target.value)}
-                      className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
-                    />
-                    <span className="font-medium">{beer}</span>
-                  </label>
-                ))}
-              </div>
             </div>
           )}
 

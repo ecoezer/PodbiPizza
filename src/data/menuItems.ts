@@ -26,7 +26,6 @@ export const granatapfelOptions = ['mit Granatapfel-Sirup', 'ohne Granatapfel-Si
 
 // Salat sauce types - now same as döner sauces
 export const saladSauceTypes = ['Zaziki', 'Scharfer Sauce', 'Ezme', 'Currysauce', 'Cocktailsauce', 'ohne Soße'] as const;
-export const beerTypes = ['Becks', 'Krombacher'] as const;
 
 // Drehspieß sauce options (max 3 selectable) - These are the standard sauces for all döner items
 export const drehspiessaSauceTypes = ['Zaziki', 'Scharfer Sauce', 'Ezme', 'Currysauce', 'Cocktailsauce', 'ohne Soße'] as const;
@@ -258,8 +257,12 @@ export const alkoholfreieGetraenke: readonly MenuItem[] = [
 
 // Alkoholische Getränke
 export const alkoholischeGetraenke: readonly MenuItem[] = [
-  { id: 7931, number: "", name: "Bier (Becks oder Krombacher)", description: "0,33l", price: 2.50, allergens: "Aa", isBeerSelection: true },
-  { id: 7941, number: "", name: "Schneider Weisse Hefeweissbier", description: "0,5l", price: 3.80, allergens: "Aa" }
+  { id: 7931, number: "", name: "Beck's", description: "0,33l", price: 2.50, pfand: 0.08, allergens: "Aa" },
+  { id: 7932, number: "", name: "Krombacher", description: "0,33l", price: 2.50, pfand: 0.08, allergens: "Aa" },
+  { id: 7933, number: "", name: "Beck's Gold", description: "0,33l", price: 2.50, pfand: 0.08, allergens: "Aa" },
+  { id: 7934, number: "", name: "Beck's Lemon", description: "0,33l", price: 2.50, pfand: 0.08, allergens: "Aa" },
+  { id: 7941, number: "", name: "Schneider Weisse Hefeweissbier", description: "0,5l", price: 3.80, pfand: 0.08, allergens: "Aa" },
+  { id: 7942, number: "", name: "Alkoholfrei Hefeweizen Bier", description: "0,5l", price: 3.80, pfand: 0.08, allergens: "Aa" }
 ];
 
 // Grillspezialitäten
