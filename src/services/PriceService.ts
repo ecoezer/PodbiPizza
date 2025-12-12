@@ -52,6 +52,15 @@ export class PriceService {
     return items.reduce((sum, item) => sum + this.calculateItemTotal(item), 0);
   }
 
+  static calculatePfand(items: OrderItem[]): number {
+    return items.reduce((sum, item) => {
+      if (item.menuItem.pfand) {
+        return sum + (item.menuItem.pfand * item.quantity);
+      }
+      return sum;
+    }, 0);
+  }
+
   static formatPrice(price: number): string {
     return price.toFixed(2).replace('.', ',') + ' €';
   }

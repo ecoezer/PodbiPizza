@@ -6,6 +6,7 @@ export interface MenuItem {
   price: number;
   allergens?: string;
   sizes?: PizzaSize[];
+  pfand?: number;
   isWunschPizza?: boolean;
   isPizza?: boolean;
   isPasta?: boolean;

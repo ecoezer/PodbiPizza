@@ -143,12 +143,19 @@ const OrderForm: React.FC<OrderFormProps> = ({
   }, []);
 
   // Calculate totals
-  const { subtotal, deliveryFee, total, canOrder, minOrderMessage } = useMemo(() => {
+  const { subtotal, pfand, deliveryFee, total, canOrder, minOrderMessage } = useMemo(() => {
     const subtotal = orderItems.reduce((sum, item) => {
       const itemPrice = calculateItemPrice(item);
       return sum + (itemPrice * item.quantity);
     }, 0);
-    
+
+    const pfand = orderItems.reduce((sum, item) => {
+      if (item.menuItem.pfand) {
+        return sum + (item.menuItem.pfand * item.quantity);
+      }
+      return sum;
+    }, 0);
+
     let deliveryFee = 0;
     let canOrder = true;
     let minOrderMessage = '';
@@ -164,9 +171,9 @@ const OrderForm: React.FC<OrderFormProps> = ({
       }
     }
 
-    const total = subtotal + deliveryFee;
+    const total = subtotal + pfand + deliveryFee;
 
-    return { subtotal, deliveryFee, total, canOrder, minOrderMessage };
+    return { subtotal, pfand, deliveryFee, total, canOrder, minOrderMessage };
   }, [orderItems, watchOrderType, watchDeliveryZone, calculateItemPrice]);
 
   // Generate WhatsApp message
@@ -238,6 +245,10 @@ const OrderForm: React.FC<OrderFormProps> = ({
     // Totals
     message += `\n*Zwischensumme:* ${subtotal.toFixed(2).replace('.', ',')} €\n`;
 
+    if (pfand > 0) {
+      message += `*Pfand kosten:* ${pfand.toFixed(2).replace('.', ',')} €\n`;
+    }
+
     if (deliveryFee > 0) {
       message += `*Liefergebühr:* ${deliveryFee.toFixed(2).replace('.', ',')} €\n`;
     }
@@ -282,6 +293,9 @@ const OrderForm: React.FC<OrderFormProps> = ({
           selectedSideDish: item.selectedSideDish || null,
           totalPrice: calculateItemPrice(item) * item.quantity
         })),
+        subtotal_amount: subtotal,
+        pfand_amount: pfand,
+        delivery_fee: deliveryFee,
         total_amount: total,
         notes: [
           data.orderType === 'pickup' ? 'Abholung' : 'Lieferung',
@@ -585,6 +599,13 @@ const OrderForm: React.FC<OrderFormProps> = ({
             <span className="text-gray-600">Zwischensumme</span>
             <span className="font-medium text-gray-900">{subtotal.toFixed(2).replace('.', ',')} €</span>
           </div>
+
+          {pfand > 0 && (
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-gray-600">Pfand kosten</span>
+              <span className="font-medium text-gray-900">{pfand.toFixed(2).replace('.', ',')} €</span>
+            </div>
+          )}
 
           {deliveryFee > 0 && (
             <div className="flex justify-between items-center text-sm">

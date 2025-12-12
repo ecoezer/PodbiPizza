@@ -133,6 +133,14 @@ export const pasta: readonly MenuItem[] = [
   { id: 599, number: 99, name: "Makaroni Carbonara", description: "mit Geflügelformschinken, Sahnesauce & Parmesan", price: 9.50, allergens: "Aa, B, I, G, 6, 9, 9.I, 17" }
 ];
 
+// Nachtisch (Desserts)
+export const nachtisch: readonly MenuItem[] = [
+  { id: 950, number: 130, name: "Hausgemachter Käsekuchen", description: "Stückpreis", price: 4.20 },
+  { id: 951, number: 131, name: "Hausgemachtes Tiramisu", description: "", price: 4.20 },
+  { id: 952, number: 132, name: "Erdbeer-Spaghetti-Eis", description: "", price: 3.90 },
+  { id: 953, number: 133, name: "Linsensuppe mit Brotbeilage", description: "", price: 5.00 }
+];
+
 // Pide
 export const pide: readonly MenuItem[] = [
   { id: 570, number: 70, name: "Pide Döner", description: "mit Dönerfleisch & Pizzakäse", price: 11.00, allergens: "Aa, G, I, M, 14, 17, 18", isPide: true },
@@ -223,26 +231,26 @@ export const dips: readonly MenuItem[] = [
 
 // Alkoholfreie Getränke
 export const alkoholfreieGetraenke: readonly MenuItem[] = [
-  { id: 820, number: "", name: "Coca Cola", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50, allergens: "3, 4, 18" },
-  { id: 821, number: "", name: "Coca Cola Light", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50, allergens: "1, 3, 4, 13, 18" },
-  { id: 823, number: "", name: "Sprite", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50, allergens: "18" },
-  { id: 824, number: "", name: "Mezzo Mix", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50, allergens: "3, 4, 17, 18" },
-  { id: 825, number: "", name: "Fanta", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50, allergens: "3, 6, 17, 18" },
-  { id: 826, number: "", name: "Coca Cola", description: "1,0l", price: 3.50, allergens: "3, 4, 18" },
-  { id: 827, number: "", name: "Coca Cola Light", description: "1,0l", price: 3.50, allergens: "1, 3, 4, 13, 18" },
-  { id: 828, number: "", name: "Mezzo Mix", description: "1,0l", price: 3.50, allergens: "3, 4, 17, 18" },
-  { id: 829, number: "", name: "Fanta", description: "1,0l", price: 3.50, allergens: "3, 6, 17, 18" },
-  { id: 830, number: "", name: "Sprite", description: "1,0l", price: 3.50, allergens: "18" },
+  { id: 820, number: "", name: "Coca Cola", description: "0,33l", price: 2.50, pfand: 0.25, allergens: "3, 4, 18" },
+  { id: 821, number: "", name: "Coca Cola Light", description: "0,33l", price: 2.50, pfand: 0.25, allergens: "1, 3, 4, 13, 18" },
+  { id: 823, number: "", name: "Sprite", description: "0,33l", price: 2.50, pfand: 0.25, allergens: "18" },
+  { id: 824, number: "", name: "Mezzo Mix", description: "0,33l", price: 2.50, pfand: 0.25, allergens: "3, 4, 17, 18" },
+  { id: 825, number: "", name: "Fanta", description: "0,33l", price: 2.50, pfand: 0.25, allergens: "3, 6, 17, 18" },
+  { id: 826, number: "", name: "Coca Cola", description: "1,0l", price: 3.50, pfand: 0.25, allergens: "3, 4, 18" },
+  { id: 827, number: "", name: "Coca Cola Light", description: "1,0l", price: 3.50, pfand: 0.25, allergens: "1, 3, 4, 13, 18" },
+  { id: 828, number: "", name: "Mezzo Mix", description: "1,0l", price: 3.50, pfand: 0.25, allergens: "3, 4, 17, 18" },
+  { id: 829, number: "", name: "Fanta", description: "1,0l", price: 3.50, pfand: 0.25, allergens: "3, 6, 17, 18" },
+  { id: 830, number: "", name: "Sprite", description: "1,0l", price: 3.50, pfand: 0.25, allergens: "18" },
   { id: 831, number: "", name: "Ayran", description: "0,25l", price: 2.00, allergens: "I" },
-  { id: 836, number: "", name: "Wasser still", description: "0,5l + zzgl. Pfand 0,25 euro", price: 2.00 },
-  { id: 837, number: "", name: "Wasser mit Kohlensäure", description: "0,5l + zzgl. Pfand 0,25 euro", price: 2.50 },
-  { id: 838, number: "", name: "Fritz Limo Orange", description: "3,3l + zzgl. Pfand 0,08 euro", price: 3.30 },
-  { id: 839, number: "", name: "Fritz Limo Zitrone", description: "3,3l + zzgl. Pfand 0,08 euro", price: 3.30 },
-  { id: 822, number: "", name: "Uludag", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50 },
-  { id: 832, number: "", name: "Fanta Exotic", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50, allergens: "3, 6, 17, 18" },
-  { id: 835, number: "", name: "Uludag Orange", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50 },
-  { id: 833, number: "", name: "Hot Blood Eistee Pfirsich", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50 },
-  { id: 834, number: "", name: "Fuze Tea Zitrone", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50 },
+  { id: 836, number: "", name: "Wasser still", description: "0,5l", price: 2.00, pfand: 0.25 },
+  { id: 837, number: "", name: "Wasser mit Kohlensäure", description: "0,5l", price: 2.50, pfand: 0.25 },
+  { id: 838, number: "", name: "Fritz Limo Orange", description: "3,3l", price: 3.30, pfand: 0.08 },
+  { id: 839, number: "", name: "Fritz Limo Zitrone", description: "3,3l", price: 3.30, pfand: 0.08 },
+  { id: 822, number: "", name: "Uludag", description: "0,33l", price: 2.50, pfand: 0.25 },
+  { id: 832, number: "", name: "Fanta Exotic", description: "0,33l", price: 2.50, pfand: 0.25, allergens: "3, 6, 17, 18" },
+  { id: 835, number: "", name: "Uludag Orange", description: "0,33l", price: 2.50, pfand: 0.25 },
+  { id: 833, number: "", name: "Hot Blood Eistee Pfirsich", description: "0,33l", price: 2.50, pfand: 0.25 },
+  { id: 834, number: "", name: "Fuze Tea Zitrone", description: "0,33l", price: 2.50, pfand: 0.25 },
   { id: 840, number: "", name: "Capri-Sonne", description: "1,5l", price: 1.50 }
 ];
 
