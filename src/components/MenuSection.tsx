@@ -49,7 +49,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
 
   return (
     <section className={`mb-6 ${title === 'Fleischgerichte' ? 'mt-8' : ''}`}>
-      <header className="mb-4">
+      <header className="mb-3">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
           <span className="text-lg text-gray-600">{items.length} Artikel</span>
@@ -58,7 +58,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
         {subTitle && <p className="text-xs text-gray-500 mt-1 italic">{subTitle}</p>}
       </header>
 
-      <div className="space-y-4 pb-2">
+      <div className="space-y-3 pb-2">
         {items.map((item, i) => {
           const rippchenSpecial = isRippchenSpecial(item.id, today);
           const schnitzelSpecial = isSchnitzelSpecial(item.id, today);
@@ -68,9 +68,9 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
           return (
             <div
               key={`${item.id}-${i}`}
-              className="menu-card-animated hover:bg-gray-100 rounded-3xl shadow-md hover:shadow-lg transition-all p-4 flex items-center border border-gray-100"
+              className="menu-card-animated hover:bg-gray-100 rounded-3xl shadow-md hover:shadow-lg transition-all p-3 flex items-center border border-gray-100"
             >
-              <div className="flex items-center gap-3 flex-1">
+              <div className="flex items-center gap-2.5 flex-1">
                 <span className="w-9 h-9 bg-light-blue-100 text-light-blue-600 rounded-full flex justify-center items-center font-bold text-sm flex-shrink-0">
                   {item.number}
                 </span>
@@ -83,8 +83,8 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                       </span>
                     )}
                   </h3>
-                  {item.description && <p className="text-base text-gray-600 mt-1 leading-relaxed">{item.description}</p>}
-                  {item.allergens && <p className="text-xs text-gray-500 mt-1.5"><strong>Allergene:</strong> <span className="italic">{item.allergens}</span></p>}
+                  {item.description && <p className="text-base text-gray-600 mt-0.5 leading-relaxed">{item.description}</p>}
+                  {item.allergens && <p className="text-xs text-gray-500 mt-1"><strong>Allergene:</strong> <span className="italic">{item.allergens}</span></p>}
                   {item.pfand && item.pfand > 0 && (
                     <p className="text-xs text-gray-600 mt-1 font-medium">
                       zzgl. {formatPriceWithCurrency(item.pfand)} Pfand
@@ -100,7 +100,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                 </div>
               </div>
 
-              <div className="flex flex-col items-center gap-1 flex-shrink-0 ml-3">
+              <div className="flex flex-col items-center gap-0.5 flex-shrink-0 ml-2">
                 <div
                   onClick={() => handleItemClick(item)}
                   className="text-center cursor-pointer"
@@ -111,7 +111,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                 >
                   {hasSizes ? (
                     <>
-                      <div className="text-sm text-gray-600 mb-1">ab</div>
+                      <div className="text-sm text-gray-600 mb-0.5">ab</div>
                       <div className="sm:px-2.5 sm:py-1.5 px-1.5 py-1 rounded-full block hover:opacity-90 hover:scale-105 transition-all" style={{ backgroundColor: '#8fa9b3' }}>
                         <div className="sm:text-xl text-[13px] font-bold text-white">{formatPriceWithCurrency(minPrice)}</div>
                       </div>
