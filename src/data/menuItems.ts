@@ -221,16 +221,6 @@ export const dips: readonly MenuItem[] = [
   { id: 6911, number: "89b", name: "Mayonnaise", description: "", price: 0.50 }
 ];
 
-// Uludag & Tropische Getränke
-export const uludagTropische: readonly MenuItem[] = [
-  { id: 822, number: "", name: "Uludag", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50 },
-  { id: 832, number: "", name: "Fanta Exotic", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50, allergens: "3, 6, 17, 18" },
-  { id: 835, number: "", name: "Uludag Orange", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50 },
-  { id: 833, number: "", name: "Hot Blood Eistee Pfirsich", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50 },
-  { id: 834, number: "", name: "Fuze Tea Zitrone", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50 },
-  { id: 840, number: "", name: "Capri-Sonne", description: "1,5l", price: 1.50 }
-];
-
 // Alkoholfreie Getränke
 export const alkoholfreieGetraenke: readonly MenuItem[] = [
   { id: 820, number: "", name: "Coca Cola", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50, allergens: "3, 4, 18" },
@@ -247,7 +237,13 @@ export const alkoholfreieGetraenke: readonly MenuItem[] = [
   { id: 836, number: "", name: "Wasser still", description: "0,5l + zzgl. Pfand 0,25 euro", price: 2.00 },
   { id: 837, number: "", name: "Wasser mit Kohlensäure", description: "0,5l + zzgl. Pfand 0,25 euro", price: 2.50 },
   { id: 838, number: "", name: "Fritz Limo Orange", description: "3,3l + zzgl. Pfand 0,08 euro", price: 3.30 },
-  { id: 839, number: "", name: "Fritz Limo Zitrone", description: "3,3l + zzgl. Pfand 0,08 euro", price: 3.30 }
+  { id: 839, number: "", name: "Fritz Limo Zitrone", description: "3,3l + zzgl. Pfand 0,08 euro", price: 3.30 },
+  { id: 822, number: "", name: "Uludag", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50 },
+  { id: 832, number: "", name: "Fanta Exotic", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50, allergens: "3, 6, 17, 18" },
+  { id: 835, number: "", name: "Uludag Orange", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50 },
+  { id: 833, number: "", name: "Hot Blood Eistee Pfirsich", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50 },
+  { id: 834, number: "", name: "Fuze Tea Zitrone", description: "0,33l + zzgl. Pfand 0,25 euro", price: 2.50 },
+  { id: 840, number: "", name: "Capri-Sonne", description: "1,5l", price: 1.50 }
 ];
 
 // Alkoholische Getränke
