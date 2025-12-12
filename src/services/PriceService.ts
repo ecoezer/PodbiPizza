@@ -1,5 +1,6 @@
 import { MenuItem, PizzaSize } from '../types';
 import { pizzaExtrasPricing } from '../data/menuItems';
+import { getSizePrice } from '../utils/sizeNormalization';
 
 interface OrderItem {
   menuItem: MenuItem;
@@ -24,13 +25,13 @@ export class PriceService {
       return (item.selectedExtras.length) * this.EXTRA_PRICE;
     }
 
-    const sizeName = item.selectedSize.name;
+    const normalizedSizeName = getSizePrice(item.selectedSize.name);
     let totalExtrasPrice = 0;
 
     item.selectedExtras.forEach(extra => {
       const extraPricing = pizzaExtrasPricing[extra as keyof typeof pizzaExtrasPricing];
       if (extraPricing) {
-        totalExtrasPrice += extraPricing[sizeName as '24cm' | '28cm' | '40cm'] || this.EXTRA_PRICE;
+        totalExtrasPrice += extraPricing[normalizedSizeName] || this.EXTRA_PRICE;
       } else {
         totalExtrasPrice += this.EXTRA_PRICE;
       }

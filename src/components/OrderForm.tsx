@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Trash2, Plus, Minus, ShoppingCart, Clock, MapPin, Phone } from 'lucide-react';
 import { saveOrder } from '../services/orderService';
+import { PriceService } from '../services/PriceService';
 
 interface OrderItem {
   menuItem: {
@@ -129,9 +130,16 @@ const OrderForm: React.FC<OrderFormProps> = ({
 
   // Helper function to calculate item price including extras
   const calculateItemPrice = useCallback((item: OrderItem) => {
-    let basePrice = item.selectedSize ? item.selectedSize.price : item.menuItem.price;
-    const extrasPrice = (item.selectedExtras?.length || 0) * 1.00;
-    return basePrice + extrasPrice;
+    const priceServiceItem = {
+      menuItem: item.menuItem,
+      quantity: item.quantity,
+      selectedSize: item.selectedSize ? {
+        name: item.selectedSize.name,
+        price: item.selectedSize.price
+      } : undefined,
+      selectedExtras: item.selectedExtras || []
+    };
+    return PriceService.calculateItemPrice(priceServiceItem);
   }, []);
 
   // Calculate totals
@@ -208,7 +216,17 @@ const OrderForm: React.FC<OrderFormProps> = ({
       }
 
       if (item.selectedExtras && item.selectedExtras.length > 0) {
-        itemText += ` - Extras: ${item.selectedExtras.join(', ')} (+${(item.selectedExtras.length * 1.00).toFixed(2).replace('.', ',')}€)`;
+        const priceServiceItem = {
+          menuItem: item.menuItem,
+          quantity: item.quantity,
+          selectedSize: item.selectedSize ? {
+            name: item.selectedSize.name,
+            price: item.selectedSize.price
+          } : undefined,
+          selectedExtras: item.selectedExtras || []
+        };
+        const extrasPrice = PriceService.calculateExtrasPrice(priceServiceItem);
+        itemText += ` - Extras: ${item.selectedExtras.join(', ')} (+${extrasPrice.toFixed(2).replace('.', ',')}€)`;
       }
 
       const itemTotal = (calculateItemPrice(item) * item.quantity).toFixed(2).replace('.', ',');

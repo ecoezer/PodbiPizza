@@ -6,6 +6,7 @@ import {
   sauceTypes, saladSauceTypes, beerTypes, saladExclusionOptions, sideDishOptions, drehspiessaSauceTypes, snackSauceTypes, pizzabroetchenSauceTypes, sauceBottleTypes, pizzaExtrasPricing
 } from '../data/menuItems';
 import { parseAllergens } from '../data/allergenData';
+import { getSizePrice } from '../utils/sizeNormalization';
 
 interface ItemModalProps {
   item: MenuItem;
@@ -97,16 +98,27 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
     });
   }, [item.isMeatSelection]);
 
+  const getExtraPricePerItem = useCallback(() => {
+    if (!selectedSize) return 1.00;
+    const normalizedSizeName = getSizePrice(selectedSize.name);
+    const sizeExtraPricing: { [key: string]: number } = {
+      '24cm': 1.00,
+      '28cm': 1.50,
+      '40cm': 2.50
+    };
+    return sizeExtraPricing[normalizedSizeName] || 1.00;
+  }, [selectedSize]);
+
   const calculatePrice = useCallback(() => {
     let basePrice = selectedSize ? selectedSize.price : item.price;
     let extrasPrice = 0;
 
     if (selectedExtras.length > 0 && selectedSize) {
-      const sizeName = selectedSize.name;
+      const normalizedSizeName = getSizePrice(selectedSize.name);
       selectedExtras.forEach(extra => {
         const extraPricing = pizzaExtrasPricing[extra as keyof typeof pizzaExtrasPricing];
         if (extraPricing) {
-          extrasPrice += extraPricing[sizeName as '24cm' | '28cm' | '40cm'] || 1.00;
+          extrasPrice += extraPricing[normalizedSizeName] || 1.00;
         } else {
           extrasPrice += 1.00;
         }
@@ -685,7 +697,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
           {(item.isPizza || item.isWunschPizza) && (!item.isMeatSelection || (currentStep !== 'sauce' && currentStep !== 'exclusions')) && (
             <div>
               <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
-                Extras (+1,00€ pro Extra)
+                Extras (+{getExtraPricePerItem().toFixed(2).replace('.', ',')}€ pro Extra)
               </h3>
               <div className="grid grid-cols-2 gap-2 max-h-60 overflow-y-auto">
                 {pizzaExtras.map((extra) => (
