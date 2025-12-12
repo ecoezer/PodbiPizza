@@ -1,6 +1,6 @@
 export interface MenuItem {
   id: number;
-  number: number;
+  number: number | string;
   name: string;
   description?: string;
   price: number;
@@ -16,6 +16,7 @@ export interface MenuItem {
   isFalafel?: boolean;
   isPide?: boolean;
   isBaguette?: boolean;
+  isBurger?: boolean;
 }
 
 export interface PizzaSize {

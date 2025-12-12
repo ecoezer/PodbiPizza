@@ -152,13 +152,13 @@ export const croques: readonly MenuItem[] = [
   { id: 681, number: 81, name: "Hamburger", description: "mit 125 g Patty", price: 5.50, allergens: "Aa, B, G", isBurger: true },
   { id: 682, number: 82, name: "Cheeseburger", description: "mit 125 g Patty & Käse", price: 6.00, allergens: "Aa, B, G, I", isBurger: true },
   { id: 683, number: "82a", name: "Chili-Cheese-Burger", description: "mit 125 g Patty & Jalapeños", price: 6.50, allergens: "Aa, B, G, I", isBurger: true },
-  { id: 684, number: 83, name: "Chickenburger", description: "mit 125 g Patty", price: 6.50, allergens: "Aa, I, 8.2" },
+  { id: 684, number: 83, name: "Chickenburger", description: "mit 125 g Patty", price: 6.50, allergens: "Aa, I, 8.2", isBurger: true },
   { id: 685, number: 84, name: "Dönerburger", description: "mit Weichkäse, Zwiebeln & Sauce", price: 8.00, allergens: "Aa, G, I, M, 14, 17, 18" },
   { id: 686, number: 85, name: "Pommes Groß", description: "", price: 4.50 },
   { id: 687, number: 86, name: "Pommes Klein", description: "", price: 3.50 },
   { id: 688, number: 87, name: "Sigara Börek", description: "mit 5 Stück", price: 6.50, allergens: "Aa, I" },
   { id: 689, number: 88, name: "Sigara Börek Menü", description: "mit 5 Stück, Salat & Sauce", price: 9.00, allergens: "Aa, I" },
-  { id: 692, number: "M1", name: "Hamburger Menü", description: "Hamburger, Pommes & Cola (0,33l)", price: 10.50, allergens: "Aa, B, G, 3, 4, 18" },
+  { id: 692, number: "M1", name: "Hamburger Menü", description: "Hamburger, Pommes & Cola (0,33l)", price: 10.50, allergens: "Aa, B, G, 3, 4, 18", isBurger: true },
   { id: 693, number: "M2", name: "Döner Menü", description: "Dönerfleisch (Hähnchen oder Rind), Pommes & Cola (0,33l)", price: 13.50, allergens: "G, I, M, 14, 17, 18, 3, 4" },
   { id: 694, number: "M3", name: "Döner-Burger Menü", description: "Döner-Burger, Pommes & Cola (0,33l)", price: 12.50, allergens: "Aa, G, I, M, 14, 17, 18, 3, 4" }
 ];
