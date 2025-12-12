@@ -680,6 +680,18 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             </div>
           )}
 
+          {/* Pfand Information */}
+          {item.pfand && item.pfand > 0 && (
+            <div className="bg-green-50 border-2 border-green-200 rounded-lg p-2">
+              <div className="flex items-center gap-2">
+                <Info className="w-5 h-5 text-green-600 flex-shrink-0" />
+                <p className="text-gray-800 font-medium text-sm">
+                  zzgl. {item.pfand.toFixed(2).replace('.', ',')} € Pfand
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* Age Restriction Warning for Alcoholic Drinks */}
           {[593, 594].includes(item.id) && (
             <div className="bg-yellow-50 border-2 border-yellow-200 rounded-lg p-4">

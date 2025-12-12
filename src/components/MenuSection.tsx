@@ -85,6 +85,11 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                   </h3>
                   {item.description && <p className="text-base text-gray-600 mt-1 leading-relaxed">{item.description}</p>}
                   {item.allergens && <p className="text-xs text-gray-500 mt-1.5"><strong>Allergene:</strong> <span className="italic">{item.allergens}</span></p>}
+                  {item.pfand && item.pfand > 0 && (
+                    <p className="text-xs text-gray-600 mt-1 font-medium">
+                      zzgl. {formatPriceWithCurrency(item.pfand)} Pfand
+                    </p>
+                  )}
 
                   <MenuItemBadges
                     item={item}
