@@ -68,71 +68,73 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
           return (
             <div
               key={`${item.id}-${i}`}
-              className="menu-card-animated hover:bg-gray-100 rounded-3xl shadow-md hover:shadow-lg transition-all p-3 flex items-center border border-gray-100"
+              className="menu-card-animated hover:bg-gray-100 rounded-3xl shadow-md hover:shadow-lg transition-all p-3 flex items-start gap-3 border border-gray-100"
             >
-              <div className="flex items-center gap-2.5 flex-1">
-                <span className="w-9 h-9 bg-light-blue-100 text-light-blue-600 rounded-full flex justify-center items-center font-bold text-sm flex-shrink-0">
-                  {item.number}
-                </span>
-                <div className="flex-1 min-w-0">
-                  <h3 className={`text-lg font-bold ${rippchenSpecial || schnitzelSpecial ? 'text-red-600' : 'text-gray-900'} flex items-center gap-2 whitespace-nowrap overflow-hidden text-ellipsis`}>
+              <span className="w-9 h-9 bg-light-blue-100 text-light-blue-600 rounded-full flex justify-center items-center font-bold text-sm flex-shrink-0 mt-1">
+                {item.number}
+              </span>
+
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <h3 className={`text-lg font-bold ${rippchenSpecial || schnitzelSpecial ? 'text-red-600' : 'text-gray-900'}`}>
                     {item.name}
-                    {isAlcoholicItem(item.id) && (
-                      <span className="text-xs font-bold px-2 py-0.5 rounded bg-gray-900 text-white flex-shrink-0">
-                        18+
-                      </span>
-                    )}
                   </h3>
-                  {item.description && <p className="text-base text-gray-600 mt-0.5 leading-relaxed">{item.description}</p>}
-                  {item.allergens && <p className="text-xs text-gray-500 mt-1"><strong>Allergene:</strong> <span className="italic">{item.allergens}</span></p>}
-                  {item.pfand && item.pfand > 0 && (
-                    <p className="text-xs text-gray-600 mt-1 font-medium">
-                      zzgl. {formatPriceWithCurrency(item.pfand)} Pfand
-                    </p>
+                  {isAlcoholicItem(item.id) && (
+                    <span className="text-xs font-bold px-2 py-0.5 rounded bg-gray-900 text-white flex-shrink-0">
+                      18+
+                    </span>
                   )}
-
-                  <MenuItemBadges
-                    item={item}
-                    isRippchenSpecial={rippchenSpecial}
-                    isSchnitzelSpecial={schnitzelSpecial}
-                    hasSizes={hasSizes}
-                  />
                 </div>
-              </div>
 
-              <div className="flex flex-col items-center gap-0.5 flex-shrink-0 ml-2">
-                <div
-                  onClick={() => handleItemClick(item)}
-                  className="text-center cursor-pointer"
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => e.key === 'Enter' && handleItemClick(item)}
-                  aria-label="Hinzufügen"
-                >
-                  {hasSizes ? (
-                    <>
-                      <div className="text-sm text-gray-600 mb-0.5">ab</div>
-                      <div className="sm:px-2.5 sm:py-1.5 px-1.5 py-1 rounded-full block hover:opacity-90 hover:scale-105 transition-all" style={{ backgroundColor: '#8fa9b3' }}>
-                        <div className="sm:text-xl text-[13px] font-bold text-white">{formatPriceWithCurrency(minPrice)}</div>
+                <div className="mt-1.5 flex items-center gap-2">
+                  <div
+                    onClick={() => handleItemClick(item)}
+                    className="cursor-pointer"
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === 'Enter' && handleItemClick(item)}
+                    aria-label="Hinzufügen"
+                  >
+                    {hasSizes ? (
+                      <div className="flex items-center gap-1">
+                        <span className="text-sm text-gray-600">ab</span>
+                        <div className="sm:px-2.5 sm:py-1.5 px-1.5 py-1 rounded-full hover:opacity-90 hover:scale-105 transition-all" style={{ backgroundColor: '#8fa9b3' }}>
+                          <div className="sm:text-xl text-[13px] font-bold text-white">{formatPriceWithCurrency(minPrice)}</div>
+                        </div>
                       </div>
-                    </>
-                  ) : (
-                    <PriceDisplay item={item} specialRippchen={rippchenSpecial} specialSchnitzel={schnitzelSpecial} />
-                  )}
+                    ) : (
+                      <PriceDisplay item={item} specialRippchen={rippchenSpecial} specialSchnitzel={schnitzelSpecial} />
+                    )}
+                  </div>
                 </div>
 
-                <button
-                  onClick={() => handleItemClick(item)}
-                  className="group relative flex items-center justify-center bg-light-blue-400 text-white w-10 h-10 rounded-full hover:bg-light-blue-500 transition-all transform hover:scale-110 shadow-md hover:shadow-xl"
-                  aria-label="Hinzufügen"
-                  title="Hinzufügen"
-                >
-                  <ShoppingCart className="w-5 h-5 cart-icon-hover" />
-                  <span className="absolute bottom-full mb-2 hidden group-hover:block bg-gray-900 text-white text-xs py-1 px-3 rounded whitespace-nowrap pointer-events-none z-10 shadow-lg">
-                    Hinzufügen
-                  </span>
-                </button>
+                {item.description && <p className="text-base text-gray-600 mt-1.5 leading-relaxed">{item.description}</p>}
+                {item.allergens && <p className="text-xs text-gray-500 mt-1"><strong>Allergene:</strong> <span className="italic">{item.allergens}</span></p>}
+                {item.pfand && item.pfand > 0 && (
+                  <p className="text-xs text-gray-600 mt-1 font-medium">
+                    zzgl. {formatPriceWithCurrency(item.pfand)} Pfand
+                  </p>
+                )}
+
+                <MenuItemBadges
+                  item={item}
+                  isRippchenSpecial={rippchenSpecial}
+                  isSchnitzelSpecial={schnitzelSpecial}
+                  hasSizes={hasSizes}
+                />
               </div>
+
+              <button
+                onClick={() => handleItemClick(item)}
+                className="group relative flex items-center justify-center bg-light-blue-400 text-white w-10 h-10 rounded-full hover:bg-light-blue-500 transition-all transform hover:scale-110 shadow-md hover:shadow-xl flex-shrink-0 mt-1"
+                aria-label="Hinzufügen"
+                title="Hinzufügen"
+              >
+                <ShoppingCart className="w-5 h-5 cart-icon-hover" />
+                <span className="absolute bottom-full mb-2 hidden group-hover:block bg-gray-900 text-white text-xs py-1 px-3 rounded whitespace-nowrap pointer-events-none z-10 shadow-lg">
+                  Hinzufügen
+                </span>
+              </button>
             </div>
           );
         })}
