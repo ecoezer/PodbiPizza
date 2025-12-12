@@ -44,7 +44,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
     (item.number === 9 || item.number === 10) ? sideDishOptions[0] : ''
   );
   const [currentStep, setCurrentStep] = useState<'meat' | 'sauce' | 'extras' | 'exclusions' | 'sidedish' | 'saucetype' | 'burgerSalad' | 'burgerSauce' | 'burgerExtras' | 'complete'>(
-    item.isSauceSelection ? 'saucetype' : item.isBurger ? 'burgerSalad' : 'meat'
+    item.isSauceSelection ? 'saucetype' : item.isBurger ? 'burgerSalad' : item.number === 88 ? 'sauce' : 'meat'
   );
   const [showAllSauces, setShowAllSauces] = useState(false);
   const [showAllExclusions, setShowAllExclusions] = useState(false);
@@ -233,9 +233,14 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
       return;
     }
 
-    // For meat selection items, check if we need to go to extras step
+    // For meat selection items, check if we need to go to extras or exclusions step
     if (item.isMeatSelection && currentStep === 'sauce') {
-      setCurrentStep('extras');
+      // Item 88 skips extras and goes directly to exclusions
+      if (item.number === 88) {
+        setCurrentStep('exclusions');
+      } else {
+        setCurrentStep('extras');
+      }
       return;
     }
 
@@ -298,8 +303,8 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
     if (item.isBaguette) {
       return baguetteSauceTypes;
     }
-    // Vegetarian dishes (74-79) use same sauce types as Drehspieß
-    if ([74, 75, 76, 77, 78, 79].includes(item.number)) {
+    // Vegetarian dishes (74-79) and item 88 use same sauce types as Drehspieß
+    if ([74, 75, 76, 77, 78, 79, 88].includes(item.number)) {
       return drehspiessaSauceTypes;
     }
     // Pizzabrötchen items (50-57) use pizzabrötchen sauce types
@@ -322,7 +327,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
 
   const getVisibleSauceOptions = useCallback(() => {
     const allSauces = getSauceOptions();
-    if ((item.isMeatSelection && currentStep === 'sauce') || item.isFalafel || [6, 7, 8, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 74, 75, 76, 77, 78, 79].includes(item.number)) {
+    if ((item.isMeatSelection && currentStep === 'sauce') || item.isFalafel || [6, 7, 8, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 74, 75, 76, 77, 78, 79, 88].includes(item.number)) {
       return showAllSauces ? allSauces : allSauces.slice(0, 3);
     }
     return allSauces;
@@ -380,6 +385,14 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
       }
     }
     if (item.isMeatSelection) {
+      // Item 88 (Sigara Börek Menü) special handling
+      if (item.number === 88) {
+        if (currentStep === 'sauce') {
+          return 'Schritt 1: Soßen wählen (mehrere möglich)';
+        } else if (currentStep === 'exclusions') {
+          return 'Schritt 2: Salat anpassen (mehrere möglich)';
+        }
+      }
       if (currentStep === 'meat') {
         return 'Schritt 1: Fleischauswahl';
       } else if (currentStep === 'sauce') {
@@ -407,6 +420,10 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
     if (item.isMeatSelection && currentStep === 'meat') {
       return 'Weiter zur Soßenauswahl';
     } else if (item.isMeatSelection && currentStep === 'sauce') {
+      // Item 88 goes directly to exclusions, others go to extras
+      if (item.number === 88) {
+        return 'Weiter zur Salat-Anpassung';
+      }
       return 'Weiter zur Extra-Auswahl';
     } else if (item.isMeatSelection && currentStep === 'extras') {
       return 'Weiter zur Salat-Anpassung';
@@ -1043,18 +1060,18 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             (item.isMeatSelection && currentStep === 'sauce') ||
             item.isFalafel ||
             item.isBaguette ||
-            [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 61, 62, 74, 75, 76, 77, 78, 79].includes(item.number)) && (
+            [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 61, 62, 74, 75, 76, 77, 78, 79, 88].includes(item.number)) && (
             <div>
               <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
-                {item.id >= 564 && item.id <= 568 ? 'Dressing wählen (1. kostenlos, weitere +1,00€)' : [78, 79].includes(item.number) ? 'Soßen wählen (1. kostenlos, weitere +1,00€ / max. 3)' : ((item.isMeatSelection && currentStep === 'sauce') || [74, 75, 76, 77].includes(item.number) ? 'Soßen wählen (max. 3)' : item.isFalafel ? 'Soßen wählen (max. 3)' : [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57].includes(item.number) ? 'Soße wählen' : item.isBaguette ? 'Soße wählen' : 'Soße wählen')}
-                {!item.isMeatSelection && !item.isFalafel && !item.isBaguette && ![8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 74, 75, 76, 77, 78, 79].includes(item.number) && ((item.isSpezialitaet && ![81, 82].includes(item.id)) || (item.id >= 564 && item.id <= 568)) ? ' *' : ''}
+                {item.id >= 564 && item.id <= 568 ? 'Dressing wählen (1. kostenlos, weitere +1,00€)' : [78, 79].includes(item.number) ? 'Soßen wählen (1. kostenlos, weitere +1,00€ / max. 3)' : ((item.isMeatSelection && currentStep === 'sauce') || [74, 75, 76, 77, 88].includes(item.number) ? 'Soßen wählen (max. 3)' : item.isFalafel ? 'Soßen wählen (max. 3)' : [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57].includes(item.number) ? 'Soße wählen' : item.isBaguette ? 'Soße wählen' : 'Soße wählen')}
+                {!item.isMeatSelection && !item.isFalafel && !item.isBaguette && ![8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 74, 75, 76, 77, 78, 79, 88].includes(item.number) && ((item.isSpezialitaet && ![81, 82].includes(item.id)) || (item.id >= 564 && item.id <= 568)) ? ' *' : ''}
               </h3>
 
-              {(item.isMeatSelection && currentStep === 'sauce') || item.isFalafel || (item.id >= 564 && item.id <= 568) || [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 61, 62, 74, 75, 76, 77, 78, 79].includes(item.number) ? (
+              {(item.isMeatSelection && currentStep === 'sauce') || item.isFalafel || (item.id >= 564 && item.id <= 568) || [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 61, 62, 74, 75, 76, 77, 78, 79, 88].includes(item.number) ? (
                 // Multiple selection for meat selection items in step 2, falafel items, salad items, and snack items
                 <div className="space-y-2">
                   {getVisibleSauceOptions().map((sauce) => {
-                    const isDisabled = ((item.isMeatSelection || item.isFalafel || [74, 75, 76, 77, 78, 79].includes(item.number)) && !selectedSauces.includes(sauce) && selectedSauces.length >= 3);
+                    const isDisabled = ((item.isMeatSelection || item.isFalafel || [74, 75, 76, 77, 78, 79, 88].includes(item.number)) && !selectedSauces.includes(sauce) && selectedSauces.length >= 3);
                     return (
                       <label
                         key={sauce}
@@ -1113,7 +1130,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
               )}
 
               {/* Show More/Less Button for Sauce Selection in Step 2, falafel items, and Sucuk items */}
-              {((item.isMeatSelection && currentStep === 'sauce') || item.isFalafel || [6, 7, 8, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 61, 62, 74, 75, 76, 77, 78, 79].includes(item.number)) && getSauceOptions().length > 3 && (
+              {((item.isMeatSelection && currentStep === 'sauce') || item.isFalafel || [6, 7, 8, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 61, 62, 74, 75, 76, 77, 78, 79, 88].includes(item.number)) && getSauceOptions().length > 3 && (
                 <div className="mt-4 text-center">
                   <button
                     type="button"
