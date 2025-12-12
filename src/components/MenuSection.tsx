@@ -68,7 +68,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
           return (
             <div
               key={`${item.id}-${i}`}
-              className="menu-card-animated hover:bg-gray-100 rounded-3xl shadow-md hover:shadow-lg transition-all p-3 flex items-start gap-3 border border-gray-100"
+              className="menu-card-animated hover:bg-gray-100 rounded-3xl shadow-md hover:shadow-lg transition-all p-2.5 flex items-start gap-2.5 border border-gray-100"
             >
               <span className="w-9 h-9 bg-light-blue-100 text-light-blue-600 rounded-full flex justify-center items-center font-bold text-sm flex-shrink-0 mt-1">
                 {item.number}
@@ -105,10 +105,10 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                   )}
                 </div>
 
-                {item.description && <p className="text-base text-gray-600 mt-1.5 leading-relaxed">{item.description}</p>}
-                {item.allergens && <p className="text-xs text-gray-500 mt-1"><strong>Allergene:</strong> <span className="italic">{item.allergens}</span></p>}
+                {item.description && <p className="text-sm text-gray-600 mt-0.5 leading-snug">{item.description}</p>}
+                {item.allergens && <p className="text-xs text-gray-500 mt-0.5"><strong>Allergene:</strong> <span className="italic">{item.allergens}</span></p>}
                 {item.pfand && item.pfand > 0 && (
-                  <p className="text-xs text-gray-600 mt-1 font-medium">
+                  <p className="text-xs text-gray-600 mt-0.5 font-medium">
                     zzgl. {formatPriceWithCurrency(item.pfand)} Pfand
                   </p>
                 )}

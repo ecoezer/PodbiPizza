@@ -25,7 +25,7 @@ const MenuItemBadges: React.FC<MenuItemBadgesProps> = ({
   const showDressingBadge = item.id >= 564 && item.id <= 568 && item.isSpezialitaet;
 
   return (
-    <div className="flex flex-wrap gap-1.5 mt-2">
+    <div className="flex flex-wrap gap-1 mt-1">
       {isRippchenSpecial && <Badge color="red" icon={<Star className="w-3 h-3" />} text="🔥 RIPPCHEN-TAG SPEZIAL" />}
       {isSchnitzelSpecial && <Badge color="red" icon={<Star className="w-3 h-3" />} text="🔥 SCHNITZEL-TAG SPEZIAL" />}
       {hasSizes && <Badge color="blue" icon={<Star className="w-3 h-3" />} text="Größen verfügbar" />}
