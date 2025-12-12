@@ -3,7 +3,7 @@ import { X, Plus, ShoppingCart, AlertTriangle, Info } from 'lucide-react';
 import { MenuItem, PizzaSize } from '../types';
 import {
   wunschPizzaIngredients, pizzaExtras, pastaTypes,
-  sauceTypes, saladSauceTypes, beerTypes, saladExclusionOptions, sideDishOptions, drehspiessaSauceTypes, snackSauceTypes, pizzabroetchenSauceTypes, sauceBottleTypes, pizzaExtrasPricing, donerExtras, baguetteSauceTypes, granatapfelOptions
+  sauceTypes, saladSauceTypes, beerTypes, saladExclusionOptions, sideDishOptions, drehspiessaSauceTypes, snackSauceTypes, pizzabroetchenSauceTypes, sauceBottleTypes, pizzaExtrasPricing, donerExtras, baguetteSauceTypes, granatapfelOptions, burgerSaladExclusions, burgerSauceTypes, burgerExtras
 } from '../data/menuItems';
 import { parseAllergens } from '../data/allergenData';
 import { getSizePrice } from '../utils/sizeNormalization';
@@ -43,8 +43,8 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   const [selectedSideDish, setSelectedSideDish] = useState<string>(
     (item.number === 9 || item.number === 10) ? sideDishOptions[0] : ''
   );
-  const [currentStep, setCurrentStep] = useState<'meat' | 'sauce' | 'extras' | 'exclusions' | 'sidedish' | 'saucetype' | 'complete'>(
-    item.isSauceSelection ? 'saucetype' : 'meat'
+  const [currentStep, setCurrentStep] = useState<'meat' | 'sauce' | 'extras' | 'exclusions' | 'sidedish' | 'saucetype' | 'burgerSalad' | 'burgerSauce' | 'burgerExtras' | 'complete'>(
+    item.isSauceSelection ? 'saucetype' : item.isBurger ? 'burgerSalad' : 'meat'
   );
   const [showAllSauces, setShowAllSauces] = useState(false);
   const [showAllExclusions, setShowAllExclusions] = useState(false);
@@ -52,6 +52,9 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   const [showAllergenPopup, setShowAllergenPopup] = useState(false);
   const [selectedGranatapfel, setSelectedGranatapfel] = useState<string>(granatapfelOptions[1]);
   const [selectedPideExtras, setSelectedPideExtras] = useState<string[]>([]);
+  const [selectedBurgerSaladExclusions, setSelectedBurgerSaladExclusions] = useState<string[]>([]);
+  const [selectedBurgerSauce, setSelectedBurgerSauce] = useState<string>('');
+  const [selectedBurgerExtras, setSelectedBurgerExtras] = useState<string[]>([]);
 
   const handleIngredientToggle = useCallback((ingredient: string) => {
     setSelectedIngredients(prev => {
@@ -103,6 +106,22 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
       prev.includes(extra)
         ? prev.filter(e => e !== extra)
         : [...prev, extra]
+    );
+  }, []);
+
+  const handleBurgerSaladExclusionToggle = useCallback((exclusion: string) => {
+    setSelectedBurgerSaladExclusions(prev =>
+      prev.includes(exclusion)
+        ? prev.filter(e => e !== exclusion)
+        : [...prev, exclusion]
+    );
+  }, []);
+
+  const handleBurgerExtraToggle = useCallback((extraName: string) => {
+    setSelectedBurgerExtras(prev =>
+      prev.includes(extraName)
+        ? prev.filter(e => e !== extraName)
+        : [...prev, extraName]
     );
   }, []);
 
@@ -174,14 +193,37 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
       saucePricing = (selectedSauces.length - 1) * 1.00;
     }
 
-    return basePrice + extrasPrice + donerExtrasPrice + pideExtrasPrice + saucePricing;
-  }, [item.price, item.id, item.number, selectedSize, selectedExtras, selectedDonerExtras, selectedPideExtras, selectedSauces]);
+    // Add burger extras pricing
+    let burgerExtrasPrice = 0;
+    if (item.isBurger && selectedBurgerExtras.length > 0) {
+      selectedBurgerExtras.forEach(extraName => {
+        const extra = burgerExtras.find(e => e.name === extraName);
+        if (extra) {
+          burgerExtrasPrice += extra.price;
+        }
+      });
+    }
+
+    return basePrice + extrasPrice + donerExtrasPrice + pideExtrasPrice + saucePricing + burgerExtrasPrice;
+  }, [item.price, item.id, item.number, item.isBurger, selectedSize, selectedExtras, selectedDonerExtras, selectedPideExtras, selectedSauces, selectedBurgerExtras]);
 
   const handleAddToCart = useCallback(() => {
     // For sauce selection items (item #89), first select sauce type, then size
     if (item.isSauceSelection && currentStep === 'saucetype') {
       if (!selectedSauce) return;
       setCurrentStep('complete');
+      return;
+    }
+
+    // For burger items, handle multi-step flow
+    if (item.isBurger && currentStep === 'burgerSalad') {
+      setCurrentStep('burgerSauce');
+      return;
+    }
+
+    if (item.isBurger && currentStep === 'burgerSauce') {
+      if (!selectedBurgerSauce) return;
+      setCurrentStep('burgerExtras');
       return;
     }
 
@@ -215,18 +257,33 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
       return;
     }
 
+    // For burgers, combine selections into appropriate format
+    let finalSauce = '';
+    let finalExclusions: string[] = [];
+    let finalExtras: string[] = [];
+
+    if (item.isBurger) {
+      finalSauce = selectedBurgerSauce;
+      finalExclusions = selectedBurgerSaladExclusions;
+      finalExtras = selectedBurgerExtras;
+    } else {
+      finalSauce = (selectedSauces.length > 0 ? selectedSauces.join(', ') : selectedSauce) || selectedMeatType || undefined;
+      finalExclusions = selectedExclusions;
+      finalExtras = selectedExtras;
+    }
+
     onAddToOrder(
       item,
       selectedSize,
       selectedIngredients,
-      selectedExtras,
+      finalExtras,
       selectedPastaType || undefined,
-      (selectedSauces.length > 0 ? selectedSauces.join(', ') : selectedSauce) || selectedMeatType || undefined,
-      selectedExclusions,
+      finalSauce,
+      finalExclusions,
       selectedSideDish || undefined
     );
     onClose();
-  }, [item, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedSauces, selectedMeatType, selectedExclusions, selectedSideDish, onAddToOrder, onClose, currentStep, showAgeWarning]);
+  }, [item, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedSauces, selectedMeatType, selectedExclusions, selectedSideDish, selectedBurgerSauce, selectedBurgerSaladExclusions, selectedBurgerExtras, onAddToOrder, onClose, currentStep, showAgeWarning]);
 
   const getSauceOptions = useCallback(() => {
     // Drehspieß items use special sauce types
@@ -297,12 +354,29 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
     setSelectedSideDish(sideDishOptions[0]); // Reset side dish when going back
   }, []);
 
+  const handleBackToBurgerSalad = useCallback(() => {
+    setCurrentStep('burgerSalad');
+  }, []);
+
+  const handleBackToBurgerSauce = useCallback(() => {
+    setCurrentStep('burgerSauce');
+  }, []);
+
   const getModalTitle = useCallback(() => {
     if (item.isSauceSelection) {
       if (currentStep === 'saucetype') {
         return 'Schritt 1: Soße wählen';
       } else if (currentStep === 'complete') {
         return 'Schritt 2: Größe wählen';
+      }
+    }
+    if (item.isBurger) {
+      if (currentStep === 'burgerSalad') {
+        return 'Schritt 1: Salat anpassen (mehrere möglich)';
+      } else if (currentStep === 'burgerSauce') {
+        return 'Schritt 2: Soße wählen';
+      } else if (currentStep === 'burgerExtras') {
+        return 'Schritt 3: Extras wählen (optional)';
       }
     }
     if (item.isMeatSelection) {
@@ -324,6 +398,11 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   const getButtonText = useCallback(() => {
     if (item.isSauceSelection && currentStep === 'saucetype') {
       return 'Weiter zur Größenauswahl';
+    }
+    if (item.isBurger && currentStep === 'burgerSalad') {
+      return 'Weiter zur Soßenauswahl';
+    } else if (item.isBurger && currentStep === 'burgerSauce') {
+      return 'Weiter zur Extra-Auswahl';
     }
     if (item.isMeatSelection && currentStep === 'meat') {
       return 'Weiter zur Soßenauswahl';
@@ -533,6 +612,17 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                 </svg>
               </button>
             )}
+            {item.isBurger && (currentStep === 'burgerSauce' || currentStep === 'burgerExtras') && (
+              <button
+                onClick={currentStep === 'burgerSauce' ? handleBackToBurgerSalad : handleBackToBurgerSauce}
+                className="p-2 hover:bg-light-blue-500 rounded-full transition-colors"
+                title={currentStep === 'burgerSauce' ? "Zurück zur Salat-Anpassung" : "Zurück zur Soßenauswahl"}
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+            )}
             <button
             onClick={onClose}
             className="p-2 hover:bg-orange-600 rounded-full transition-colors"
@@ -614,6 +704,41 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                 </div>
                 <span className="text-xs sm:text-sm font-medium hidden sm:inline">Größe</span>
                 <span className="text-xs font-medium sm:hidden">G</span>
+              </div>
+            </div>
+          )}
+
+          {/* Step indicator for burger items */}
+          {item.isBurger && (
+            <div className="flex items-center justify-center space-x-1 sm:space-x-2 mb-2 sm:mb-3">
+              <div className={`flex items-center space-x-1 ${currentStep === 'burgerSalad' ? 'text-light-blue-600' : 'text-gray-400'}`}>
+                <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
+                  currentStep === 'burgerSalad' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
+                }`}>
+                  1
+                </div>
+                <span className="text-xs sm:text-sm font-medium hidden sm:inline">Salat</span>
+                <span className="text-xs font-medium sm:hidden">Sa</span>
+              </div>
+              <div className={`w-4 h-px ${currentStep === 'burgerSauce' || currentStep === 'burgerExtras' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
+              <div className={`flex items-center space-x-1 ${currentStep === 'burgerSauce' ? 'text-light-blue-600' : 'text-gray-400'}`}>
+                <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
+                  currentStep === 'burgerSauce' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
+                }`}>
+                  2
+                </div>
+                <span className="text-xs sm:text-sm font-medium hidden sm:inline">Soße</span>
+                <span className="text-xs font-medium sm:hidden">S</span>
+              </div>
+              <div className={`w-4 h-px ${currentStep === 'burgerExtras' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
+              <div className={`flex items-center space-x-1 ${currentStep === 'burgerExtras' ? 'text-light-blue-600' : 'text-gray-400'}`}>
+                <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
+                  currentStep === 'burgerExtras' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
+                }`}>
+                  3
+                </div>
+                <span className="text-xs sm:text-sm font-medium hidden sm:inline">Extras</span>
+                <span className="text-xs font-medium sm:hidden">E</span>
               </div>
             </div>
           )}
@@ -1169,6 +1294,94 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             </div>
           )}
 
+          {/* Burger Salad Exclusions - Step 1 for burgers */}
+          {item.isBurger && currentStep === 'burgerSalad' && (
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Salat anpassen (mehrere möglich, optional)</h3>
+              <p className="text-xs sm:text-sm text-gray-600 mb-2">Wählen Sie aus, was Sie nicht in Ihrem Burger möchten:</p>
+              <div className="space-y-1.5">
+                {burgerSaladExclusions.map((exclusion) => (
+                  <label
+                    key={exclusion}
+                    className={`flex items-center space-x-2 p-1.5 rounded-lg border-2 transition-all cursor-pointer ${
+                      selectedBurgerSaladExclusions.includes(exclusion)
+                        ? 'border-light-blue-400 bg-light-blue-50'
+                        : 'border-gray-200 hover:border-light-blue-300'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={selectedBurgerSaladExclusions.includes(exclusion)}
+                      onChange={() => handleBurgerSaladExclusionToggle(exclusion)}
+                      className="text-light-blue-400 focus:ring-light-blue-400 w-3.5 h-3.5"
+                    />
+                    <span className="text-sm">{exclusion}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Burger Sauce Selection - Step 2 for burgers */}
+          {item.isBurger && currentStep === 'burgerSauce' && (
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Soße wählen *</h3>
+              <div className="space-y-2">
+                {burgerSauceTypes.map((sauce) => (
+                  <label
+                    key={sauce}
+                    className={`flex items-center space-x-2 p-2 rounded-lg border-2 cursor-pointer transition-all ${
+                      selectedBurgerSauce === sauce
+                        ? 'border-orange-500 bg-orange-50'
+                        : 'border-gray-200 hover:border-orange-300'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="burgerSauce"
+                      value={sauce}
+                      checked={selectedBurgerSauce === sauce}
+                      onChange={(e) => setSelectedBurgerSauce(e.target.value)}
+                      className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
+                    />
+                    <span className="font-medium">{sauce}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Burger Extras - Step 3 for burgers */}
+          {item.isBurger && currentStep === 'burgerExtras' && (
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Extras wählen (optional)</h3>
+              <p className="text-xs sm:text-sm text-gray-600 mb-2">Wählen Sie zusätzliche Extras für Ihren Burger:</p>
+              <div className="space-y-2">
+                {burgerExtras.map((extra) => (
+                  <label
+                    key={extra.name}
+                    className={`flex items-center justify-between p-2 rounded-lg border-2 cursor-pointer transition-all ${
+                      selectedBurgerExtras.includes(extra.name)
+                        ? 'border-light-blue-400 bg-light-blue-50'
+                        : 'border-gray-200 hover:border-light-blue-300'
+                    }`}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        checked={selectedBurgerExtras.includes(extra.name)}
+                        onChange={() => handleBurgerExtraToggle(extra.name)}
+                        className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
+                      />
+                      <span className="font-medium">{extra.name}</span>
+                    </div>
+                    <span className="text-sm text-gray-600 font-semibold">+{extra.price.toFixed(2).replace('.', ',')} €</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Add to Cart Button */}
           <div className="sticky bottom-0 bg-white pt-3 pb-1 border-t">
             {/* Price Display at Bottom */}
@@ -1198,6 +1411,38 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                   className="flex-1 bg-light-blue-400 hover:bg-light-blue-500 text-white py-3 px-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors"
                 >
                   {currentStep === 'sauce' || currentStep === 'extras' || (currentStep === 'exclusions' && (item.number === 9 || item.number === 10)) ? (
+                    <>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                      Weiter
+                    </>
+                  ) : (
+                    <>
+                      <ShoppingCart className="w-5 h-5" />
+                      Hinzufügen
+                    </>
+                  )}
+                </button>
+              </div>
+            ) : item.isBurger && (currentStep === 'burgerSauce' || currentStep === 'burgerExtras') ? (
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={currentStep === 'burgerSauce' ? handleBackToBurgerSalad : handleBackToBurgerSauce}
+                  className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 px-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors border border-gray-300"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                  Zurück
+                </button>
+
+                <button
+                  onClick={handleAddToCart}
+                  className="flex-1 bg-light-blue-400 hover:bg-light-blue-500 text-white py-3 px-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors"
+                >
+                  {currentStep === 'burgerSauce' ? (
                     <>
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

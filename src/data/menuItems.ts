@@ -57,7 +57,7 @@ export const sideDishOptions = ['Pommes frites', 'Reis'] as const;
 // Wunsch Pizza ingredients
 export const wunschPizzaIngredients = [
   'Ananas', 'Artischocken', 'Barbecuesauce', 'Brokkoli', 'Champignons frisch',
-  'Chili-Cheese-Soße', 'Doppelt Käse', 'Formfleisch-Vorderschinken', 'Gewürzgurken',
+  'Chili-Cheese-Sauce', 'Doppelt Käse', 'Formfleisch-Vorderschinken', 'Gewürzgurken',
   'Gorgonzola', 'Gyros', 'Hirtenkäse', 'Hähnchenbrust', 'Jalapeños',
   'Knoblauchwurst', 'Mais', 'Milde Peperoni', 'Mozzarella', 'Oliven', 'Paprika',
   'Parmaputenschinken', 'Peperoni, scharf', 'Remoulade', 'Rindermett', 'Rindersalami',
@@ -70,11 +70,34 @@ export const pizzaExtras = [
   'Ananas', 'Brokkoli', 'Champignons frisch', 'Doppelt Käse', 'Gewürzgurken',
   'Hähnchenbrust', 'Jalapeños', 'Mais', 'Mozzarella', 'Oliven', 'Paprika',
   'Peperoni mild', 'Putenschinken', 'Rindersalami', 'Sauce Hollandaise', 'Spinat',
-  'Sucuk', 'Tomaten', 'Zwiebeln', 'Dönerfleisch Kalb', 'Dönerfleisch Hähnchen', 'Weichkäse', 'Tunfisch'
+  'Sucuk', 'Tomaten', 'Zwiebeln', 'Dönerfleisch Kalb', 'Dönerfleisch Hähnchen', 'Weichkäse', 'Thunfisch'
 ] as const;
 
 // Döner extras (flat 1€ price for all)
 export const donerExtras = ['Weichkäse', 'Hollandaise Sauce', 'Jalapeños'] as const;
+
+// Burger salad exclusion options
+export const burgerSaladExclusions = [
+  'ohne Zwiebeln',
+  'ohne Tomaten',
+  'ohne Gewürzgurke',
+  'ohne Eisbergsalat'
+] as const;
+
+// Burger sauce options
+export const burgerSauceTypes = [
+  'mit Ketchup',
+  'mit Mayonnaise',
+  'mit Senf',
+  'mit Chilisauce'
+] as const;
+
+// Burger extras with pricing
+export const burgerExtras = [
+  { name: 'Extra Schmelzkäse', price: 0.50 },
+  { name: 'Extra Jalapeños', price: 0.50 },
+  { name: 'Extra Burger Patty', price: 1.50 }
+] as const;
 
 // Pizza extras pricing by size
 export const pizzaExtrasPricing: { [key: string]: { '24cm': number; '28cm': number; '40cm': number } } = {
@@ -100,7 +123,7 @@ export const pizzaExtrasPricing: { [key: string]: { '24cm': number; '28cm': numb
   'Dönerfleisch Kalb': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
   'Dönerfleisch Hähnchen': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
   'Weichkäse': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
-  'Tunfisch': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 }
+  'Thunfisch': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 }
 } as const;
 
 // Pasta
@@ -126,9 +149,9 @@ export const croques: readonly MenuItem[] = [
   { id: 678, number: 78, name: "Chicken Nuggets", description: "mit 4 Stück & Pommes", price: 6.50, allergens: "Ao, I, 8.2" },
   { id: 679, number: 79, name: "Chicken Nuggets Teller", description: "mit 6 Stück, Pommes, gemischtem Salat, Krautsalat & Sauce", price: 11.00, allergens: "Ao, I, 8.2" },
   { id: 680, number: 80, name: "Currywurst", description: "mit Geflügelcurrywurst, Pommes & Currysauce", price: 8.50, allergens: "Ao, G, I, K, 6, 8.2, 9, 9.I, 17" },
-  { id: 681, number: 81, name: "Hamburger", description: "mit 125 g Patty", price: 5.50, allergens: "Aa, B, G" },
-  { id: 682, number: 82, name: "Cheeseburger", description: "mit 125 g Patty & Käse", price: 6.00, allergens: "Aa, B, G, I" },
-  { id: 683, number: 82, name: "Chili-Cheese-Burger", description: "mit 125 g Patty Jalapeños", price: 6.50, allergens: "Aa, B, G, I" },
+  { id: 681, number: 81, name: "Hamburger", description: "mit 125 g Patty", price: 5.50, allergens: "Aa, B, G", isBurger: true },
+  { id: 682, number: 82, name: "Cheeseburger", description: "mit 125 g Patty & Käse", price: 6.00, allergens: "Aa, B, G, I", isBurger: true },
+  { id: 683, number: "82a", name: "Chili-Cheese-Burger", description: "mit 125 g Patty & Jalapeños", price: 6.50, allergens: "Aa, B, G, I", isBurger: true },
   { id: 684, number: 83, name: "Chickenburger", description: "mit 125 g Patty", price: 6.50, allergens: "Aa, I, 8.2" },
   { id: 685, number: 84, name: "Dönerburger", description: "mit Weichkäse, Zwiebeln & Sauce", price: 8.00, allergens: "Aa, G, I, M, 14, 17, 18" },
   { id: 686, number: 85, name: "Pommes Groß", description: "", price: 4.50 },
