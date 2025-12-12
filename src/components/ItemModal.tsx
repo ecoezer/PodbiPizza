@@ -169,8 +169,13 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
       saucePricing = (selectedSauces.length - 1) * 1.00;
     }
 
+    // Add sauce pricing for items 78 and 79 (Chicken Nuggets): first sauce is free, additional sauces cost 1 euro
+    if ([78, 79].includes(item.number) && selectedSauces.length > 1) {
+      saucePricing = (selectedSauces.length - 1) * 1.00;
+    }
+
     return basePrice + extrasPrice + donerExtrasPrice + pideExtrasPrice + saucePricing;
-  }, [item.price, item.id, selectedSize, selectedExtras, selectedDonerExtras, selectedPideExtras, selectedSauces]);
+  }, [item.price, item.id, item.number, selectedSize, selectedExtras, selectedDonerExtras, selectedPideExtras, selectedSauces]);
 
   const handleAddToCart = useCallback(() => {
     // For sauce selection items (item #89), first select sauce type, then size
@@ -916,7 +921,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 61, 62, 74, 75, 76, 77, 78, 79].includes(item.number)) && (
             <div>
               <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
-                {item.id >= 564 && item.id <= 568 ? 'Dressing wählen (1. kostenlos, weitere +1,00€)' : ((item.isMeatSelection && currentStep === 'sauce') || [74, 75, 76, 77, 78, 79].includes(item.number) ? 'Soßen wählen (max. 3)' : item.isFalafel ? 'Soßen wählen (max. 3)' : [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57].includes(item.number) ? 'Soße wählen' : item.isBaguette ? 'Soße wählen' : 'Soße wählen')}
+                {item.id >= 564 && item.id <= 568 ? 'Dressing wählen (1. kostenlos, weitere +1,00€)' : [78, 79].includes(item.number) ? 'Soßen wählen (1. kostenlos, weitere +1,00€ / max. 3)' : ((item.isMeatSelection && currentStep === 'sauce') || [74, 75, 76, 77].includes(item.number) ? 'Soßen wählen (max. 3)' : item.isFalafel ? 'Soßen wählen (max. 3)' : [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57].includes(item.number) ? 'Soße wählen' : item.isBaguette ? 'Soße wählen' : 'Soße wählen')}
                 {!item.isMeatSelection && !item.isFalafel && !item.isBaguette && ![8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 74, 75, 76, 77, 78, 79].includes(item.number) && ((item.isSpezialitaet && ![81, 82].includes(item.id)) || (item.id >= 564 && item.id <= 568)) ? ' *' : ''}
               </h3>
 
@@ -947,6 +952,9 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                           <span className="font-medium">{sauce}</span>
                         </div>
                         {(item.id >= 564 && item.id <= 568) && selectedSauces.indexOf(sauce) >= 1 && selectedSauces.includes(sauce) && (
+                          <span className="text-sm text-gray-600 font-semibold">+1,00 €</span>
+                        )}
+                        {[78, 79].includes(item.number) && selectedSauces.indexOf(sauce) >= 1 && selectedSauces.includes(sauce) && (
                           <span className="text-sm text-gray-600 font-semibold">+1,00 €</span>
                         )}
                       </label>
@@ -1073,7 +1081,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             <div>
               <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Salat anpassen (mehrere möglich, optional)</h3>
               <p className="text-xs sm:text-sm text-gray-600 mb-2">Wählen Sie aus, was Sie nicht in Ihrem Salat möchten:</p>
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 {getVisibleExclusionOptions().map((exclusion) => {
                   const isOhneBeilagen = exclusion === 'Ohne Beilagen bzw. Salate';
                   const isOhneBeilagenSelected = selectedExclusions.includes('Ohne Beilagen bzw. Salate');
@@ -1082,7 +1090,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                   return (
                     <label
                       key={exclusion}
-                      className={`flex items-center space-x-2 p-2 rounded-lg border-2 transition-all ${
+                      className={`flex items-center space-x-2 p-1.5 rounded-lg border-2 transition-all ${
                         selectedExclusions.includes(exclusion)
                           ? 'border-light-blue-400 bg-light-blue-50'
                           : isDisabled
@@ -1095,9 +1103,9 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                         checked={selectedExclusions.includes(exclusion)}
                         onChange={() => handleExclusionToggle(exclusion)}
                         disabled={isDisabled}
-                        className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
+                        className="text-light-blue-400 focus:ring-light-blue-400 w-3.5 h-3.5"
                       />
-                      <span className={`font-medium ${isOhneBeilagen ? 'text-red-600' : ''}`}>{exclusion}</span>
+                      <span className={`text-sm ${isOhneBeilagen ? 'text-red-600 font-medium' : ''}`}>{exclusion}</span>
                     </label>
                   );
                 })}
