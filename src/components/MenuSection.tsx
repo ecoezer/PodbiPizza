@@ -97,9 +97,9 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                   >
                     {hasSizes ? (
                       <div className="flex items-center gap-1">
-                        <span className="text-sm text-gray-600">ab</span>
-                        <div className="sm:px-2.5 sm:py-1.5 px-1.5 py-1 rounded-full hover:opacity-90 hover:scale-105 transition-all" style={{ backgroundColor: '#8fa9b3' }}>
-                          <div className="sm:text-xl text-[13px] font-bold text-white">{formatPriceWithCurrency(minPrice)}</div>
+                        <span className="text-xs text-gray-600">ab</span>
+                        <div className="sm:px-2 sm:py-1 px-1 py-0.5 rounded-full hover:opacity-90 hover:scale-105 transition-all" style={{ backgroundColor: '#8fa9b3' }}>
+                          <div className="sm:text-sm text-[8px] font-bold text-white">{formatPriceWithCurrency(minPrice)}</div>
                         </div>
                       </div>
                     ) : (
