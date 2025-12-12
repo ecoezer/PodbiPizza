@@ -1097,7 +1097,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             (item.isMeatSelection && currentStep === 'sauce') ||
             item.isFalafel ||
             item.isBaguette ||
-            [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 61, 62, 74, 75, 76, 77, 78, 79, 88].includes(item.number)) && (
+            ([8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 61, 62, 74, 75, 76, 77, 78, 79].includes(item.number) || (item.number === 88 && currentStep === 'sauce'))) && (
             <div>
               <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
                 {item.id >= 564 && item.id <= 568 ? 'Dressing wählen (1. kostenlos, weitere +1,00€)' : [78, 79].includes(item.number) ? 'Soßen wählen (1. kostenlos, weitere +1,00€ / max. 3)' : ((item.isMeatSelection && currentStep === 'sauce') || [74, 75, 76, 77, 88].includes(item.number) ? 'Soßen wählen (max. 3)' : item.isFalafel ? 'Soßen wählen (max. 3)' : [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57].includes(item.number) ? 'Soße wählen' : item.isBaguette ? 'Soße wählen' : 'Soße wählen')}
@@ -1255,7 +1255,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             </div>
           )}
 
-          {/* Salad Exclusions - Only show in step 4 for meat selection items */}
+          {/* Salad Exclusions - Only show in step 4 for meat selection items, or step 2 for item 88 */}
           {item.isMeatSelection && currentStep === 'exclusions' && (
             <div>
               <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Salat anpassen (mehrere möglich, optional)</h3>

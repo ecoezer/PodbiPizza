@@ -21,7 +21,8 @@ const Navigation = () => {
     ['salate', 'Salate'],
     ['grillspezialitaeten', 'Grillspezialitäten'],
     ['dips', 'Dips & Soßen'],
-    ['alkoholfreie-getraenke', 'Getränke'],
+    ['uludag-tropische', 'U D & Tropische'],
+    ['alkoholfreie-getraenke', 'Alkoholfreie Getränke'],
     ['alkoholische-getraenke', 'Alkoholische Getränke']
   ];
 

@@ -7,6 +7,7 @@ import SearchBar from './components/SearchBar';
 import {
   salads,
   dips,
+  uludagTropische,
   alkoholfreieGetraenke,
   alkoholischeGetraenke,
   fleischgerichte,
@@ -48,6 +49,7 @@ const MENU_SECTIONS = [
   { id: 'schnitzel', title: 'Schnitzel', description: 'Alle Schnitzel werden mit Geflügelfleisch, gemischtem Salat, Krautsalat & Pommes serviert', items: schnitzel },
   { id: 'salate', title: 'Salate', description: 'Alle Salate werden mit Joghurt-Dressing & Brot serviert', items: salads },
   { id: 'dips', title: 'Dips & Soßen', description: 'Leckere Dips und Soßen', items: dips },
+  { id: 'uludag-tropische', title: 'U D & Tropische Getränke', description: 'Erfrischende Uludag und tropische Getränke', items: uludagTropische },
   { id: 'alkoholfreie-getraenke', title: 'Alkoholfreie Getränke', description: 'Erfrischende alkoholfreie Getränke', items: alkoholfreieGetraenke },
   { id: 'alkoholische-getraenke', title: 'Alkoholische Getränke', description: 'Alkoholische Getränke dürfen gemäß § 9 Jugendschutzgesetz (JuSchG) nur an Personen ab 18 Jahren abgegeben werden. Ein gültiger Ausweis ist vorzulegen.', items: alkoholischeGetraenke }
 ];
