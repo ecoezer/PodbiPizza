@@ -620,9 +620,19 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
           <div className="flex items-center gap-2">
             {item.isMeatSelection && (currentStep === 'sauce' || currentStep === 'extras' || currentStep === 'exclusions' || currentStep === 'sidedish') && (
               <button
-                onClick={currentStep === 'sauce' ? handleBackToMeat : currentStep === 'extras' ? handleBackToSauce : currentStep === 'exclusions' ? handleBackToExtras : handleBackToExclusions}
+                onClick={
+                  currentStep === 'sauce' ? handleBackToMeat :
+                  currentStep === 'extras' ? handleBackToSauce :
+                  currentStep === 'exclusions' ? (item.number === 88 ? handleBackToSauce : handleBackToExtras) :
+                  handleBackToExclusions
+                }
                 className="p-2 hover:bg-light-blue-500 rounded-full transition-colors"
-                title={currentStep === 'sauce' ? "Zurück zur Fleischauswahl" : currentStep === 'extras' ? "Zurück zur Soßenauswahl" : currentStep === 'exclusions' ? "Zurück zur Extra-Auswahl" : "Zurück zur Salat-Anpassung"}
+                title={
+                  currentStep === 'sauce' ? "Zurück zur Fleischauswahl" :
+                  currentStep === 'extras' ? "Zurück zur Soßenauswahl" :
+                  currentStep === 'exclusions' ? (item.number === 88 ? "Zurück zur Soßenauswahl" : "Zurück zur Extra-Auswahl") :
+                  "Zurück zur Salat-Anpassung"
+                }
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -763,57 +773,84 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
           {/* Step indicator for meat selection items */}
           {item.isMeatSelection && (
             <div className="flex items-center justify-center space-x-1 sm:space-x-2 mb-2 sm:mb-3">
-              <div className={`flex items-center space-x-1 ${currentStep === 'meat' ? 'text-light-blue-600' : 'text-gray-400'}`}>
-                <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
-                  currentStep === 'meat' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
-                }`}>
-                  1
-                </div>
-                <span className="text-xs sm:text-sm font-medium hidden sm:inline">Fleisch</span>
-                <span className="text-xs font-medium sm:hidden">F</span>
-              </div>
-              <div className={`w-4 h-px ${currentStep === 'sauce' || currentStep === 'extras' || currentStep === 'exclusions' || currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
-              <div className={`flex items-center space-x-1 ${currentStep === 'sauce' ? 'text-light-blue-600' : 'text-gray-400'}`}>
-                <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
-                  currentStep === 'sauce' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
-                }`}>
-                  2
-                </div>
-                <span className="text-xs sm:text-sm font-medium hidden sm:inline">Soße</span>
-                <span className="text-xs font-medium sm:hidden">S</span>
-              </div>
-              <div className={`w-4 h-px ${currentStep === 'extras' || currentStep === 'exclusions' || currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
-              <div className={`flex items-center space-x-1 ${currentStep === 'extras' ? 'text-light-blue-600' : 'text-gray-400'}`}>
-                <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
-                  currentStep === 'extras' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
-                }`}>
-                  3
-                </div>
-                <span className="text-xs sm:text-sm font-medium hidden sm:inline">Extras</span>
-                <span className="text-xs font-medium sm:hidden">E</span>
-              </div>
-              <div className={`w-4 h-px ${currentStep === 'exclusions' || currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
-              <div className={`flex items-center space-x-1 ${currentStep === 'exclusions' ? 'text-light-blue-600' : 'text-gray-400'}`}>
-                <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
-                  currentStep === 'exclusions' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
-                }`}>
-                  4
-                </div>
-                <span className="text-xs sm:text-sm font-medium hidden sm:inline">Salat</span>
-                <span className="text-xs font-medium sm:hidden">Sa</span>
-              </div>
-              {(item.number === 9 || item.number === 10) && (
+              {/* Special handling for item 88 - only 2 steps: Soße and Salat */}
+              {item.number === 88 ? (
                 <>
-                  <div className={`w-4 h-px ${currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
-                  <div className={`flex items-center space-x-1 ${currentStep === 'sidedish' ? 'text-light-blue-600' : 'text-gray-400'}`}>
+                  <div className={`flex items-center space-x-1 ${currentStep === 'sauce' ? 'text-light-blue-600' : 'text-gray-400'}`}>
                     <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
-                      currentStep === 'sidedish' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
+                      currentStep === 'sauce' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
                     }`}>
-                      5
+                      1
                     </div>
-                    <span className="text-xs sm:text-sm font-medium hidden sm:inline">Beilage</span>
-                    <span className="text-xs font-medium sm:hidden">B</span>
+                    <span className="text-xs sm:text-sm font-medium hidden sm:inline">Soße</span>
+                    <span className="text-xs font-medium sm:hidden">S</span>
                   </div>
+                  <div className={`w-4 h-px ${currentStep === 'exclusions' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
+                  <div className={`flex items-center space-x-1 ${currentStep === 'exclusions' ? 'text-light-blue-600' : 'text-gray-400'}`}>
+                    <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
+                      currentStep === 'exclusions' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
+                    }`}>
+                      2
+                    </div>
+                    <span className="text-xs sm:text-sm font-medium hidden sm:inline">Salat</span>
+                    <span className="text-xs font-medium sm:hidden">Sa</span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className={`flex items-center space-x-1 ${currentStep === 'meat' ? 'text-light-blue-600' : 'text-gray-400'}`}>
+                    <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
+                      currentStep === 'meat' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
+                    }`}>
+                      1
+                    </div>
+                    <span className="text-xs sm:text-sm font-medium hidden sm:inline">Fleisch</span>
+                    <span className="text-xs font-medium sm:hidden">F</span>
+                  </div>
+                  <div className={`w-4 h-px ${currentStep === 'sauce' || currentStep === 'extras' || currentStep === 'exclusions' || currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
+                  <div className={`flex items-center space-x-1 ${currentStep === 'sauce' ? 'text-light-blue-600' : 'text-gray-400'}`}>
+                    <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
+                      currentStep === 'sauce' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
+                    }`}>
+                      2
+                    </div>
+                    <span className="text-xs sm:text-sm font-medium hidden sm:inline">Soße</span>
+                    <span className="text-xs font-medium sm:hidden">S</span>
+                  </div>
+                  <div className={`w-4 h-px ${currentStep === 'extras' || currentStep === 'exclusions' || currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
+                  <div className={`flex items-center space-x-1 ${currentStep === 'extras' ? 'text-light-blue-600' : 'text-gray-400'}`}>
+                    <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
+                      currentStep === 'extras' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
+                    }`}>
+                      3
+                    </div>
+                    <span className="text-xs sm:text-sm font-medium hidden sm:inline">Extras</span>
+                    <span className="text-xs font-medium sm:hidden">E</span>
+                  </div>
+                  <div className={`w-4 h-px ${currentStep === 'exclusions' || currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
+                  <div className={`flex items-center space-x-1 ${currentStep === 'exclusions' ? 'text-light-blue-600' : 'text-gray-400'}`}>
+                    <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
+                      currentStep === 'exclusions' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
+                    }`}>
+                      4
+                    </div>
+                    <span className="text-xs sm:text-sm font-medium hidden sm:inline">Salat</span>
+                    <span className="text-xs font-medium sm:hidden">Sa</span>
+                  </div>
+                  {(item.number === 9 || item.number === 10) && (
+                    <>
+                      <div className={`w-4 h-px ${currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
+                      <div className={`flex items-center space-x-1 ${currentStep === 'sidedish' ? 'text-light-blue-600' : 'text-gray-400'}`}>
+                        <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
+                          currentStep === 'sidedish' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
+                        }`}>
+                          5
+                        </div>
+                        <span className="text-xs sm:text-sm font-medium hidden sm:inline">Beilage</span>
+                        <span className="text-xs font-medium sm:hidden">B</span>
+                      </div>
+                    </>
+                  )}
                 </>
               )}
             </div>
@@ -1414,7 +1451,12 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
               <div className="flex gap-3">
                 <button
                   type="button"
-                  onClick={currentStep === 'sauce' ? handleBackToMeat : currentStep === 'extras' ? handleBackToSauce : currentStep === 'exclusions' ? handleBackToExtras : handleBackToExclusions}
+                  onClick={
+                    currentStep === 'sauce' ? handleBackToMeat :
+                    currentStep === 'extras' ? handleBackToSauce :
+                    currentStep === 'exclusions' ? (item.number === 88 ? handleBackToSauce : handleBackToExtras) :
+                    handleBackToExclusions
+                  }
                   className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 px-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors border border-gray-300"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
