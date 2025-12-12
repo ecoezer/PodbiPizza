@@ -19,8 +19,8 @@ export const sauceTypes = [
 export const saladSauceTypes = ['Joghurt-Dressing', 'Balsamico-Dressing', 'Essig-Öl-Dressing'] as const;
 export const beerTypes = ['Becks', 'Krombacher'] as const;
 
-// Drehspieß sauce options (max 3 selectable)
-export const drehspiessaSauceTypes = ['Cocktail-Soße', 'scharfe Soße', 'Tzatziki', 'ohne Soße'] as const;
+// Drehspieß sauce options (max 3 selectable) - These are the standard sauces for all döner items
+export const drehspiessaSauceTypes = ['Zaziki', 'Scharfer Sauce', 'Ezme', 'Currysauce', 'Cocktailsauce', 'ohne Soße'] as const;
 
 // Snack sauce options (same as Drehspieß + Ketchup & Mayo)
 export const snackSauceTypes = ['Cocktail-Soße', 'scharfe Soße', 'Tzatziki', 'Ketchup', 'Mayonnaise', 'ohne Soße'] as const;
@@ -37,7 +37,8 @@ export const saladExclusionOptions = [
   'ohne Zwiebel',
   'ohne Rotkohl',
   'ohne Tomaten',
-  'ohne Gurken'
+  'ohne Gurken',
+  'ohne Weißkraut'
 ] as const;
 
 // Side dish options for Döner Teller and Hähnchen-Döner Teller
@@ -61,6 +62,9 @@ export const pizzaExtras = [
   'Peperoni mild', 'Putenschinken', 'Rindersalami', 'Sauce Hollandaise', 'Spinat',
   'Sucuk', 'Tomaten', 'Zwiebeln', 'Dönerfleisch Kalb', 'Dönerfleisch Hähnchen', 'Weichkäse', 'Tunfisch'
 ] as const;
+
+// Döner extras (flat 1€ price for all)
+export const donerExtras = ['Weichkäse', 'Hollandaise Sauce'] as const;
 
 // Pizza extras pricing by size
 export const pizzaExtrasPricing: { [key: string]: { '24cm': number; '28cm': number; '40cm': number } } = {
@@ -121,10 +125,6 @@ export const croques: readonly MenuItem[] = [
   { id: 687, number: 86, name: "Pommes Klein", description: "", price: 3.50 },
   { id: 688, number: 87, name: "Sigara Börek", description: "mit 5 Stück", price: 6.50, allergens: "Aa, I" },
   { id: 689, number: 88, name: "Sigara Börek Menü", description: "mit 5 Stück, Salat & Sauce", price: 9.00, allergens: "Aa, I" },
-  { id: 690, number: 89, name: "Saucen", description: "Zaziki, Scharfer Sauce, Ezme, Currysauce & Cocktailsauce", price: 2.50, isSauceSelection: true, sizes: [
-    { name: '125g', price: 2.50, description: '125g' },
-    { name: '250g', price: 3.50, description: '250g' }
-  ]},
   { id: 691, number: "89a", name: "Ketchup, Mayonnaise", description: "", price: 0.50 },
   { id: 692, number: "M1", name: "Hamburger Menü", description: "Hamburger, Pommes & Cola (0,33l)", price: 10.50, allergens: "Aa, B, G, 3, 4, 18" },
   { id: 693, number: "M2", name: "Döner Menü", description: "Dönerfleisch (Hähnchen oder Rind), Pommes & Cola (0,33l)", price: 13.50, allergens: "G, I, M, 14, 17, 18, 3, 4" },
@@ -165,12 +165,27 @@ export const salads: readonly MenuItem[] = [
 
 // Dips
 export const dips: readonly MenuItem[] = [
-  { id: 800, number: 69, name: "Tzatziki", description: "", price: 2.00 },
-  { id: 801, number: 70, name: "Chili-Sauce", description: "", price: 2.00 },
-  { id: 802, number: 71, name: "Kräutersoße", description: "", price: 2.00 },
-  { id: 803, number: 72, name: "Curry Sauce", description: "", price: 2.00 },
-  { id: 804, number: 73, name: "Ketchup", description: "", price: 1.00 },
-  { id: 805, number: 74, name: "Mayonnaise", description: "", price: 1.00 }
+  { id: 690, number: 89, name: "Zaziki", description: "", price: 2.50, sizes: [
+    { name: '125g', price: 2.50, description: '125g' },
+    { name: '250g', price: 3.50, description: '250g' }
+  ]},
+  { id: 6901, number: 89, name: "Scharfer Sauce", description: "", price: 2.50, sizes: [
+    { name: '125g', price: 2.50, description: '125g' },
+    { name: '250g', price: 3.50, description: '250g' }
+  ]},
+  { id: 6902, number: 89, name: "Ezme", description: "", price: 2.50, sizes: [
+    { name: '125g', price: 2.50, description: '125g' },
+    { name: '250g', price: 3.50, description: '250g' }
+  ]},
+  { id: 6903, number: 89, name: "Currysauce", description: "", price: 2.50, sizes: [
+    { name: '125g', price: 2.50, description: '125g' },
+    { name: '250g', price: 3.50, description: '250g' }
+  ]},
+  { id: 6904, number: 89, name: "Cocktailsauce", description: "", price: 2.50, sizes: [
+    { name: '125g', price: 2.50, description: '125g' },
+    { name: '250g', price: 3.50, description: '250g' }
+  ]},
+  { id: 691, number: "89a", name: "Ketchup, Mayonnaise", description: "", price: 0.50 }
 ];
 
 // Alkoholfreie Getränke
@@ -236,8 +251,8 @@ export const baguette: readonly MenuItem[] = [
   { id: 610, number: 58, name: "Thunfisch", description: "mit Thunfisch & Zwiebeln", price: 9.00, allergens: "Aa, F, I" },
   { id: 611, number: 59, name: "Hawaii", description: "mit Geflügelformschinken & Ananas", price: 9.00, allergens: "Aa, B, I, G, 6, 9, 9.I, 17" },
   { id: 612, number: 60, name: "Sucuk", description: "mit Knoblauchwurst & Weichkäse", price: 10.00, allergens: "Aa, B, G, I, M, 3, 6, 9, 14, 17, 18" },
-  { id: 613, number: 61, name: "Döner", description: "mit Kalbdöner", price: 10.00, allergens: "Aa, G, I, M, 14, 17, 18" },
-  { id: 614, number: 62, name: "Hähnchendöner", description: "mit Hähnchendönerfleisch", price: 10.00, allergens: "Aa, G, I, M, 14, 17, 18" },
+  { id: 613, number: 61, name: "Döner", description: "mit Kalbdöner & Sauce", price: 10.00, isSpezialitaet: true, allergens: "Aa, G, I, M, 14, 17, 18" },
+  { id: 614, number: 62, name: "Hähnchendöner", description: "mit Hähnchendönerfleisch & Sauce", price: 10.00, isSpezialitaet: true, allergens: "Aa, G, I, M, 14, 17, 18" },
   { id: 615, number: 63, name: "Hähnchenbrust", description: "mit Hähnchenbrustfilet", price: 10.00, allergens: "Aa, I" },
   { id: 616, number: 64, name: "Vegetarisch", description: "mit Tomaten & Weichkäse", price: 8.50, allergens: "Aa, I" }
 ];

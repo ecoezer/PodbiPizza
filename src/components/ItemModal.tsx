@@ -3,7 +3,7 @@ import { X, Plus, ShoppingCart, AlertTriangle, Info } from 'lucide-react';
 import { MenuItem, PizzaSize } from '../types';
 import {
   wunschPizzaIngredients, pizzaExtras, pastaTypes,
-  sauceTypes, saladSauceTypes, beerTypes, saladExclusionOptions, sideDishOptions, drehspiessaSauceTypes, snackSauceTypes, pizzabroetchenSauceTypes, sauceBottleTypes, pizzaExtrasPricing
+  sauceTypes, saladSauceTypes, beerTypes, saladExclusionOptions, sideDishOptions, drehspiessaSauceTypes, snackSauceTypes, pizzabroetchenSauceTypes, sauceBottleTypes, pizzaExtrasPricing, donerExtras
 } from '../data/menuItems';
 import { parseAllergens } from '../data/allergenData';
 import { getSizePrice } from '../utils/sizeNormalization';
@@ -30,6 +30,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   );
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
   const [selectedExtras, setSelectedExtras] = useState<string[]>([]);
+  const [selectedDonerExtras, setSelectedDonerExtras] = useState<string[]>([]);
   const [selectedPastaType, setSelectedPastaType] = useState<string>(
     item.isPasta ? pastaTypes[0] : ''
   );
@@ -42,7 +43,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   const [selectedSideDish, setSelectedSideDish] = useState<string>(
     (item.number === 9 || item.number === 10) ? sideDishOptions[0] : ''
   );
-  const [currentStep, setCurrentStep] = useState<'meat' | 'sauce' | 'exclusions' | 'sidedish' | 'saucetype' | 'complete'>(
+  const [currentStep, setCurrentStep] = useState<'meat' | 'sauce' | 'extras' | 'exclusions' | 'sidedish' | 'saucetype' | 'complete'>(
     item.isSauceSelection ? 'saucetype' : 'meat'
   );
   const [showAllSauces, setShowAllSauces] = useState(false);
@@ -62,8 +63,16 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   }, []);
 
   const handleExtraToggle = useCallback((extra: string) => {
-    setSelectedExtras(prev => 
-      prev.includes(extra) 
+    setSelectedExtras(prev =>
+      prev.includes(extra)
+        ? prev.filter(e => e !== extra)
+        : [...prev, extra]
+    );
+  }, []);
+
+  const handleDonerExtraToggle = useCallback((extra: string) => {
+    setSelectedDonerExtras(prev =>
+      prev.includes(extra)
         ? prev.filter(e => e !== extra)
         : [...prev, extra]
     );
@@ -127,8 +136,11 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
       extrasPrice = selectedExtras.length * 1.00;
     }
 
-    return basePrice + extrasPrice;
-  }, [item.price, selectedSize, selectedExtras]);
+    // Add döner extras pricing (1.00€ each)
+    const donerExtrasPrice = selectedDonerExtras.length * 1.00;
+
+    return basePrice + extrasPrice + donerExtrasPrice;
+  }, [item.price, selectedSize, selectedExtras, selectedDonerExtras]);
 
   const handleAddToCart = useCallback(() => {
     // For sauce selection items (item #89), first select sauce type, then size
@@ -144,8 +156,14 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
       return;
     }
 
-    // For meat selection items, check if we need to go to exclusions step
+    // For meat selection items, check if we need to go to extras step
     if (item.isMeatSelection && currentStep === 'sauce') {
+      setCurrentStep('extras');
+      return;
+    }
+
+    // For meat selection items, check if we need to go to exclusions step
+    if (item.isMeatSelection && currentStep === 'extras') {
       setCurrentStep('exclusions');
       return;
     }
@@ -222,6 +240,11 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
 
   const handleBackToSauce = useCallback(() => {
     setCurrentStep('sauce');
+    setSelectedDonerExtras([]); // Reset döner extras when going back
+  }, []);
+
+  const handleBackToExtras = useCallback(() => {
+    setCurrentStep('extras');
     setSelectedExclusions([]); // Reset exclusions when going back
   }, []);
 
@@ -243,10 +266,12 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
         return 'Schritt 1: Fleischauswahl';
       } else if (currentStep === 'sauce') {
         return 'Schritt 2: Soßen wählen (mehrere möglich)';
+      } else if (currentStep === 'extras') {
+        return 'Schritt 3: Extras wählen (optional)';
       } else if (currentStep === 'exclusions') {
-        return 'Schritt 3: Salat anpassen (mehrere möglich)';
+        return 'Schritt 4: Salat anpassen (mehrere möglich)';
       } else if (currentStep === 'sidedish') {
-        return 'Schritt 4: Beilage wählen';
+        return 'Schritt 5: Beilage wählen';
       }
     }
     return item.name;
@@ -259,6 +284,8 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
     if (item.isMeatSelection && currentStep === 'meat') {
       return 'Weiter zur Soßenauswahl';
     } else if (item.isMeatSelection && currentStep === 'sauce') {
+      return 'Weiter zur Extra-Auswahl';
+    } else if (item.isMeatSelection && currentStep === 'extras') {
       return 'Weiter zur Salat-Anpassung';
     } else if ((item.number === 9 || item.number === 10) && item.isMeatSelection && currentStep === 'exclusions') {
       return 'Weiter zur Beilagenauswahl';
@@ -434,6 +461,11 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                 Nr. {item.number} {item.name}
               </p>
             )}
+            {currentStep === 'extras' && (
+              <p className="text-xs sm:text-sm opacity-90 mt-0.5">
+                mit {selectedSauces.length > 0 ? selectedSauces.join(', ') : 'ohne Soße'} - Nr. {item.number} {item.name}
+              </p>
+            )}
             {currentStep === 'exclusions' && (
               <p className="text-xs sm:text-sm opacity-90 mt-0.5">
                 mit {selectedSauces.length > 0 ? selectedSauces.join(', ') : 'ohne Soße'} - Nr. {item.number} {item.name}
@@ -446,11 +478,11 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             )}
           </div>
           <div className="flex items-center gap-2">
-            {item.isMeatSelection && (currentStep === 'sauce' || currentStep === 'exclusions' || currentStep === 'sidedish') && (
+            {item.isMeatSelection && (currentStep === 'sauce' || currentStep === 'extras' || currentStep === 'exclusions' || currentStep === 'sidedish') && (
               <button
-                onClick={currentStep === 'sauce' ? handleBackToMeat : currentStep === 'exclusions' ? handleBackToSauce : handleBackToExclusions}
+                onClick={currentStep === 'sauce' ? handleBackToMeat : currentStep === 'extras' ? handleBackToSauce : currentStep === 'exclusions' ? handleBackToExtras : handleBackToExclusions}
                 className="p-2 hover:bg-light-blue-500 rounded-full transition-colors"
-                title={currentStep === 'sauce' ? "Zurück zur Fleischauswahl" : currentStep === 'exclusions' ? "Zurück zur Soßenauswahl" : "Zurück zur Salat-Anpassung"}
+                title={currentStep === 'sauce' ? "Zurück zur Fleischauswahl" : currentStep === 'extras' ? "Zurück zur Soßenauswahl" : currentStep === 'exclusions' ? "Zurück zur Extra-Auswahl" : "Zurück zur Salat-Anpassung"}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -554,7 +586,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                 <span className="text-xs sm:text-sm font-medium hidden sm:inline">Fleisch</span>
                 <span className="text-xs font-medium sm:hidden">F</span>
               </div>
-              <div className={`w-4 h-px ${currentStep === 'sauce' || currentStep === 'exclusions' || currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
+              <div className={`w-4 h-px ${currentStep === 'sauce' || currentStep === 'extras' || currentStep === 'exclusions' || currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
               <div className={`flex items-center space-x-1 ${currentStep === 'sauce' ? 'text-light-blue-600' : 'text-gray-400'}`}>
                 <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
                   currentStep === 'sauce' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
@@ -564,12 +596,22 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                 <span className="text-xs sm:text-sm font-medium hidden sm:inline">Soße</span>
                 <span className="text-xs font-medium sm:hidden">S</span>
               </div>
+              <div className={`w-4 h-px ${currentStep === 'extras' || currentStep === 'exclusions' || currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
+              <div className={`flex items-center space-x-1 ${currentStep === 'extras' ? 'text-light-blue-600' : 'text-gray-400'}`}>
+                <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
+                  currentStep === 'extras' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
+                }`}>
+                  3
+                </div>
+                <span className="text-xs sm:text-sm font-medium hidden sm:inline">Extras</span>
+                <span className="text-xs font-medium sm:hidden">E</span>
+              </div>
               <div className={`w-4 h-px ${currentStep === 'exclusions' || currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
               <div className={`flex items-center space-x-1 ${currentStep === 'exclusions' ? 'text-light-blue-600' : 'text-gray-400'}`}>
                 <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
                   currentStep === 'exclusions' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
                 }`}>
-                  3
+                  4
                 </div>
                 <span className="text-xs sm:text-sm font-medium hidden sm:inline">Salat</span>
                 <span className="text-xs font-medium sm:hidden">Sa</span>
@@ -581,7 +623,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                     <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
                       currentStep === 'sidedish' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
                     }`}>
-                      4
+                      5
                     </div>
                     <span className="text-xs sm:text-sm font-medium hidden sm:inline">Beilage</span>
                     <span className="text-xs font-medium sm:hidden">B</span>
@@ -769,17 +811,17 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
           )}
 
           {/* Sauce Selection */}
-          {((item.isSpezialitaet && ![81, 82, 564, 565, 566, 567, 568].includes(item.id) && !item.isMeatSelection) ||
+          {((item.isSpezialitaet && ![81, 82, 564, 565, 566, 567, 568].includes(item.id) && !item.isMeatSelection && item.id !== 520) ||
             (item.id >= 564 && item.id <= 568 && item.isSpezialitaet) ||
             (item.isMeatSelection && currentStep === 'sauce') ||
-            [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 74, 75, 76, 77, 78, 79].includes(item.number)) && (
+            [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 61, 62, 74, 75, 76, 77, 78, 79].includes(item.number)) && (
             <div>
               <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
                 {item.id >= 564 && item.id <= 568 ? 'Dressing wählen' : ((item.isMeatSelection && currentStep === 'sauce') || [74, 75, 76, 77, 78, 79].includes(item.number) ? 'Soßen wählen (max. 3)' : [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57].includes(item.number) ? 'Soße wählen' : 'Soße wählen')}
                 {!item.isMeatSelection && ![8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 74, 75, 76, 77, 78, 79].includes(item.number) && ((item.isSpezialitaet && ![81, 82].includes(item.id)) || (item.id >= 564 && item.id <= 568)) ? ' *' : ''}
               </h3>
 
-              {(item.isMeatSelection && currentStep === 'sauce') || [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 74, 75, 76, 77, 78, 79].includes(item.number) ? (
+              {(item.isMeatSelection && currentStep === 'sauce') || [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 61, 62, 74, 75, 76, 77, 78, 79].includes(item.number) ? (
                 // Multiple selection for meat selection items in step 2 and snack items
                 <div className="space-y-2">
                   {getVisibleSauceOptions().map((sauce) => {
@@ -834,7 +876,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
               )}
               
               {/* Show More/Less Button for Sauce Selection in Step 2 and Sucuk items */}
-              {((item.isMeatSelection && currentStep === 'sauce') || [6, 7, 8, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 74, 75, 76, 77, 78, 79].includes(item.number)) && getSauceOptions().length > 3 && (
+              {((item.isMeatSelection && currentStep === 'sauce') || [6, 7, 8, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 61, 62, 74, 75, 76, 77, 78, 79].includes(item.number)) && getSauceOptions().length > 3 && (
                 <div className="mt-4 text-center">
                   <button
                     type="button"
@@ -891,7 +933,38 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             </div>
           )}
 
-          {/* Salad Exclusions - Only show in step 3 for meat selection items */}
+          {/* Döner Extras - Only show in extras step for meat selection items */}
+          {item.isMeatSelection && currentStep === 'extras' && (
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Extras wählen (optional, +1,00€ pro Extra)</h3>
+              <p className="text-xs sm:text-sm text-gray-600 mb-2">Wählen Sie zusätzliche Extras für Ihr Gericht:</p>
+              <div className="space-y-2">
+                {donerExtras.map((extra) => (
+                  <label
+                    key={extra}
+                    className={`flex items-center justify-between p-2 rounded-lg border-2 cursor-pointer transition-all ${
+                      selectedDonerExtras.includes(extra)
+                        ? 'border-light-blue-400 bg-light-blue-50'
+                        : 'border-gray-200 hover:border-light-blue-300'
+                    }`}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        checked={selectedDonerExtras.includes(extra)}
+                        onChange={() => handleDonerExtraToggle(extra)}
+                        className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
+                      />
+                      <span className="font-medium">{extra}</span>
+                    </div>
+                    <span className="text-sm text-gray-600 font-semibold">+1,00 €</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Salad Exclusions - Only show in step 4 for meat selection items */}
           {item.isMeatSelection && currentStep === 'exclusions' && (
             <div>
               <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Salat anpassen (mehrere möglich, optional)</h3>
@@ -977,12 +1050,12 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
 
           {/* Add to Cart Button */}
           <div className="sticky bottom-0 bg-white pt-3 pb-1 border-t">
-            {/* Buttons for Step 2, Step 3, and Step 4 - Side by side */}
-            {item.isMeatSelection && (currentStep === 'sauce' || currentStep === 'exclusions' || currentStep === 'sidedish') ? (
+            {/* Buttons for Step 2, Step 3, Step 4, and Step 5 - Side by side */}
+            {item.isMeatSelection && (currentStep === 'sauce' || currentStep === 'extras' || currentStep === 'exclusions' || currentStep === 'sidedish') ? (
               <div className="flex gap-3">
                 <button
                   type="button"
-                  onClick={currentStep === 'sauce' ? handleBackToMeat : currentStep === 'exclusions' ? handleBackToSauce : handleBackToExclusions}
+                  onClick={currentStep === 'sauce' ? handleBackToMeat : currentStep === 'extras' ? handleBackToSauce : currentStep === 'exclusions' ? handleBackToExtras : handleBackToExclusions}
                   className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 px-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors border border-gray-300"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -995,7 +1068,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                   onClick={handleAddToCart}
                   className="flex-1 bg-light-blue-400 hover:bg-light-blue-500 text-white py-3 px-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors"
                 >
-                  {currentStep === 'sauce' || (currentStep === 'exclusions' && (item.number === 9 || item.number === 10)) ? (
+                  {currentStep === 'sauce' || currentStep === 'extras' || (currentStep === 'exclusions' && (item.number === 9 || item.number === 10)) ? (
                     <>
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
