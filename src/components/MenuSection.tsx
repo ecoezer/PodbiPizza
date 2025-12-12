@@ -75,18 +75,10 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
               </span>
 
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                   <h3 className={`text-lg font-bold ${rippchenSpecial || schnitzelSpecial ? 'text-red-600' : 'text-gray-900'}`}>
                     {item.name}
                   </h3>
-                  {isAlcoholicItem(item.id) && (
-                    <span className="text-xs font-bold px-2 py-0.5 rounded bg-gray-900 text-white flex-shrink-0">
-                      18+
-                    </span>
-                  )}
-                </div>
-
-                <div className="mt-1.5 flex items-center gap-2">
                   <div
                     onClick={() => handleItemClick(item)}
                     className="cursor-pointer"
@@ -106,6 +98,11 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                       <PriceDisplay item={item} specialRippchen={rippchenSpecial} specialSchnitzel={schnitzelSpecial} />
                     )}
                   </div>
+                  {isAlcoholicItem(item.id) && (
+                    <span className="text-xs font-bold px-2 py-0.5 rounded bg-gray-900 text-white flex-shrink-0">
+                      18+
+                    </span>
+                  )}
                 </div>
 
                 {item.description && <p className="text-base text-gray-600 mt-1.5 leading-relaxed">{item.description}</p>}
