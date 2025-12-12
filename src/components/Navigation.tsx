@@ -8,20 +8,18 @@ const Navigation = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const navigationItems = [
-    ['fleischgerichte', 'Drehspieß'],
-    ['grillspezialitaeten', 'Grillspezialitäten'],
-    ['lahmacun', 'Lahmacun'],
-    ['baguette', 'Baguette'],
     ['auflauf', 'Auflauf'],
-    ['pasta', 'Pasta'],
     ['pizza', 'Pizza'],
     ['calzone', 'Calzone'],
+    ['baguette', 'Baguette'],
+    ['lahmacun', 'Lahmacun'],
     ['pide', 'Pide'],
-    ['croques', 'Falafel, Burger & co'],
+    ['croques', 'Falafel Burger'],
     ['schnitzel', 'Schnitzel'],
+    ['pasta', 'Pasta'],
     ['salate', 'Salate'],
-    ['dips', 'Dips & Soßen'],
-    ['alkoholfreie-getraenke', 'Alkoholfreie Getränke'],
+    ['grillspezialitaeten', 'Grillspezialitäten'],
+    ['alkoholfreie-getraenke', 'Getränke'],
     ['alkoholische-getraenke', 'Alkoholische Getränke']
   ];
 
