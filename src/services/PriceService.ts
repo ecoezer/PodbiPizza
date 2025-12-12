@@ -1,4 +1,5 @@
 import { MenuItem, PizzaSize } from '../types';
+import { pizzaExtrasPricing } from '../data/menuItems';
 
 interface OrderItem {
   menuItem: MenuItem;
@@ -15,7 +16,27 @@ export class PriceService {
   }
 
   static calculateExtrasPrice(item: OrderItem): number {
-    return (item.selectedExtras?.length || 0) * this.EXTRA_PRICE;
+    if (!item.selectedExtras || item.selectedExtras.length === 0) {
+      return 0;
+    }
+
+    if (!item.selectedSize) {
+      return (item.selectedExtras.length) * this.EXTRA_PRICE;
+    }
+
+    const sizeName = item.selectedSize.name;
+    let totalExtrasPrice = 0;
+
+    item.selectedExtras.forEach(extra => {
+      const extraPricing = pizzaExtrasPricing[extra as keyof typeof pizzaExtrasPricing];
+      if (extraPricing) {
+        totalExtrasPrice += extraPricing[sizeName as '24cm' | '28cm' | '40cm'] || this.EXTRA_PRICE;
+      } else {
+        totalExtrasPrice += this.EXTRA_PRICE;
+      }
+    });
+
+    return totalExtrasPrice;
   }
 
   static calculateItemPrice(item: OrderItem): number {

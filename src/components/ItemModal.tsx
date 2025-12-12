@@ -3,7 +3,7 @@ import { X, Plus, ShoppingCart, AlertTriangle, Info } from 'lucide-react';
 import { MenuItem, PizzaSize } from '../types';
 import {
   wunschPizzaIngredients, pizzaExtras, pastaTypes,
-  sauceTypes, saladSauceTypes, beerTypes, saladExclusionOptions, sideDishOptions, drehspiessaSauceTypes, snackSauceTypes, pizzabroetchenSauceTypes, sauceBottleTypes
+  sauceTypes, saladSauceTypes, beerTypes, saladExclusionOptions, sideDishOptions, drehspiessaSauceTypes, snackSauceTypes, pizzabroetchenSauceTypes, sauceBottleTypes, pizzaExtrasPricing
 } from '../data/menuItems';
 import { parseAllergens } from '../data/allergenData';
 
@@ -99,7 +99,22 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
 
   const calculatePrice = useCallback(() => {
     let basePrice = selectedSize ? selectedSize.price : item.price;
-    const extrasPrice = selectedExtras.length * 1.00;
+    let extrasPrice = 0;
+
+    if (selectedExtras.length > 0 && selectedSize) {
+      const sizeName = selectedSize.name;
+      selectedExtras.forEach(extra => {
+        const extraPricing = pizzaExtrasPricing[extra as keyof typeof pizzaExtrasPricing];
+        if (extraPricing) {
+          extrasPrice += extraPricing[sizeName as '24cm' | '28cm' | '40cm'] || 1.00;
+        } else {
+          extrasPrice += 1.00;
+        }
+      });
+    } else {
+      extrasPrice = selectedExtras.length * 1.00;
+    }
+
     return basePrice + extrasPrice;
   }, [item.price, selectedSize, selectedExtras]);
 

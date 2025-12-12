@@ -46,7 +46,7 @@ export const sideDishOptions = ['Pommes frites', 'Reis'] as const;
 // Wunsch Pizza ingredients
 export const wunschPizzaIngredients = [
   'Ananas', 'Artischocken', 'Barbecuesauce', 'Brokkoli', 'Champignons frisch',
-  'Chili-Cheese-Soße', 'Edamer', 'Formfleisch-Vorderschinken', 'Gewürzgurken',
+  'Chili-Cheese-Soße', 'Doppelt Käse', 'Formfleisch-Vorderschinken', 'Gewürzgurken',
   'Gorgonzola', 'Gyros', 'Hirtenkäse', 'Hähnchenbrust', 'Jalapeños',
   'Knoblauchwurst', 'Mais', 'Milde Peperoni', 'Mozzarella', 'Oliven', 'Paprika',
   'Parmaputenschinken', 'Peperoni, scharf', 'Remoulade', 'Rindermett', 'Rindersalami',
@@ -54,13 +54,40 @@ export const wunschPizzaIngredients = [
   'Würstchen', 'Zwiebeln', 'ohne Zutat'
 ] as const;
 
-// Pizza extras (all price 1.00€)
+// Pizza extras with size-dependent pricing
 export const pizzaExtras = [
-  'Ananas', 'Brokkoli', 'Champignons frisch', 'Edamer', 'Gewürzgurken',
+  'Ananas', 'Brokkoli', 'Champignons frisch', 'Doppelt Käse', 'Gewürzgurken',
   'Hähnchenbrust', 'Jalapeños', 'Mais', 'Mozzarella', 'Oliven', 'Paprika',
   'Peperoni mild', 'Putenschinken', 'Rindersalami', 'Sauce Hollandaise', 'Spinat',
-  'Sucuk', 'Tomaten', 'Zwiebeln'
+  'Sucuk', 'Tomaten', 'Zwiebeln', 'Dönerfleisch Kalb', 'Dönerfleisch Hähnchen', 'Weichkäse', 'Tunfisch'
 ] as const;
+
+// Pizza extras pricing by size
+export const pizzaExtrasPricing: { [key: string]: { '24cm': number; '28cm': number; '40cm': number } } = {
+  'Ananas': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Brokkoli': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Champignons frisch': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Doppelt Käse': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Gewürzgurken': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Hähnchenbrust': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Jalapeños': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Mais': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Mozzarella': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Oliven': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Paprika': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Peperoni mild': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Putenschinken': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Rindersalami': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Sauce Hollandaise': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Spinat': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Sucuk': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Tomaten': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Zwiebeln': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Dönerfleisch Kalb': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Dönerfleisch Hähnchen': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Weichkäse': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 },
+  'Tunfisch': { '24cm': 1.00, '28cm': 1.50, '40cm': 2.50 }
+} as const;
 
 // Pasta
 export const pasta: readonly MenuItem[] = [
