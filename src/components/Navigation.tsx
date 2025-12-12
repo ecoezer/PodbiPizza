@@ -8,6 +8,7 @@ const Navigation = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const navigationItems = [
+    ['fleischgerichte', 'Drehspieß'],
     ['auflauf', 'Auflauf'],
     ['pizza', 'Pizza'],
     ['calzone', 'Calzone'],
@@ -19,6 +20,7 @@ const Navigation = () => {
     ['pasta', 'Pasta'],
     ['salate', 'Salate'],
     ['grillspezialitaeten', 'Grillspezialitäten'],
+    ['dips', 'Dips & Soßen'],
     ['alkoholfreie-getraenke', 'Getränke'],
     ['alkoholische-getraenke', 'Alkoholische Getränke']
   ];
