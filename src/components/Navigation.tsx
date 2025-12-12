@@ -168,7 +168,7 @@ const Navigation = () => {
                 <button
                   key={id}
                   onClick={() => handleItemClick(id)}
-                  className={`flex-shrink-0 px-4.5 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap flex items-center gap-1.5 ${
+                  className={`flex-shrink-0 px-4 py-1.5 rounded-md text-xs font-medium transition-all duration-200 whitespace-nowrap flex items-center gap-1.5 ${
                     isActive
                       ? 'bg-gray-900 text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
