@@ -10,13 +10,22 @@ export const pizzaSizes = [
 // Pasta types (simple string arrays)
 export const pastaTypes = ['Spaghetti', 'Maccheroni'] as const;
 
-// Sauce types grouped by use case
+// Sauce types grouped by use case (for Baguette)
+export const baguetteSauceTypes = [
+  'Tzatziki', 'Chili-Sauce', 'Kräutersoße', 'Curry Sauce',
+  'Ketchup', 'Mayonnaise', 'ohne Soße'
+] as const;
+
 export const sauceTypes = [
   'Tzatziki', 'Chili-Sauce', 'Kräutersoße', 'Curry Sauce',
   'Ketchup', 'Mayonnaise', 'ohne Soße'
 ] as const;
 
-export const saladSauceTypes = ['Joghurt-Dressing', 'Balsamico-Dressing', 'Essig-Öl-Dressing'] as const;
+// Granatapfel-Sirup options for salads
+export const granatapfelOptions = ['mit Granatapfel-Sirup', 'ohne Granatapfel-Sirup'] as const;
+
+// Salat sauce types - now same as döner sauces
+export const saladSauceTypes = ['Zaziki', 'Scharfer Sauce', 'Ezme', 'Currysauce', 'Cocktailsauce', 'ohne Soße'] as const;
 export const beerTypes = ['Becks', 'Krombacher'] as const;
 
 // Drehspieß sauce options (max 3 selectable) - These are the standard sauces for all döner items
@@ -33,6 +42,7 @@ export const sauceBottleTypes = ['Zaziki', 'Scharfer Sauce', 'Ezme', 'Currysauce
 
 // Salad exclusion options for Drehspieß items
 export const saladExclusionOptions = [
+  'Ohne Beilagen bzw. Salate',
   'ohne Eisbergsalat',
   'ohne Zwiebel',
   'ohne Rotkohl',
@@ -64,7 +74,7 @@ export const pizzaExtras = [
 ] as const;
 
 // Döner extras (flat 1€ price for all)
-export const donerExtras = ['Weichkäse', 'Hollandaise Sauce'] as const;
+export const donerExtras = ['Weichkäse', 'Hollandaise Sauce', 'Jalapeños'] as const;
 
 // Pizza extras pricing by size
 export const pizzaExtrasPricing: { [key: string]: { '24cm': number; '28cm': number; '40cm': number } } = {
@@ -102,17 +112,17 @@ export const pasta: readonly MenuItem[] = [
 
 // Pide
 export const pide: readonly MenuItem[] = [
-  { id: 570, number: 70, name: "Pide Döner", description: "mit Dönerfleisch & Pizzakäse", price: 11.00, allergens: "Aa, G, I, M, 14, 17, 18" },
-  { id: 571, number: 71, name: "Pide Sucuk", description: "mit Knoblauchwurst & Ei", price: 11.00, allergens: "Aa, B, G, I, K, M, 3, 6, 9, 14, 17, 18" },
-  { id: 572, number: 72, name: "Pide Spinat", description: "mit Spinat, Ei & Weichkäse", price: 10.50, allergens: "Aa, I, K" },
-  { id: 573, number: 73, name: "Pide Gouda", description: "mit Pizzakäse", price: 9.50, allergens: "Aa, I" }
+  { id: 570, number: 70, name: "Pide Döner", description: "mit Dönerfleisch & Pizzakäse", price: 11.00, allergens: "Aa, G, I, M, 14, 17, 18", isPide: true },
+  { id: 571, number: 71, name: "Pide Sucuk", description: "mit Knoblauchwurst & Ei", price: 11.00, allergens: "Aa, B, G, I, K, M, 3, 6, 9, 14, 17, 18", isPide: true },
+  { id: 572, number: 72, name: "Pide Spinat", description: "mit Spinat, Ei & Weichkäse", price: 10.50, allergens: "Aa, I, K", isPide: true },
+  { id: 573, number: 73, name: "Pide Gouda", description: "mit Pizzakäse", price: 9.50, allergens: "Aa, I", isPide: true }
 ];
 
 // Falafel, Burger & co
 export const croques: readonly MenuItem[] = [
-  { id: 675, number: 75, name: "Falafel-Tasche", description: "mit Salat & Sauce", price: 7.50, allergens: "Aa, E, G" },
-  { id: 676, number: 76, name: "Falafel-Dürüm", description: "mit Salat & Sauce", price: 8.50, allergens: "Aa, E, G" },
-  { id: 677, number: 77, name: "Falafel-Teller", description: "mit 6 Falafelstücken, Pommes, gemischtem Salat, Krautsalat & Sauce", price: 11.00, allergens: "Aa, E, G" },
+  { id: 675, number: 75, name: "Falafel-Tasche", description: "mit Salat & Sauce", price: 7.50, allergens: "Aa, E, G", isFalafel: true },
+  { id: 676, number: 76, name: "Falafel-Dürüm", description: "mit Salat & Sauce", price: 8.50, allergens: "Aa, E, G", isFalafel: true },
+  { id: 677, number: 77, name: "Falafel-Teller", description: "mit 6 Falafelstücken, Pommes, gemischtem Salat, Krautsalat & Sauce", price: 11.00, allergens: "Aa, E, G", isFalafel: true },
   { id: 678, number: 78, name: "Chicken Nuggets", description: "mit 4 Stück & Pommes", price: 6.50, allergens: "Ao, I, 8.2" },
   { id: 679, number: 79, name: "Chicken Nuggets Teller", description: "mit 6 Stück, Pommes, gemischtem Salat, Krautsalat & Sauce", price: 11.00, allergens: "Ao, I, 8.2" },
   { id: 680, number: 80, name: "Currywurst", description: "mit Geflügelcurrywurst, Pommes & Currysauce", price: 8.50, allergens: "Ao, G, I, K, 6, 8.2, 9, 9.I, 17" },
@@ -125,7 +135,6 @@ export const croques: readonly MenuItem[] = [
   { id: 687, number: 86, name: "Pommes Klein", description: "", price: 3.50 },
   { id: 688, number: 87, name: "Sigara Börek", description: "mit 5 Stück", price: 6.50, allergens: "Aa, I" },
   { id: 689, number: 88, name: "Sigara Börek Menü", description: "mit 5 Stück, Salat & Sauce", price: 9.00, allergens: "Aa, I" },
-  { id: 691, number: "89a", name: "Ketchup, Mayonnaise", description: "", price: 0.50 },
   { id: 692, number: "M1", name: "Hamburger Menü", description: "Hamburger, Pommes & Cola (0,33l)", price: 10.50, allergens: "Aa, B, G, 3, 4, 18" },
   { id: 693, number: "M2", name: "Döner Menü", description: "Dönerfleisch (Hähnchen oder Rind), Pommes & Cola (0,33l)", price: 13.50, allergens: "G, I, M, 14, 17, 18, 3, 4" },
   { id: 694, number: "M3", name: "Döner-Burger Menü", description: "Döner-Burger, Pommes & Cola (0,33l)", price: 12.50, allergens: "Aa, G, I, M, 14, 17, 18, 3, 4" }
@@ -185,7 +194,8 @@ export const dips: readonly MenuItem[] = [
     { name: '125g', price: 2.50, description: '125g' },
     { name: '250g', price: 3.50, description: '250g' }
   ]},
-  { id: 691, number: "89a", name: "Ketchup, Mayonnaise", description: "", price: 0.50 }
+  { id: 691, number: "89a", name: "Ketchup", description: "", price: 0.50 },
+  { id: 6911, number: "89b", name: "Mayonnaise", description: "", price: 0.50 }
 ];
 
 // Alkoholfreie Getränke
@@ -245,16 +255,16 @@ export const lahmacun: readonly MenuItem[] = [
 
 // Baguette
 export const baguette: readonly MenuItem[] = [
-  { id: 607, number: 55, name: "Schinken", description: "mit Geflügelformschinken", price: 8.50, allergens: "Aa, B, I, G, 6, 9, 9.I, 17" },
-  { id: 608, number: 56, name: "Salami", description: "mit Geflügelsalami", price: 8.50, allergens: "Aa, B, I, G, 6, 9, 9.I" },
-  { id: 609, number: 57, name: "Bomba", description: "mit Geflügelsalami & Peperoni", price: 9.00, allergens: "Aa, B, I, G, 6, 9, 9.I" },
-  { id: 610, number: 58, name: "Thunfisch", description: "mit Thunfisch & Zwiebeln", price: 9.00, allergens: "Aa, F, I" },
-  { id: 611, number: 59, name: "Hawaii", description: "mit Geflügelformschinken & Ananas", price: 9.00, allergens: "Aa, B, I, G, 6, 9, 9.I, 17" },
-  { id: 612, number: 60, name: "Sucuk", description: "mit Knoblauchwurst & Weichkäse", price: 10.00, allergens: "Aa, B, G, I, M, 3, 6, 9, 14, 17, 18" },
-  { id: 613, number: 61, name: "Döner", description: "mit Kalbdöner & Sauce", price: 10.00, isSpezialitaet: true, allergens: "Aa, G, I, M, 14, 17, 18" },
-  { id: 614, number: 62, name: "Hähnchendöner", description: "mit Hähnchendönerfleisch & Sauce", price: 10.00, isSpezialitaet: true, allergens: "Aa, G, I, M, 14, 17, 18" },
-  { id: 615, number: 63, name: "Hähnchenbrust", description: "mit Hähnchenbrustfilet", price: 10.00, allergens: "Aa, I" },
-  { id: 616, number: 64, name: "Vegetarisch", description: "mit Tomaten & Weichkäse", price: 8.50, allergens: "Aa, I" }
+  { id: 607, number: 55, name: "Schinken", description: "mit Geflügelformschinken", price: 8.50, allergens: "Aa, B, I, G, 6, 9, 9.I, 17", isBaguette: true },
+  { id: 608, number: 56, name: "Salami", description: "mit Geflügelsalami", price: 8.50, allergens: "Aa, B, I, G, 6, 9, 9.I", isBaguette: true },
+  { id: 609, number: 57, name: "Bomba", description: "mit Geflügelsalami & Peperoni", price: 9.00, allergens: "Aa, B, I, G, 6, 9, 9.I", isBaguette: true },
+  { id: 610, number: 58, name: "Thunfisch", description: "mit Thunfisch & Zwiebeln", price: 9.00, allergens: "Aa, F, I", isBaguette: true },
+  { id: 611, number: 59, name: "Hawaii", description: "mit Geflügelformschinken & Ananas", price: 9.00, allergens: "Aa, B, I, G, 6, 9, 9.I, 17", isBaguette: true },
+  { id: 612, number: 60, name: "Sucuk", description: "mit Knoblauchwurst & Weichkäse", price: 10.00, allergens: "Aa, B, G, I, M, 3, 6, 9, 14, 17, 18", isBaguette: true },
+  { id: 613, number: 61, name: "Döner", description: "mit Kalbdöner & Sauce", price: 10.00, isSpezialitaet: true, allergens: "Aa, G, I, M, 14, 17, 18", isBaguette: true },
+  { id: 614, number: 62, name: "Hähnchendöner", description: "mit Hähnchendönerfleisch & Sauce", price: 10.00, isSpezialitaet: true, allergens: "Aa, G, I, M, 14, 17, 18", isBaguette: true },
+  { id: 615, number: 63, name: "Hähnchenbrust", description: "mit Hähnchenbrustfilet", price: 10.00, allergens: "Aa, I", isBaguette: true },
+  { id: 616, number: 64, name: "Vegetarisch", description: "mit Tomaten & Weichkäse", price: 8.50, allergens: "Aa, I", isBaguette: true }
 ];
 
 // Calzone sizes
