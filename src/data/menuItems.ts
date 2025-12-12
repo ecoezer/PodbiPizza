@@ -244,7 +244,7 @@ export const alkoholfreieGetraenke: readonly MenuItem[] = [
   { id: 830, number: "", name: "Sprite", description: "1,0l", price: 3.50, pfand: 0.25, allergens: "18" },
   { id: 831, number: "", name: "Ayran", description: "0,25l", price: 2.00, allergens: "I" },
   { id: 836, number: "", name: "Wasser still", description: "0,5l", price: 2.00, pfand: 0.25 },
-  { id: 837, number: "", name: "Wasser mit Kohlensäure", description: "0,5l", price: 2.50, pfand: 0.25 },
+  { id: 837, number: "", name: "Wasser mit Kohlensäure", description: "0,5l", price: 2.00, pfand: 0.25 },
   { id: 838, number: "", name: "Fritz Limo Orange", description: "3,3l", price: 3.30, pfand: 0.08 },
   { id: 839, number: "", name: "Fritz Limo Zitrone", description: "3,3l", price: 3.30, pfand: 0.08 },
   { id: 822, number: "", name: "Uludag", description: "0,33l", price: 2.50, pfand: 0.25 },
@@ -252,7 +252,7 @@ export const alkoholfreieGetraenke: readonly MenuItem[] = [
   { id: 835, number: "", name: "Uludag Orange", description: "0,33l", price: 2.50, pfand: 0.25 },
   { id: 833, number: "", name: "Hot Blood Eistee Pfirsich", description: "0,33l", price: 2.50, pfand: 0.25 },
   { id: 834, number: "", name: "Fuze Tea Zitrone", description: "0,33l", price: 2.50, pfand: 0.25 },
-  { id: 840, number: "", name: "Capri-Sonne", description: "1,5l", price: 1.50 }
+  { id: 840, number: "", name: "Capri-Sonne", description: "0,25l", price: 1.50 }
 ];
 
 // Alkoholische Getränke
