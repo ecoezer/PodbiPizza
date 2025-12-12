@@ -153,7 +153,7 @@ const Navigation = () => {
           {/* Navigation Items */}
           <div
             ref={scrollContainerRef}
-            className="flex items-center justify-start gap-2 overflow-x-auto scrollbar-hide flex-1 px-2"
+            className="flex items-center justify-start gap-1.5 overflow-x-auto scrollbar-hide flex-1 px-2"
             style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
@@ -168,7 +168,7 @@ const Navigation = () => {
                 <button
                   key={id}
                   onClick={() => handleItemClick(id)}
-                  className={`flex-shrink-0 px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap flex items-center gap-2 ${
+                  className={`flex-shrink-0 px-4.5 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap flex items-center gap-1.5 ${
                     isActive
                       ? 'bg-gray-900 text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
