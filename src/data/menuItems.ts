@@ -139,8 +139,8 @@ export const nachtisch: readonly MenuItem[] = [
   { id: 951, number: 131, name: "Hausgemachtes Tiramisu", description: "Stückpreis", price: 4.20 },
   { id: 952, number: 132, name: "Erdbeer-Spaghetti-Eis", description: "", price: 3.90 },
   { id: 953, number: 133, name: "Linsensuppe mit Brotbeilage", description: "", price: 5.00 },
-  { id: 954, number: 134, name: "Großes Baklava-Dreieck (Muska)", description: "Stückpreis", price: 2.50 },
-  { id: 955, number: 135, name: "Normales Baklava-Viereck mit Pistazien", description: "Stückpreis", price: 1.50 }
+  { id: 954, number: 134, name: "Baklava-Dreieck (Muska)", description: "Stückpreis", price: 2.50 },
+  { id: 955, number: 135, name: "Baklava-Viereck mit Pistazien", description: "Stückpreis", price: 1.50 }
 ];
 
 // Pide
