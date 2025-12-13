@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import Navigation from './components/Navigation';
 import OrderForm from './components/OrderForm';
 import SearchBar from './components/SearchBar';
+import CartNotification from './components/notifications/CartNotification';
 import {
   salads,
   dips,
@@ -65,6 +66,8 @@ function App() {
   const [cartAnimation, setCartAnimation] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationItemName, setNotificationItemName] = useState('');
 
   // Responsive updates
   useEffect(() => {
@@ -92,6 +95,8 @@ function App() {
   const memoizedAddItem = useCallback((menuItem, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedExclusions, selectedSideDish) => {
     addItem(menuItem, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedExclusions, selectedSideDish);
     triggerCartAnimation();
+    setNotificationItemName(menuItem.name);
+    setShowNotification(true);
   }, [addItem, triggerCartAnimation]);
   const memoizedRemoveItem = useCallback((id, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedExclusions, selectedSideDish) =>
     removeItem(id, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedExclusions, selectedSideDish), [removeItem]);
@@ -102,6 +107,11 @@ function App() {
   // Mobile cart toggling
   const toggleMobileCart = useCallback(() => setShowMobileCart(prev => !prev), []);
   const closeMobileCart = useCallback(() => setShowMobileCart(false), []);
+
+  // Notification close handler
+  const closeNotification = useCallback(() => {
+    setShowNotification(false);
+  }, []);
 
   // Mobile cart close on outside click
   useEffect(() => {
@@ -157,6 +167,13 @@ function App() {
   // Render helpers are inlined for brevity
   return (
     <div className='min-h-dvh bg-gray-50'>
+      {showNotification && (
+        <CartNotification
+          itemName={notificationItemName}
+          onClose={closeNotification}
+        />
+      )}
+
       <div className='fixed top-0 left-0 right-0 z-50 bg-white shadow-sm'>
         <div className="bg-white py-3">
           <div className="container mx-auto px-4 max-w-7xl lg:pr-80 flex items-center gap-4">
