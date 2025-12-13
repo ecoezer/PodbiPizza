@@ -10,7 +10,7 @@ const CartNotification: React.FC<CartNotificationProps> = ({ itemName, onClose }
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose();
-    }, 1500);
+    }, 2500);
 
     return () => clearTimeout(timer);
   }, [onClose]);
