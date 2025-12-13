@@ -476,11 +476,23 @@ const OrderForm: React.FC<OrderFormProps> = ({
                     </div>
                   )}
 
-                  {item.selectedExtras && item.selectedExtras.length > 0 && (
-                    <div className="text-xs text-gray-600">
-                      Extras: {item.selectedExtras.join(', ')} (+{(item.selectedExtras.length * 1.00).toFixed(2)}€)
-                    </div>
-                  )}
+                  {item.selectedExtras && item.selectedExtras.length > 0 && (() => {
+                    const priceServiceItem = {
+                      menuItem: item.menuItem,
+                      quantity: item.quantity,
+                      selectedSize: item.selectedSize ? {
+                        name: item.selectedSize.name,
+                        price: item.selectedSize.price
+                      } : undefined,
+                      selectedExtras: item.selectedExtras || []
+                    };
+                    const extrasPrice = PriceService.calculateExtrasPrice(priceServiceItem);
+                    return (
+                      <div className="text-xs text-gray-600">
+                        Extras: {item.selectedExtras.join(', ')} (+{extrasPrice.toFixed(2).replace('.', ',')}€)
+                      </div>
+                    );
+                  })()}
                 </div>
                 
                 <div className="flex items-center justify-between pt-2 border-t border-gray-100">
