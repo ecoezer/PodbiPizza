@@ -7,6 +7,7 @@ import {
 } from '../data/menuItems';
 import { parseAllergens } from '../data/allergenData';
 import { getSizePrice } from '../utils/sizeNormalization';
+import OrderConfirmationModal from './modal/OrderConfirmationModal';
 
 interface ItemModalProps {
   item: MenuItem;
@@ -55,6 +56,8 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   const [selectedBurgerSaladExclusions, setSelectedBurgerSaladExclusions] = useState<string[]>([]);
   const [selectedBurgerSauce, setSelectedBurgerSauce] = useState<string>('');
   const [selectedBurgerExtras, setSelectedBurgerExtras] = useState<string[]>([]);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [confirmationPrice, setConfirmationPrice] = useState(0);
 
   const handleIngredientToggle = useCallback((ingredient: string) => {
     setSelectedIngredients(prev => {
@@ -243,7 +246,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
     if (item.isMeatSelection && currentStep === 'exclusions') {
       // Item 88 doesn't have extras, so add directly
       if (item.number === 88) {
-        // Will add to cart
+        // Will show confirmation
       } else {
         setCurrentStep('extras');
         return;
@@ -262,33 +265,11 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
       return;
     }
 
-    // For burgers, combine selections into appropriate format
-    let finalSauce = '';
-    let finalExclusions: string[] = [];
-    let finalExtras: string[] = [];
-
-    if (item.isBurger) {
-      finalSauce = selectedBurgerSauce;
-      finalExclusions = selectedBurgerSaladExclusions;
-      finalExtras = selectedBurgerExtras;
-    } else {
-      finalSauce = (selectedSauces.length > 0 ? selectedSauces.join(', ') : selectedSauce) || selectedMeatType || undefined;
-      finalExclusions = selectedExclusions;
-      finalExtras = selectedExtras;
-    }
-
-    onAddToOrder(
-      item,
-      selectedSize,
-      selectedIngredients,
-      finalExtras,
-      selectedPastaType || undefined,
-      finalSauce,
-      finalExclusions,
-      selectedSideDish || undefined
-    );
-    onClose();
-  }, [item, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedSauces, selectedMeatType, selectedExclusions, selectedSideDish, selectedBurgerSauce, selectedBurgerSaladExclusions, selectedBurgerExtras, onAddToOrder, onClose, currentStep, showAgeWarning]);
+    // Store price and show confirmation modal
+    const price = calculatePrice();
+    setConfirmationPrice(price);
+    setShowConfirmationModal(true);
+  }, [item, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedSauces, selectedMeatType, selectedExclusions, selectedSideDish, selectedBurgerSauce, selectedBurgerSaladExclusions, selectedBurgerExtras, currentStep, showAgeWarning, calculatePrice]);
 
   const getSauceOptions = useCallback(() => {
     // Drehspieß items use special sauce types
@@ -554,18 +535,10 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
               </button>
               <button
                 onClick={() => {
-                  onAddToOrder(
-                    item,
-                    selectedSize,
-                    selectedIngredients,
-                    selectedExtras,
-                    selectedPastaType || undefined,
-                    (selectedSauces.length > 0 ? selectedSauces.join(', ') : selectedSauce) || selectedMeatType || undefined,
-                    selectedExclusions,
-                    selectedSideDish || undefined
-                  );
                   setShowAgeWarning(false);
-                  onClose();
+                  const price = calculatePrice();
+                  setConfirmationPrice(price);
+                  setShowConfirmationModal(true);
                 }}
                 className="flex-1 bg-light-blue-400 hover:bg-light-blue-500 text-white py-3 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
               >
@@ -1523,6 +1496,54 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
           </div>
         </div>
       </div>
+
+      {/* Order Confirmation Modal */}
+      <OrderConfirmationModal
+        item={item}
+        isOpen={showConfirmationModal}
+        selectedSize={selectedSize}
+        selectedIngredients={selectedIngredients}
+        selectedExtras={selectedExtras}
+        selectedPastaType={selectedPastaType}
+        selectedSauce={
+          item.isBurger
+            ? selectedBurgerSauce
+            : selectedSauces.length > 0
+            ? selectedSauces.join(', ')
+            : selectedSauce || selectedMeatType
+        }
+        selectedExclusions={
+          item.isBurger ? selectedBurgerSaladExclusions : selectedExclusions
+        }
+        selectedSideDish={selectedSideDish}
+        totalPrice={confirmationPrice}
+        onConfirm={(quantity) => {
+          const finalExtras = item.isBurger ? selectedBurgerExtras : selectedExtras;
+          const finalExclusions = item.isBurger ? selectedBurgerSaladExclusions : selectedExclusions;
+
+          for (let i = 0; i < quantity; i++) {
+            onAddToOrder(
+              item,
+              selectedSize,
+              selectedIngredients,
+              finalExtras,
+              selectedPastaType || undefined,
+              item.isBurger
+                ? selectedBurgerSauce
+                : selectedSauces.length > 0
+                ? selectedSauces.join(', ')
+                : selectedSauce || selectedMeatType || undefined,
+              finalExclusions,
+              selectedSideDish || undefined
+            );
+          }
+          setShowConfirmationModal(false);
+          onClose();
+        }}
+        onCancel={() => {
+          setShowConfirmationModal(false);
+        }}
+      />
     </div>
   );
 };

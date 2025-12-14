@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { ShoppingCart, ChefHat } from 'lucide-react';
 import { MenuItem, PizzaSize } from '../types';
 import ItemModal from './ItemModal';
+import OrderConfirmationModal from './modal/OrderConfirmationModal';
 import PriceDisplay from './menu/PriceDisplay';
 import MenuItemBadges from './menu/MenuItemBadges';
 import { needsConfiguration, isRippchenSpecial, isSchnitzelSpecial, isAlcoholicItem } from '../utils/itemChecks';
@@ -29,6 +30,8 @@ interface MenuSectionProps {
 
 const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle, items, bgColor = 'bg-light-blue-400', onAddToOrder, onModalStateChange }) => {
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
+  const [showSimpleItemConfirmation, setShowSimpleItemConfirmation] = useState(false);
+  const [simpleItemForConfirmation, setSimpleItemForConfirmation] = useState<MenuItem | null>(null);
   const today = new Date().getDay();
 
   const handleItemClick = useCallback((item: MenuItem) => {
@@ -36,7 +39,8 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
       setSelectedItem(item);
       onModalStateChange?.(true);
     } else {
-      onAddToOrder(item);
+      setSimpleItemForConfirmation(item);
+      setShowSimpleItemConfirmation(true);
     }
   }, [onAddToOrder, onModalStateChange]);
 
@@ -137,6 +141,24 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
           isOpen={!!selectedItem}
           onClose={closeModal}
           onAddToOrder={onAddToOrder}
+        />
+      )}
+
+      {simpleItemForConfirmation && (
+        <OrderConfirmationModal
+          item={simpleItemForConfirmation}
+          isOpen={showSimpleItemConfirmation}
+          totalPrice={simpleItemForConfirmation.price}
+          onConfirm={(quantity) => {
+            for (let i = 0; i < quantity; i++) {
+              onAddToOrder(simpleItemForConfirmation);
+            }
+            setShowSimpleItemConfirmation(false);
+            setSimpleItemForConfirmation(null);
+          }}
+          onCancel={() => {
+            setShowSimpleItemConfirmation(false);
+          }}
         />
       )}
     </section>
