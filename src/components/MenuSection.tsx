@@ -48,8 +48,8 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
   if (!items.length) return null;
 
   return (
-    <section className={`mb-6 ${title === 'Fleischgerichte' ? 'mt-8' : ''}`}>
-      <header className="mb-3">
+    <section className={`mb-3 ${title === 'Fleischgerichte' ? 'mt-8' : ''}`}>
+      <header className="mb-2">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
           <span className="text-lg text-gray-600">{items.length} Artikel</span>
@@ -58,7 +58,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
         {subTitle && <p className="text-xs text-gray-500 mt-1 italic">{subTitle}</p>}
       </header>
 
-      <div className="space-y-3 pb-2">
+      <div className="space-y-1.5">
         {items.map((item, i) => {
           const rippchenSpecial = isRippchenSpecial(item.id, today);
           const schnitzelSpecial = isSchnitzelSpecial(item.id, today);
@@ -68,47 +68,44 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
           return (
             <div
               key={`${item.id}-${i}`}
-              className="menu-card-animated hover:bg-gray-100 rounded-3xl shadow-md hover:shadow-lg transition-all p-2.5 flex items-start gap-2.5 border border-gray-100"
+              className="menu-card-animated hover:bg-gray-50 rounded-xl shadow-sm hover:shadow-md transition-all p-1.5 flex items-start gap-1.5 border border-gray-100"
             >
-              <span className="w-9 h-9 bg-light-blue-100 text-light-blue-600 rounded-full flex justify-center items-center font-bold text-sm flex-shrink-0 mt-1">
+              <span className="w-7 h-7 bg-light-blue-50 text-light-blue-600 rounded-full flex justify-center items-center font-bold text-xs flex-shrink-0">
                 {item.number}
               </span>
 
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <h3 className={`text-lg font-bold ${rippchenSpecial || schnitzelSpecial ? 'text-red-600' : 'text-gray-900'}`}>
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <h3 className={`text-sm font-bold ${rippchenSpecial || schnitzelSpecial ? 'text-red-600' : 'text-gray-900'}`}>
                     {item.name}
                   </h3>
                   <div
                     onClick={() => handleItemClick(item)}
-                    className="cursor-pointer"
+                    className="cursor-pointer flex-shrink-0"
                     role="button"
                     tabIndex={0}
                     onKeyDown={(e) => e.key === 'Enter' && handleItemClick(item)}
                     aria-label="Hinzufügen"
                   >
                     {hasSizes ? (
-                      <div className="flex items-center gap-1">
-                        <span className="text-xs text-gray-600">ab</span>
-                        <div className="sm:px-2 sm:py-1 px-1 py-0.5 rounded-full hover:opacity-90 hover:scale-105 transition-all" style={{ backgroundColor: '#8fa9b3' }}>
-                          <div className="sm:text-sm text-[8px] font-bold text-white">{formatPriceWithCurrency(minPrice)}</div>
-                        </div>
+                      <div className="px-1 py-0.5 rounded-lg hover:opacity-90 hover:scale-103 transition-all" style={{ backgroundColor: '#8fa9b3' }}>
+                        <div className="text-xs font-bold text-white">{formatPriceWithCurrency(minPrice)}</div>
                       </div>
                     ) : (
                       <PriceDisplay item={item} specialRippchen={rippchenSpecial} specialSchnitzel={schnitzelSpecial} />
                     )}
                   </div>
                   {isAlcoholicItem(item.id) && (
-                    <span className="text-xs font-bold px-2 py-0.5 rounded bg-gray-900 text-white flex-shrink-0">
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-gray-900 text-white flex-shrink-0">
                       18+
                     </span>
                   )}
                 </div>
 
-                {item.description && <p className="text-sm text-gray-600 mt-0.5 leading-snug">{item.description}</p>}
-                {item.allergens && <p className="text-xs text-gray-500 mt-0.5"><strong>Allergene:</strong> <span className="italic">{item.allergens}</span></p>}
+                {item.description && <p className="text-xs text-gray-600 leading-tight">{item.description}</p>}
+                {item.allergens && <p className="text-[11px] text-gray-500"><strong>Allergene:</strong> <span className="italic">{item.allergens}</span></p>}
                 {item.pfand && item.pfand > 0 && (
-                  <p className="text-xs text-gray-600 mt-0.5 font-medium">
+                  <p className="text-[11px] text-gray-600 font-medium">
                     zzgl. {formatPriceWithCurrency(item.pfand)} Pfand
                   </p>
                 )}
@@ -123,14 +120,11 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
 
               <button
                 onClick={() => handleItemClick(item)}
-                className="group relative flex items-center justify-center bg-light-blue-400 text-white w-10 h-10 rounded-full hover:bg-light-blue-500 transition-all transform hover:scale-110 shadow-md hover:shadow-xl flex-shrink-0 mt-1"
+                className="flex items-center justify-center bg-light-blue-400 text-white w-8 h-8 rounded-full hover:bg-light-blue-500 transition-all transform hover:scale-103 shadow-sm hover:shadow-md flex-shrink-0"
                 aria-label="Hinzufügen"
                 title="Hinzufügen"
               >
-                <ShoppingCart className="w-5 h-5 cart-icon-hover" />
-                <span className="absolute bottom-full mb-2 hidden group-hover:block bg-gray-900 text-white text-xs py-1 px-3 rounded whitespace-nowrap pointer-events-none z-10 shadow-lg">
-                  Hinzufügen
-                </span>
+                <ShoppingCart className="w-4 h-4" />
               </button>
             </div>
           );

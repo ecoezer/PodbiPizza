@@ -25,15 +25,15 @@ const MenuItemBadges: React.FC<MenuItemBadgesProps> = ({
   const showDressingBadge = item.id >= 564 && item.id <= 568 && item.isSpezialitaet;
 
   return (
-    <div className="flex flex-wrap gap-1 mt-1">
-      {isRippchenSpecial && <Badge color="red" icon={<Star className="w-3 h-3" />} text="🔥 RIPPCHEN-TAG SPEZIAL" />}
-      {isSchnitzelSpecial && <Badge color="red" icon={<Star className="w-3 h-3" />} text="🔥 SCHNITZEL-TAG SPEZIAL" />}
-      {hasSizes && <Badge color="blue" icon={<Star className="w-3 h-3" />} text="Größen verfügbar" />}
-      {item.isWunschPizza && <Badge color="purple" icon={<ChefHat className="w-3 h-3" />} text="4 Zutaten wählbar" />}
-      {(item.isPizza || item.isWunschPizza) && <Badge color="green" icon={<Plus className="w-3 h-3" />} text="Extras verfügbar" />}
-      {item.isPasta && <Badge color="yellow" icon={<Clock className="w-3 h-3" />} text="Nudelsorte wählbar" />}
-      {showSauceSelectionBadge && <Badge color="red" icon={<ChefHat className="w-3 h-3" />} text="Soße wählbar" />}
-      {showDressingBadge && <Badge color="indigo" icon={<ChefHat className="w-3 h-3" />} text="Dressing wählbar" />}
+    <div className="flex flex-wrap gap-0.5 mt-0.5">
+      {isRippchenSpecial && <Badge color="red" icon={<Star className="w-2.5 h-2.5" />} text="RIPPCHEN-TAG" />}
+      {isSchnitzelSpecial && <Badge color="red" icon={<Star className="w-2.5 h-2.5" />} text="SCHNITZEL-TAG" />}
+      {hasSizes && <Badge color="blue" icon={<Star className="w-2.5 h-2.5" />} text="Größen wählbar" />}
+      {item.isWunschPizza && <Badge color="purple" icon={<ChefHat className="w-2.5 h-2.5" />} text="Zutaten wählbar" />}
+      {(item.isPizza || item.isWunschPizza) && <Badge color="green" icon={<Plus className="w-2.5 h-2.5" />} text="Extras" />}
+      {item.isPasta && <Badge color="yellow" icon={<Clock className="w-2.5 h-2.5" />} text="Nudelsorte" />}
+      {showSauceSelectionBadge && <Badge color="red" icon={<ChefHat className="w-2.5 h-2.5" />} text="Soße wählbar" />}
+      {showDressingBadge && <Badge color="indigo" icon={<ChefHat className="w-2.5 h-2.5" />} text="Dressing" />}
     </div>
   );
 };

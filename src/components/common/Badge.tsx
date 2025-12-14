@@ -13,8 +13,9 @@ const BADGE_COLORS = {
 
 const Badge: React.FC<BadgeProps> = ({ color, icon, text }) => {
   return (
-    <span className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs ${BADGE_COLORS[color]}`}>
-      {icon} {text}
+    <span className={`inline-flex items-center gap-0.5 px-1 py-0.5 rounded-full text-[10px] font-medium ${BADGE_COLORS[color]}`}>
+      {icon && <span className="flex-shrink-0 w-2.5 h-2.5">{React.cloneElement(icon as React.ReactElement, { className: 'w-2.5 h-2.5' })}</span>}
+      <span className="whitespace-nowrap">{text}</span>
     </span>
   );
 };
