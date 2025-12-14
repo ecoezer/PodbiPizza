@@ -62,7 +62,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
         {subTitle && <p className="text-xs text-gray-500 mt-1 italic">{subTitle}</p>}
       </header>
 
-      <div className="space-y-1.5">
+      <div className="space-y-3">
         {items.map((item, i) => {
           const rippchenSpecial = isRippchenSpecial(item.id, today);
           const schnitzelSpecial = isSchnitzelSpecial(item.id, today);
@@ -72,15 +72,15 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
           return (
             <div
               key={`${item.id}-${i}`}
-              className="menu-card-animated hover:bg-gray-50 rounded-xl shadow-sm hover:shadow-md transition-all p-1.5 flex items-start gap-1.5 border border-gray-100"
+              className="menu-card-animated hover:bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition-all p-3 flex items-center gap-3 border border-gray-200"
             >
-              <span className="w-7 h-7 bg-light-blue-50 text-light-blue-600 rounded-full flex justify-center items-center font-bold text-xs flex-shrink-0">
+              <span className="w-8 h-8 bg-light-blue-50 text-light-blue-600 rounded-full flex justify-center items-center font-bold text-sm flex-shrink-0">
                 {item.number}
               </span>
 
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-1.5 flex-wrap">
-                  <h3 className={`text-sm font-bold ${rippchenSpecial || schnitzelSpecial ? 'text-red-600' : 'text-gray-900'}`}>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className={`text-base font-bold ${rippchenSpecial || schnitzelSpecial ? 'text-red-600' : 'text-gray-900'}`}>
                     {item.name}
                   </h3>
                   {isAlcoholicItem(item.id) && (
@@ -90,9 +90,9 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                   )}
                 </div>
 
-                {item.description && <p className="text-xs text-gray-600 leading-tight">{item.description}</p>}
+                {item.description && <p className="text-sm text-gray-600 leading-snug mt-0.5">{item.description}</p>}
                 {item.pfand && item.pfand > 0 && (
-                  <p className="text-[11px] text-gray-600 font-medium">
+                  <p className="text-xs text-gray-500 font-medium mt-0.5">
                     zzgl. {formatPriceWithCurrency(item.pfand)} Pfand
                   </p>
                 )}
@@ -107,14 +107,14 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
 
               <div
                 onClick={() => handleItemClick(item)}
-                className="cursor-pointer flex-shrink-0"
+                className="cursor-pointer flex-shrink-0 text-right"
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => e.key === 'Enter' && handleItemClick(item)}
                 aria-label="Hinzufügen"
               >
                 {hasSizes ? (
-                  <div className="text-xs font-bold text-gray-900">{formatPriceWithCurrency(minPrice)}</div>
+                  <div className="text-sm font-bold text-gray-900">{formatPriceWithCurrency(minPrice)}</div>
                 ) : (
                   <PriceDisplay item={item} specialRippchen={rippchenSpecial} specialSchnitzel={schnitzelSpecial} />
                 )}
@@ -122,11 +122,11 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
 
               <button
                 onClick={() => handleItemClick(item)}
-                className="flex items-center justify-center bg-light-blue-400 text-white w-8 h-8 rounded-full hover:bg-light-blue-500 transition-all transform hover:scale-103 shadow-sm hover:shadow-md flex-shrink-0"
+                className="flex items-center justify-center bg-light-blue-400 text-white w-9 h-9 rounded-full hover:bg-light-blue-500 transition-all transform hover:scale-105 shadow-sm hover:shadow-md flex-shrink-0"
                 aria-label="Hinzufügen"
                 title="Hinzufügen"
               >
-                <ShoppingCart className="w-4 h-4" />
+                <ShoppingCart className="w-5 h-5" />
               </button>
             </div>
           );
