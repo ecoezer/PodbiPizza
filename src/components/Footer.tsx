@@ -7,8 +7,8 @@ const Footer = () => {
   const [showImpressum, setShowImpressum] = useState(false);
   const allergensRef = React.useRef<HTMLDivElement>(null);
   const impressumRef = React.useRef<HTMLDivElement>(null);
-  const phoneNumber = '+4915224290621';
-  const displayNumber = '01522 429 06 21';
+  const phoneNumber = '+495069899999';
+  const displayNumber = '05069 8989997';
 
   const handleAllergensToggle = () => {
     const newState = !showAllergens;
@@ -87,35 +87,17 @@ const Footer = () => {
           {showImpressum && (
             <div className="mt-4 text-left text-sm text-gray-700 space-y-2 border-t border-gray-300 pt-4">
               <div>
-                <p className="font-semibold">Domino's Pizza</p>
-                <p>Domino's Pizza Deutschland GmbH</p>
-                <p>Am Sandtorkai 75-77</p>
-                <p>20457 Hamburg</p>
+                <p className="font-semibold">Saray Kebap Café54</p>
+                <p>Hauptstraße 96c</p>
+                <p>31171 Nordstemmen</p>
               </div>
               <div>
-                <p className="font-semibold">Vertretungsberechtigt: Alexander Markus Tauer</p>
-                <p className="text-xs">
-                  <a href="mailto:contact@example.com" className="text-light-blue-600 hover:underline">
-                    Sende uns eine E-Mail
+                <p className="font-semibold">Telefon: 05069 8989997</p>
+                <p className="text-xs pt-2 border-t border-gray-300">
+                  <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer" className="text-light-blue-600 hover:underline">
+                    EU Online-Streitbeilegung
                   </a>
                 </p>
-                <p className="text-xs">Fax: 0800 202 07 702</p>
-              </div>
-              <div className="text-xs">
-                <p>Registergericht: Amtsgericht Hamburg</p>
-                <p>Registernummer: HRB 106171</p>
-                <p className="mt-1">MwSt-Nummer: DE305196524</p>
-              </div>
-              <div className="text-xs pt-2 border-t border-gray-300">
-                <p>Plattform der EU-Kommission zur Online-Streitbeilegung:</p>
-                <a
-                  href="https://ec.europa.eu/consumers/odr"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-light-blue-600 hover:underline break-all"
-                >
-                  https://ec.europa.eu/consumers/odr
-                </a>
               </div>
             </div>
           )}
