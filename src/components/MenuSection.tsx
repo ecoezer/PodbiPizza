@@ -114,9 +114,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                 aria-label="Hinzufügen"
               >
                 {hasSizes ? (
-                  <div className="px-1 py-0.5 rounded-lg hover:opacity-90 hover:scale-103 transition-all" style={{ backgroundColor: '#8fa9b3' }}>
-                    <div className="text-xs font-bold text-white">{formatPriceWithCurrency(minPrice)}</div>
-                  </div>
+                  <div className="text-xs font-bold text-gray-900">{formatPriceWithCurrency(minPrice)}</div>
                 ) : (
                   <PriceDisplay item={item} specialRippchen={rippchenSpecial} specialSchnitzel={schnitzelSpecial} />
                 )}

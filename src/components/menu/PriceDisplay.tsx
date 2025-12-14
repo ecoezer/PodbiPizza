@@ -13,18 +13,14 @@ const PriceDisplay: React.FC<PriceDisplayProps> = ({ item, specialRippchen, spec
   if (specialRippchen || specialSchnitzel) {
     const oldPrice = specialRippchen ? PRICING.RIPPCHEN_SPECIAL_OLD_PRICE : PRICING.SCHNITZEL_SPECIAL_OLD_PRICE;
     return (
-      <div className="flex items-center gap-0.5">
+      <div className="flex items-center gap-2">
         <div className="text-[9px] text-gray-500 line-through">{formatPriceWithCurrency(oldPrice)}</div>
-        <div className="px-1 py-0.5 rounded-lg hover:opacity-90 hover:scale-103 transition-all cursor-pointer" style={{ backgroundColor: '#8fa9b3' }}>
-          <div className="text-xs text-white font-bold animate-pulse">{formatPriceWithCurrency(item.price)}</div>
-        </div>
+        <div className="text-xs font-bold text-red-600 animate-pulse">{formatPriceWithCurrency(item.price)}</div>
       </div>
     );
   }
   return (
-    <div className="px-1 py-0.5 rounded-lg hover:opacity-90 hover:scale-103 transition-all cursor-pointer" style={{ backgroundColor: '#8fa9b3' }}>
-      <div className="text-xs font-bold text-white">{formatPriceWithCurrency(item.price)}</div>
-    </div>
+    <div className="text-xs font-bold text-gray-900">{formatPriceWithCurrency(item.price)}</div>
   );
 };
 
