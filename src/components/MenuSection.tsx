@@ -83,22 +83,6 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                   <h3 className={`text-sm font-bold ${rippchenSpecial || schnitzelSpecial ? 'text-red-600' : 'text-gray-900'}`}>
                     {item.name}
                   </h3>
-                  <div
-                    onClick={() => handleItemClick(item)}
-                    className="cursor-pointer flex-shrink-0"
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => e.key === 'Enter' && handleItemClick(item)}
-                    aria-label="Hinzufügen"
-                  >
-                    {hasSizes ? (
-                      <div className="px-1 py-0.5 rounded-lg hover:opacity-90 hover:scale-103 transition-all" style={{ backgroundColor: '#8fa9b3' }}>
-                        <div className="text-xs font-bold text-white">{formatPriceWithCurrency(minPrice)}</div>
-                      </div>
-                    ) : (
-                      <PriceDisplay item={item} specialRippchen={rippchenSpecial} specialSchnitzel={schnitzelSpecial} />
-                    )}
-                  </div>
                   {isAlcoholicItem(item.id) && (
                     <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-gray-900 text-white flex-shrink-0">
                       18+
@@ -119,6 +103,23 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                   isSchnitzelSpecial={schnitzelSpecial}
                   hasSizes={hasSizes}
                 />
+              </div>
+
+              <div
+                onClick={() => handleItemClick(item)}
+                className="cursor-pointer flex-shrink-0"
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && handleItemClick(item)}
+                aria-label="Hinzufügen"
+              >
+                {hasSizes ? (
+                  <div className="px-1 py-0.5 rounded-lg hover:opacity-90 hover:scale-103 transition-all" style={{ backgroundColor: '#8fa9b3' }}>
+                    <div className="text-xs font-bold text-white">{formatPriceWithCurrency(minPrice)}</div>
+                  </div>
+                ) : (
+                  <PriceDisplay item={item} specialRippchen={rippchenSpecial} specialSchnitzel={schnitzelSpecial} />
+                )}
               </div>
 
               <button
