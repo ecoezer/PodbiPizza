@@ -1210,37 +1210,6 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
           {/* Salad Exclusions - Only show in step 3 for meat selection items, or step 2 for item 88 */}
           {item.isMeatSelection && currentStep === 'exclusions' && (
             <div>
-              <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Extras wählen (optional, +1,00€ pro Extra)</h3>
-              <p className="text-xs sm:text-sm text-gray-600 mb-2">Wählen Sie zusätzliche Extras für Ihr Gericht:</p>
-              <div className="space-y-2">
-                {donerExtras.map((extra) => (
-                  <label
-                    key={extra}
-                    className={`flex items-center justify-between p-2 rounded-lg border-2 cursor-pointer transition-all ${
-                      selectedDonerExtras.includes(extra)
-                        ? 'border-light-blue-400 bg-light-blue-50'
-                        : 'border-gray-200 hover:border-light-blue-300'
-                    }`}
-                  >
-                    <div className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        checked={selectedDonerExtras.includes(extra)}
-                        onChange={() => handleDonerExtraToggle(extra)}
-                        className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
-                      />
-                      <span className="font-medium">{extra}</span>
-                    </div>
-                    <span className="text-sm text-gray-600 font-semibold">+1,00 €</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Salad Exclusions - Only show in step 4 for meat selection items, or step 2 for item 88 */}
-          {item.isMeatSelection && currentStep === 'exclusions' && (
-            <div>
               <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Salat anpassen (mehrere möglich, optional)</h3>
               <p className="text-xs sm:text-sm text-gray-600 mb-2">Wählen Sie aus, was Sie nicht in Ihrem Salat möchten:</p>
               <div className="space-y-1.5">
