@@ -233,25 +233,25 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
       return;
     }
 
-    // For meat selection items, check if we need to go to extras or exclusions step
+    // For meat selection items, check if we need to go to exclusions (salat) step
     if (item.isMeatSelection && currentStep === 'sauce') {
-      // Item 88 skips extras and goes directly to exclusions
-      if (item.number === 88) {
-        setCurrentStep('exclusions');
-      } else {
-        setCurrentStep('extras');
-      }
-      return;
-    }
-
-    // For meat selection items, check if we need to go to exclusions step
-    if (item.isMeatSelection && currentStep === 'extras') {
       setCurrentStep('exclusions');
       return;
     }
 
+    // For meat selection items, check if we need to go to extras step
+    if (item.isMeatSelection && currentStep === 'exclusions') {
+      // Item 88 doesn't have extras, so add directly
+      if (item.number === 88) {
+        // Will add to cart
+      } else {
+        setCurrentStep('extras');
+        return;
+      }
+    }
+
     // For items #9 (Döner Teller) and #10 (Hähnchen-Döner Teller), check if we need to go to side dish selection step
-    if ((item.number === 9 || item.number === 10) && item.isMeatSelection && currentStep === 'exclusions') {
+    if ((item.number === 9 || item.number === 10) && item.isMeatSelection && currentStep === 'extras') {
       setCurrentStep('sidedish');
       return;
     }
@@ -346,16 +346,16 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
 
   const handleBackToSauce = useCallback(() => {
     setCurrentStep('sauce');
-    setSelectedDonerExtras([]); // Reset döner extras when going back
-  }, []);
-
-  const handleBackToExtras = useCallback(() => {
-    setCurrentStep('extras');
     setSelectedExclusions([]); // Reset exclusions when going back
   }, []);
 
   const handleBackToExclusions = useCallback(() => {
     setCurrentStep('exclusions');
+    setSelectedDonerExtras([]); // Reset döner extras when going back
+  }, []);
+
+  const handleBackToExtras = useCallback(() => {
+    setCurrentStep('extras');
     setSelectedSideDish(sideDishOptions[0]); // Reset side dish when going back
   }, []);
 
@@ -397,10 +397,10 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
         return 'Schritt 1: Fleischauswahl';
       } else if (currentStep === 'sauce') {
         return 'Schritt 2: Soßen wählen (mehrere möglich)';
-      } else if (currentStep === 'extras') {
-        return 'Schritt 3: Extras wählen (optional)';
       } else if (currentStep === 'exclusions') {
-        return 'Schritt 4: Salat anpassen (mehrere möglich)';
+        return 'Schritt 3: Salat anpassen (mehrere möglich)';
+      } else if (currentStep === 'extras') {
+        return 'Schritt 4: Extras wählen (optional)';
       } else if (currentStep === 'sidedish') {
         return 'Schritt 5: Beilage wählen';
       }
@@ -420,14 +420,14 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
     if (item.isMeatSelection && currentStep === 'meat') {
       return 'Weiter zur Soßenauswahl';
     } else if (item.isMeatSelection && currentStep === 'sauce') {
-      // Item 88 goes directly to exclusions, others go to extras
+      return 'Weiter zur Salat-Anpassung';
+    } else if (item.isMeatSelection && currentStep === 'exclusions') {
+      // Item 88 doesn't have extras, so add directly
       if (item.number === 88) {
-        return 'Weiter zur Salat-Anpassung';
+        return `Hinzufügen - ${calculatePrice().toFixed(2).replace('.', ',')} €`;
       }
       return 'Weiter zur Extra-Auswahl';
-    } else if (item.isMeatSelection && currentStep === 'extras') {
-      return 'Weiter zur Salat-Anpassung';
-    } else if ((item.number === 9 || item.number === 10) && item.isMeatSelection && currentStep === 'exclusions') {
+    } else if ((item.number === 9 || item.number === 10) && item.isMeatSelection && currentStep === 'extras') {
       return 'Weiter zur Beilagenauswahl';
     }
     return `Hinzufügen - ${calculatePrice().toFixed(2).replace('.', ',')} €`;
@@ -601,12 +601,12 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                 Nr. {item.number} {item.name}
               </p>
             )}
-            {currentStep === 'extras' && (
+            {currentStep === 'exclusions' && (
               <p className="text-xs sm:text-sm opacity-90 mt-0.5">
                 mit {selectedSauces.length > 0 ? selectedSauces.join(', ') : 'ohne Soße'} - Nr. {item.number} {item.name}
               </p>
             )}
-            {currentStep === 'exclusions' && (
+            {currentStep === 'extras' && (
               <p className="text-xs sm:text-sm opacity-90 mt-0.5">
                 mit {selectedSauces.length > 0 ? selectedSauces.join(', ') : 'ohne Soße'} - Nr. {item.number} {item.name}
               </p>
@@ -618,20 +618,20 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             )}
           </div>
           <div className="flex items-center gap-2">
-            {item.isMeatSelection && (currentStep === 'sauce' || currentStep === 'extras' || currentStep === 'exclusions' || currentStep === 'sidedish') && (
+            {item.isMeatSelection && (currentStep === 'sauce' || currentStep === 'exclusions' || currentStep === 'extras' || currentStep === 'sidedish') && (
               <button
                 onClick={
                   currentStep === 'sauce' ? handleBackToMeat :
-                  currentStep === 'extras' ? handleBackToSauce :
-                  currentStep === 'exclusions' ? (item.number === 88 ? handleBackToSauce : handleBackToExtras) :
-                  handleBackToExclusions
+                  currentStep === 'exclusions' ? handleBackToSauce :
+                  currentStep === 'extras' ? handleBackToExclusions :
+                  handleBackToExtras
                 }
                 className="p-2 hover:bg-light-blue-500 rounded-full transition-colors"
                 title={
                   currentStep === 'sauce' ? "Zurück zur Fleischauswahl" :
-                  currentStep === 'extras' ? "Zurück zur Soßenauswahl" :
-                  currentStep === 'exclusions' ? (item.number === 88 ? "Zurück zur Soßenauswahl" : "Zurück zur Extra-Auswahl") :
-                  "Zurück zur Salat-Anpassung"
+                  currentStep === 'exclusions' ? "Zurück zur Soßenauswahl" :
+                  currentStep === 'extras' ? "Zurück zur Salat-Anpassung" :
+                  "Zurück zur Extra-Auswahl"
                 }
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -819,7 +819,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                     <span className="text-xs sm:text-sm font-medium hidden sm:inline">Fleisch</span>
                     <span className="text-xs font-medium sm:hidden">F</span>
                   </div>
-                  <div className={`w-4 h-px ${currentStep === 'sauce' || currentStep === 'extras' || currentStep === 'exclusions' || currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
+                  <div className={`w-4 h-px ${currentStep === 'sauce' || currentStep === 'exclusions' || currentStep === 'extras' || currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
                   <div className={`flex items-center space-x-1 ${currentStep === 'sauce' ? 'text-light-blue-600' : 'text-gray-400'}`}>
                     <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
                       currentStep === 'sauce' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
@@ -829,25 +829,25 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                     <span className="text-xs sm:text-sm font-medium hidden sm:inline">Soße</span>
                     <span className="text-xs font-medium sm:hidden">S</span>
                   </div>
-                  <div className={`w-4 h-px ${currentStep === 'extras' || currentStep === 'exclusions' || currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
-                  <div className={`flex items-center space-x-1 ${currentStep === 'extras' ? 'text-light-blue-600' : 'text-gray-400'}`}>
-                    <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
-                      currentStep === 'extras' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
-                    }`}>
-                      3
-                    </div>
-                    <span className="text-xs sm:text-sm font-medium hidden sm:inline">Extras</span>
-                    <span className="text-xs font-medium sm:hidden">E</span>
-                  </div>
-                  <div className={`w-4 h-px ${currentStep === 'exclusions' || currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
+                  <div className={`w-4 h-px ${currentStep === 'exclusions' || currentStep === 'extras' || currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
                   <div className={`flex items-center space-x-1 ${currentStep === 'exclusions' ? 'text-light-blue-600' : 'text-gray-400'}`}>
                     <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
                       currentStep === 'exclusions' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
                     }`}>
-                      4
+                      3
                     </div>
                     <span className="text-xs sm:text-sm font-medium hidden sm:inline">Salat</span>
                     <span className="text-xs font-medium sm:hidden">Sa</span>
+                  </div>
+                  <div className={`w-4 h-px ${currentStep === 'extras' || currentStep === 'sidedish' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
+                  <div className={`flex items-center space-x-1 ${currentStep === 'extras' ? 'text-light-blue-600' : 'text-gray-400'}`}>
+                    <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
+                      currentStep === 'extras' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
+                    }`}>
+                      4
+                    </div>
+                    <span className="text-xs sm:text-sm font-medium hidden sm:inline">Extras</span>
+                    <span className="text-xs font-medium sm:hidden">E</span>
                   </div>
                   {(item.number === 9 || item.number === 10) && (
                     <>
@@ -1207,8 +1207,8 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             </div>
           )}
 
-          {/* Döner Extras - Only show in extras step for meat selection items */}
-          {item.isMeatSelection && currentStep === 'extras' && (
+          {/* Salad Exclusions - Only show in step 3 for meat selection items, or step 2 for item 88 */}
+          {item.isMeatSelection && currentStep === 'exclusions' && (
             <div>
               <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Extras wählen (optional, +1,00€ pro Extra)</h3>
               <p className="text-xs sm:text-sm text-gray-600 mb-2">Wählen Sie zusätzliche Extras für Ihr Gericht:</p>
@@ -1302,7 +1302,38 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             </div>
           )}
 
-          {/* Side Dish Selection - Only show in step 4 for items #9 (Döner Teller) and #10 (Hähnchen-Döner Teller) */}
+          {/* Döner Extras - Only show in extras step (step 4) for meat selection items */}
+          {item.isMeatSelection && currentStep === 'extras' && (
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Extras wählen (optional, +1,00€ pro Extra)</h3>
+              <p className="text-xs sm:text-sm text-gray-600 mb-2">Wählen Sie zusätzliche Extras für Ihr Gericht:</p>
+              <div className="space-y-2">
+                {donerExtras.map((extra) => (
+                  <label
+                    key={extra}
+                    className={`flex items-center justify-between p-2 rounded-lg border-2 cursor-pointer transition-all ${
+                      selectedDonerExtras.includes(extra)
+                        ? 'border-light-blue-400 bg-light-blue-50'
+                        : 'border-gray-200 hover:border-light-blue-300'
+                    }`}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        checked={selectedDonerExtras.includes(extra)}
+                        onChange={() => handleDonerExtraToggle(extra)}
+                        className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
+                      />
+                      <span className="font-medium">{extra}</span>
+                    </div>
+                    <span className="text-sm text-gray-600 font-semibold">+1,00 €</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Side Dish Selection - Only show in step 5 for items #9 (Döner Teller) and #10 (Hähnchen-Döner Teller) */}
           {(item.number === 9 || item.number === 10) && item.isMeatSelection && currentStep === 'sidedish' && (
             <div>
               <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Beilage wählen *</h3>
@@ -1430,15 +1461,15 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             </div>
 
             {/* Buttons for Step 2, Step 3, Step 4, and Step 5 - Side by side */}
-            {item.isMeatSelection && (currentStep === 'sauce' || currentStep === 'extras' || currentStep === 'exclusions' || currentStep === 'sidedish') ? (
+            {item.isMeatSelection && (currentStep === 'sauce' || currentStep === 'exclusions' || currentStep === 'extras' || currentStep === 'sidedish') ? (
               <div className="flex gap-3">
                 <button
                   type="button"
                   onClick={
                     currentStep === 'sauce' ? handleBackToMeat :
-                    currentStep === 'extras' ? handleBackToSauce :
-                    currentStep === 'exclusions' ? (item.number === 88 ? handleBackToSauce : handleBackToExtras) :
-                    handleBackToExclusions
+                    currentStep === 'exclusions' ? handleBackToSauce :
+                    currentStep === 'extras' ? handleBackToExclusions :
+                    handleBackToExtras
                   }
                   className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 px-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors border border-gray-300"
                 >
@@ -1452,7 +1483,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                   onClick={handleAddToCart}
                   className="flex-1 bg-light-blue-400 hover:bg-light-blue-500 text-white py-3 px-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors"
                 >
-                  {currentStep === 'sauce' || currentStep === 'extras' || (currentStep === 'exclusions' && (item.number === 9 || item.number === 10)) ? (
+                  {currentStep === 'sauce' || currentStep === 'exclusions' || (currentStep === 'extras' && (item.number === 9 || item.number === 10)) ? (
                     <>
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
