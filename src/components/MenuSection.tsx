@@ -107,7 +107,6 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                 </div>
 
                 {item.description && <p className="text-xs text-gray-600 leading-tight">{item.description}</p>}
-                {item.allergens && <p className="text-[11px] text-gray-500"><strong>Allergene:</strong> <span className="italic">{item.allergens}</span></p>}
                 {item.pfand && item.pfand > 0 && (
                   <p className="text-[11px] text-gray-600 font-medium">
                     zzgl. {formatPriceWithCurrency(item.pfand)} Pfand
