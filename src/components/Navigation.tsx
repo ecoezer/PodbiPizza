@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const Navigation = () => {
+interface NavigationProps {
+  onCategoryClick?: () => void;
+}
+
+const Navigation: React.FC<NavigationProps> = ({ onCategoryClick }) => {
   const [activeSection, setActiveSection] = useState('fleischgerichte');
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
@@ -119,6 +123,7 @@ const Navigation = () => {
 
   const handleItemClick = (id: string) => {
     setActiveSection(id);
+    onCategoryClick?.();
     const element = document.getElementById(id);
     if (element) {
       const headerOffset = 130;

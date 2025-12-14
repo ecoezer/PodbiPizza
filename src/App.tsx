@@ -187,7 +187,7 @@ function App() {
             <img src="/logo.png" alt="Logo" className="h-10 w-10 rounded-full shadow-lg object-cover border-4 border-light-blue-200"/>
           </div>
         </div>
-        <Navigation />
+        <Navigation onCategoryClick={() => setSearchQuery('')} />
       </div>
 
       {/* Desktop Cart */}
