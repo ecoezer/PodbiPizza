@@ -177,8 +177,9 @@ function App() {
       <div className='fixed top-0 left-0 right-0 z-50 bg-white shadow-sm'>
         <div className="bg-white py-3">
           <div className="container mx-auto px-4 max-w-7xl lg:pr-80 flex items-center gap-4">
-            <h1 className='text-sm font-bold text-gray-900'>
-              <span>Saray Kebap Café54</span>
+            <h1 className='text-sm font-bold text-gray-900 leading-tight'>
+              <div>Saray Kebap</div>
+              <div>Café54</div>
               <div className='text-red-600 text-xs font-medium mt-0.5'>Lieferservice</div>
             </h1>
             <div className="flex-1">
