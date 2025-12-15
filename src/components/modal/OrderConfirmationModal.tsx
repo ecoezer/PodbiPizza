@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import { X, ShoppingCart, Plus, Minus } from 'lucide-react';
+import React, { useCallback } from 'react';
+import { X, ShoppingCart } from 'lucide-react';
 import { MenuItem, PizzaSize } from '../../types';
 
 interface OrderConfirmationModalProps {
@@ -31,17 +31,9 @@ const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({
   onConfirm,
   onCancel,
 }) => {
-  const [quantity, setQuantity] = useState(1);
-
-  const handleQuantityChange = useCallback((newQuantity: number) => {
-    if (newQuantity > 0) {
-      setQuantity(newQuantity);
-    }
-  }, []);
-
   const handleConfirm = useCallback(() => {
-    onConfirm(quantity);
-  }, [quantity, onConfirm]);
+    onConfirm(1);
+  }, [onConfirm]);
 
   if (!isOpen) return null;
 
@@ -150,46 +142,11 @@ const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({
 
           {/* Price Section */}
           <div className="border-2 border-gray-200 rounded-lg p-3">
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-gray-600">Pro Artikel:</span>
-              <span className="font-bold text-light-blue-600">
+            <div className="flex justify-between items-center text-lg font-bold">
+              <span className="text-gray-900">Preis:</span>
+              <span className="text-light-blue-600">
                 {totalPrice.toFixed(2).replace('.', ',')} €
               </span>
-            </div>
-            <div className="flex justify-between items-center text-lg font-bold">
-              <span className="text-gray-900">Gesamtpreis:</span>
-              <span className="text-light-blue-600">
-                {(totalPrice * quantity).toFixed(2).replace('.', ',')} €
-              </span>
-            </div>
-          </div>
-
-          {/* Quantity Selector */}
-          <div className="bg-gray-50 border-2 border-gray-200 rounded-lg p-3">
-            <label className="block text-sm font-semibold text-gray-900 mb-2">Menge:</label>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => handleQuantityChange(quantity - 1)}
-                className="bg-gray-200 hover:bg-gray-300 text-gray-900 w-10 h-10 rounded-lg flex items-center justify-center font-bold transition-colors"
-                disabled={quantity <= 1}
-              >
-                <Minus className="w-4 h-4" />
-              </button>
-              <div className="flex-1 text-center">
-                <input
-                  type="number"
-                  value={quantity}
-                  onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
-                  className="w-full text-center text-lg font-bold border-2 border-gray-300 rounded-lg py-2 px-2"
-                  min="1"
-                />
-              </div>
-              <button
-                onClick={() => handleQuantityChange(quantity + 1)}
-                className="bg-gray-200 hover:bg-gray-300 text-gray-900 w-10 h-10 rounded-lg flex items-center justify-center font-bold transition-colors"
-              >
-                <Plus className="w-4 h-4" />
-              </button>
             </div>
           </div>
 
