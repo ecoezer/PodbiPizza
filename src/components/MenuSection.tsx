@@ -78,6 +78,11 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
               <div className="flex items-start justify-between gap-4 mb-3">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 flex-wrap">
+                    {item.number && String(item.number).trim() !== '' && (
+                      <span className="inline-flex items-center justify-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-gray-200 text-gray-700 flex-shrink-0">
+                        {item.number}
+                      </span>
+                    )}
                     <h3 className={`text-base font-bold ${rippchenSpecial || schnitzelSpecial ? 'text-red-600' : 'text-gray-900'}`}>
                       {item.name}
                     </h3>
