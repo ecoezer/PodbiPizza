@@ -17,7 +17,8 @@ export const useCart = () => {
     selectedPastaType?: string,
     selectedSauce?: string,
     selectedExclusions?: string[],
-    selectedSideDish?: string
+    selectedSideDish?: string,
+    selectedPizzaSauces?: string[]
   ) => {
     addItemToStore(
       menuItem,
@@ -27,7 +28,8 @@ export const useCart = () => {
       selectedPastaType,
       selectedSauce,
       selectedExclusions,
-      selectedSideDish
+      selectedSideDish,
+      selectedPizzaSauces
     );
   }, [addItemToStore]);
 
@@ -39,7 +41,8 @@ export const useCart = () => {
     selectedPastaType?: string,
     selectedSauce?: string,
     selectedExclusions?: string[],
-    selectedSideDish?: string
+    selectedSideDish?: string,
+    selectedPizzaSauces?: string[]
   ) => {
     removeItemFromStore(
       id,
@@ -49,7 +52,8 @@ export const useCart = () => {
       selectedPastaType,
       selectedSauce,
       selectedExclusions,
-      selectedSideDish
+      selectedSideDish,
+      selectedPizzaSauces
     );
   }, [removeItemFromStore]);
 
@@ -62,7 +66,8 @@ export const useCart = () => {
     selectedPastaType?: string,
     selectedSauce?: string,
     selectedExclusions?: string[],
-    selectedSideDish?: string
+    selectedSideDish?: string,
+    selectedPizzaSauces?: string[]
   ) => {
     updateQuantityInStore(
       id,
@@ -73,7 +78,8 @@ export const useCart = () => {
       selectedPastaType,
       selectedSauce,
       selectedExclusions,
-      selectedSideDish
+      selectedSideDish,
+      selectedPizzaSauces
     );
   }, [updateQuantityInStore]);
 
