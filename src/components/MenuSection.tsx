@@ -42,7 +42,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
       setSimpleItemForConfirmation(item);
       setShowSimpleItemConfirmation(true);
     }
-  }, [onAddToOrder, onModalStateChange]);
+  }, [onModalStateChange]);
 
   const closeModal = useCallback(() => {
     setSelectedItem(null);
