@@ -23,14 +23,15 @@ interface OrderItem {
   selectedExtras?: string[];
   selectedPastaType?: string;
   selectedSauce?: string;
+  selectedPizzaSauces?: string[];
   selectedExclusions?: string[];
   selectedSideDish?: string;
 }
 
 interface OrderFormProps {
   orderItems: OrderItem[];
-  onRemoveItem: (id: number, selectedSize?: any, selectedIngredients?: string[], selectedExtras?: string[], selectedPastaType?: string, selectedSauce?: string, selectedExclusions?: string[], selectedSideDish?: string) => void;
-  onUpdateQuantity: (id: number, quantity: number, selectedSize?: any, selectedIngredients?: string[], selectedExtras?: string[], selectedPastaType?: string, selectedSauce?: string, selectedExclusions?: string[], selectedSideDish?: string) => void;
+  onRemoveItem: (id: number, selectedSize?: any, selectedIngredients?: string[], selectedExtras?: string[], selectedPastaType?: string, selectedSauce?: string, selectedExclusions?: string[], selectedSideDish?: string, selectedPizzaSauces?: string[]) => void;
+  onUpdateQuantity: (id: number, quantity: number, selectedSize?: any, selectedIngredients?: string[], selectedExtras?: string[], selectedPastaType?: string, selectedSauce?: string, selectedExclusions?: string[], selectedSideDish?: string, selectedPizzaSauces?: string[]) => void;
   onClearCart: () => void;
   onCloseMobileCart?: () => void;
   hideTitle?: boolean;
@@ -182,6 +183,10 @@ const OrderForm: React.FC<OrderFormProps> = ({
         itemText += ` - Soße: ${item.selectedSauce}`;
       }
 
+      if (item.selectedPizzaSauces && item.selectedPizzaSauces.length > 0) {
+        itemText += ` - Soße: ${item.selectedPizzaSauces.join(', ')}`;
+      }
+
       if (item.selectedExclusions && item.selectedExclusions.length > 0) {
         itemText += ` - Salat: ${item.selectedExclusions.join(', ')}`;
       }
@@ -325,7 +330,8 @@ const OrderForm: React.FC<OrderFormProps> = ({
         item.selectedPastaType,
         item.selectedSauce,
         item.selectedExclusions,
-        item.selectedSideDish
+        item.selectedSideDish,
+        item.selectedPizzaSauces
       );
     } else {
       onUpdateQuantity(
@@ -337,7 +343,8 @@ const OrderForm: React.FC<OrderFormProps> = ({
         item.selectedPastaType,
         item.selectedSauce,
         item.selectedExclusions,
-        item.selectedSideDish
+        item.selectedSideDish,
+        item.selectedPizzaSauces
       );
     }
   }, [onRemoveItem, onUpdateQuantity]);
@@ -351,7 +358,8 @@ const OrderForm: React.FC<OrderFormProps> = ({
       item.selectedPastaType,
       item.selectedSauce,
       item.selectedExclusions,
-      item.selectedSideDish
+      item.selectedSideDish,
+      item.selectedPizzaSauces
     );
   }, [onRemoveItem]);
 

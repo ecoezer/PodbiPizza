@@ -34,6 +34,7 @@ export interface OrderItem {
   selectedExtras?: string[];
   selectedPastaType?: string;
   selectedSauce?: string;
+  selectedPizzaSauces?: string[];
   selectedExclusions?: string[];
   selectedSideDish?: string;
 }

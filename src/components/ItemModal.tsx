@@ -21,7 +21,8 @@ interface ItemModalProps {
     selectedPastaType?: string,
     selectedSauce?: string,
     selectedExclusions?: string[],
-    selectedSideDish?: string
+    selectedSideDish?: string,
+    selectedPizzaSauces?: string[]
   ) => void;
 }
 
@@ -56,7 +57,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   const [selectedBurgerSaladExclusions, setSelectedBurgerSaladExclusions] = useState<string[]>([]);
   const [selectedBurgerSauce, setSelectedBurgerSauce] = useState<string>('');
   const [selectedBurgerExtras, setSelectedBurgerExtras] = useState<string[]>([]);
-  const [selectedPizzaSauce, setSelectedPizzaSauce] = useState<string>('');
+  const [selectedPizzaSauces, setSelectedPizzaSauces] = useState<string[]>([]);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [confirmationPrice, setConfirmationPrice] = useState(0);
 
@@ -150,6 +151,27 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
     });
   }, [item.isMeatSelection]);
 
+  const handlePizzaSauceToggle = useCallback((sauce: string) => {
+    setSelectedPizzaSauces(prev => {
+      if (sauce === 'ohne Soße') {
+        return prev.includes(sauce) ? [] : ['ohne Soße'];
+      }
+
+      const withoutOhneSose = prev.filter(s => s !== 'ohne Soße');
+
+      if (withoutOhneSose.includes(sauce)) {
+        return withoutOhneSose.filter(s => s !== sauce);
+      }
+
+      // Limit to 3 sauces for pizza
+      if (withoutOhneSose.length >= 3) {
+        return withoutOhneSose;
+      }
+
+      return [...withoutOhneSose, sauce];
+    });
+  }, []);
+
   const getExtraPricePerItem = useCallback(() => {
     if (!selectedSize) return 1.00;
     const normalizedSizeName = getSizePrice(selectedSize.name);
@@ -160,6 +182,38 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
     };
     return sizeExtraPricing[normalizedSizeName] || 1.00;
   }, [selectedSize]);
+
+  const getExtrasPriceBreakdown = useCallback(() => {
+    if (selectedExtras.length === 0 && selectedPizzaSauces.length === 0) {
+      return { basePrice: selectedSize?.price || item.price, extrasTotal: 0, breakdown: [] };
+    }
+
+    const basePrice = selectedSize ? selectedSize.price : item.price;
+    let extrasTotal = 0;
+    const breakdown: Array<{ name: string; price: number; isSauce?: boolean }> = [];
+
+    // Add extras breakdown
+    if (selectedExtras.length > 0 && selectedSize) {
+      const normalizedSizeName = getSizePrice(selectedSize.name);
+      selectedExtras.forEach(extra => {
+        const extraPricing = pizzaExtrasPricing[extra as keyof typeof pizzaExtrasPricing];
+        const price = extraPricing ? (extraPricing[normalizedSizeName] || 1.00) : 1.00;
+        extrasTotal += price;
+        breakdown.push({ name: extra, price });
+      });
+    }
+
+    // Add sauces breakdown (first free, additional 1.00€)
+    if (selectedPizzaSauces.length > 0) {
+      selectedPizzaSauces.forEach((sauce, index) => {
+        const price = index === 0 ? 0 : 1.00;
+        extrasTotal += price;
+        breakdown.push({ name: sauce, price, isSauce: true });
+      });
+    }
+
+    return { basePrice, extrasTotal, breakdown };
+  }, [selectedSize, selectedExtras, selectedPizzaSauces, item.price]);
 
   const calculatePrice = useCallback(() => {
     let basePrice = selectedSize ? selectedSize.price : item.price;
@@ -208,8 +262,14 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
       });
     }
 
-    return basePrice + extrasPrice + donerExtrasPrice + pideExtrasPrice + saucePricing + burgerExtrasPrice;
-  }, [item.price, item.id, item.number, item.isBurger, selectedSize, selectedExtras, selectedDonerExtras, selectedPideExtras, selectedSauces, selectedBurgerExtras]);
+    // Add pizza sauce pricing: first sauce is free, additional sauces cost 1 euro
+    let pizzaSaucePricing = 0;
+    if (item.isPizza && selectedPizzaSauces.length > 1) {
+      pizzaSaucePricing = (selectedPizzaSauces.length - 1) * 1.00;
+    }
+
+    return basePrice + extrasPrice + donerExtrasPrice + pideExtrasPrice + saucePricing + burgerExtrasPrice + pizzaSaucePricing;
+  }, [item.price, item.id, item.number, item.isBurger, item.isPizza, selectedSize, selectedExtras, selectedDonerExtras, selectedPideExtras, selectedSauces, selectedBurgerExtras, selectedPizzaSauces]);
 
   const handleAddToCart = useCallback(() => {
     // For pizza items, handle multi-step flow
@@ -1302,28 +1362,43 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
           {/* Pizza Sauce Selection - Only show in step 3 for pizza items */}
           {item.isPizza && currentStep === 'pizzaSauce' && (
             <div>
-              <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Soße wählen (optional)</h3>
+              <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Soße wählen (1. kostenlos, weitere +1,00€ / max. 3)</h3>
               <div className="space-y-2">
-                {sauceTypes.map((sauce) => (
-                  <label
-                    key={sauce}
-                    className={`flex items-center space-x-2 p-2 rounded-lg border-2 cursor-pointer transition-all ${
-                      selectedPizzaSauce === sauce
-                        ? 'border-orange-500 bg-orange-50'
-                        : 'border-gray-200 hover:border-orange-300'
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name="pizzaSauce"
-                      value={sauce}
-                      checked={selectedPizzaSauce === sauce}
-                      onChange={(e) => setSelectedPizzaSauce(e.target.value)}
-                      className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
-                    />
-                    <span className="font-medium">{sauce}</span>
-                  </label>
-                ))}
+                {sauceTypes.map((sauce, index) => {
+                  const isDisabled = !selectedPizzaSauces.includes(sauce) && selectedPizzaSauces.length >= 3 && selectedPizzaSauces[0] !== 'ohne Soße';
+                  const isPriced = selectedPizzaSauces.includes(sauce) && selectedPizzaSauces.indexOf(sauce) > 0;
+                  const isFree = selectedPizzaSauces.includes(sauce) && selectedPizzaSauces.indexOf(sauce) === 0;
+
+                  return (
+                    <label
+                      key={sauce}
+                      className={`flex items-center justify-between p-2 rounded-lg border-2 transition-all ${
+                        selectedPizzaSauces.includes(sauce)
+                          ? 'border-orange-500 bg-orange-50'
+                          : isDisabled
+                          ? 'border-gray-200 opacity-50 cursor-not-allowed'
+                          : 'border-gray-200 hover:border-orange-300 cursor-pointer'
+                      }`}
+                    >
+                      <div className="flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          checked={selectedPizzaSauces.includes(sauce)}
+                          onChange={() => handlePizzaSauceToggle(sauce)}
+                          disabled={isDisabled}
+                          className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
+                        />
+                        <span className="font-medium">{sauce}</span>
+                      </div>
+                      {isFree && selectedPizzaSauces.length > 0 && (
+                        <span className="text-sm text-green-600 font-semibold">kostenlos</span>
+                      )}
+                      {isPriced && (
+                        <span className="text-sm text-gray-600 font-semibold">+1,00 €</span>
+                      )}
+                    </label>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -1542,12 +1617,37 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
 
           {/* Add to Cart Button */}
           <div className="sticky bottom-0 bg-white pt-3 pb-1 border-t">
-            {/* Price Display at Bottom */}
-            <div className="mb-3 text-center">
-              <div className="text-sm text-gray-600 mb-1">Aktueller Preis</div>
-              <div className="text-2xl font-bold text-light-blue-600">
-                {calculatePrice().toFixed(2).replace('.', ',')} €
-              </div>
+            {/* Price Display at Bottom with Breakdown for Pizza */}
+            <div className="mb-3 bg-light-blue-50 p-3 rounded-lg">
+              {item.isPizza && (selectedExtras.length > 0 || selectedPizzaSauces.length > 0) ? (
+                <div className="space-y-1.5">
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-gray-700">Pizzagröße:</span>
+                    <span className="font-medium text-gray-900">{getExtrasPriceBreakdown().basePrice.toFixed(2).replace('.', ',')} €</span>
+                  </div>
+                  {getExtrasPriceBreakdown().breakdown.map((item, idx) => (
+                    <div key={idx} className="flex justify-between items-center text-sm">
+                      <span className="text-gray-700">{item.isSauce ? '→ ' : '+ '}{item.name}:</span>
+                      <span className="font-medium text-gray-900">
+                        {item.price === 0 ? 'kostenlos' : `+${item.price.toFixed(2).replace('.', ',')} €`}
+                      </span>
+                    </div>
+                  ))}
+                  <div className="border-t border-gray-200 pt-1.5 mt-1.5">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-semibold text-gray-900">Aktueller Preis:</span>
+                      <span className="text-xl font-bold text-light-blue-600">{calculatePrice().toFixed(2).replace('.', ',')} €</span>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center">
+                  <div className="text-sm text-gray-600 mb-1">Aktueller Preis</div>
+                  <div className="text-2xl font-bold text-light-blue-600">
+                    {calculatePrice().toFixed(2).replace('.', ',')} €
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Buttons for Pizza Steps */}
@@ -1687,13 +1787,14 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
         selectedPastaType={selectedPastaType}
         selectedSauce={
           item.isPizza
-            ? selectedPizzaSauce
+            ? undefined
             : item.isBurger
             ? selectedBurgerSauce
             : selectedSauces.length > 0
             ? selectedSauces.join(', ')
             : selectedSauce || selectedMeatType
         }
+        selectedPizzaSauces={item.isPizza ? selectedPizzaSauces : undefined}
         selectedExclusions={
           item.isBurger ? selectedBurgerSaladExclusions : selectedExclusions
         }
@@ -1716,7 +1817,8 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                 ? selectedSauces.join(', ')
                 : selectedSauce || selectedMeatType || undefined,
               finalExclusions,
-              selectedSideDish || undefined
+              selectedSideDish || undefined,
+              selectedPizzaSauces.length > 0 ? selectedPizzaSauces : undefined
             );
           }
           setShowConfirmationModal(false);

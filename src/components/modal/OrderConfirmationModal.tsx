@@ -10,6 +10,7 @@ interface OrderConfirmationModalProps {
   selectedExtras?: string[];
   selectedPastaType?: string;
   selectedSauce?: string;
+  selectedPizzaSauces?: string[];
   selectedExclusions?: string[];
   selectedSideDish?: string;
   totalPrice: number;
@@ -25,6 +26,7 @@ const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({
   selectedExtras,
   selectedPastaType,
   selectedSauce,
+  selectedPizzaSauces,
   selectedExclusions,
   selectedSideDish,
   totalPrice,
@@ -109,6 +111,22 @@ const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({
                   <span className="text-gray-600">Soße:</span>
                   <span className="ml-2 font-medium text-gray-900">
                     {formatSauceDisplay(selectedSauce)}
+                  </span>
+                </div>
+              )}
+
+              {selectedPizzaSauces && selectedPizzaSauces.length > 0 && (
+                <div>
+                  <span className="text-gray-600">Soße:</span>
+                  <span className="ml-2 font-medium text-gray-900">
+                    {selectedPizzaSauces.map((sauce, idx) => (
+                      <span key={idx}>
+                        {sauce}
+                        {idx === 0 && selectedPizzaSauces.length > 1 && <span className="text-green-600 text-xs ml-1">(kostenlos)</span>}
+                        {idx > 0 && <span className="text-gray-600 text-xs ml-1">(+1,00€)</span>}
+                        {idx < selectedPizzaSauces.length - 1 && ', '}
+                      </span>
+                    ))}
                   </span>
                 </div>
               )}
