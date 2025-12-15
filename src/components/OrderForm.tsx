@@ -466,6 +466,19 @@ const OrderForm: React.FC<OrderFormProps> = ({
                     </div>
                   )}
 
+                  {item.selectedPizzaSauces && item.selectedPizzaSauces.length > 0 && (
+                    <div className="text-xs text-gray-600">
+                      Soße: {item.selectedPizzaSauces.map((sauce, idx) => (
+                        <span key={idx}>
+                          {sauce}
+                          {idx === 0 && item.selectedPizzaSauces.length > 1 && <span className="text-green-600"> (kostenlos)</span>}
+                          {idx > 0 && <span className="text-gray-500"> (+1,00€)</span>}
+                          {idx < item.selectedPizzaSauces.length - 1 && ', '}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
                   {item.selectedExclusions && item.selectedExclusions.length > 0 && (
                     <div className="text-xs text-gray-600">
                       Salat: {item.selectedExclusions.join(', ')}
