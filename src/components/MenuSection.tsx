@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { ShoppingCart, ChefHat } from 'lucide-react';
+import { Plus, ChefHat } from 'lucide-react';
 import { MenuItem, PizzaSize } from '../types';
 import ItemModal from './ItemModal';
 import OrderConfirmationModal from './modal/OrderConfirmationModal';
@@ -72,62 +72,67 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
           return (
             <div
               key={`${item.id}-${i}`}
-              className="menu-card-animated hover:bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition-all p-3 flex items-center gap-3 border border-gray-200"
+              className="menu-card-animated rounded-lg border border-gray-100 bg-white hover:bg-gray-50 transition-all p-4 relative"
             >
-              <span className="w-8 h-8 bg-light-blue-50 text-light-blue-600 rounded-full flex justify-center items-center font-bold text-sm flex-shrink-0">
-                {item.number}
-              </span>
-
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <h3 className={`text-base font-bold ${rippchenSpecial || schnitzelSpecial ? 'text-red-600' : 'text-gray-900'}`}>
-                    {item.name}
-                  </h3>
-                  {isAlcoholicItem(item.id) && (
-                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-gray-900 text-white flex-shrink-0">
-                      18+
-                    </span>
-                  )}
+              <div className="flex items-start justify-between gap-4 mb-3">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <h3 className={`text-base font-bold ${rippchenSpecial || schnitzelSpecial ? 'text-red-600' : 'text-gray-900'}`}>
+                      {item.name}
+                    </h3>
+                    <button
+                      onClick={() => handleItemClick(item)}
+                      className="text-xs text-gray-700 underline hover:text-gray-900 transition-colors"
+                      aria-label="Produktinfo"
+                      title="Produktinfo"
+                    >
+                      Produktinfo
+                    </button>
+                    {isAlcoholicItem(item.id) && (
+                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-gray-900 text-white flex-shrink-0">
+                        18+
+                      </span>
+                    )}
+                  </div>
                 </div>
 
-                {item.description && <p className="text-sm text-gray-600 leading-snug mt-0.5">{item.description}</p>}
-                {item.pfand && item.pfand > 0 && (
-                  <p className="text-xs text-gray-500 font-medium mt-0.5">
-                    zzgl. {formatPriceWithCurrency(item.pfand)} Pfand
-                  </p>
-                )}
-
-                <MenuItemBadges
-                  item={item}
-                  isRippchenSpecial={rippchenSpecial}
-                  isSchnitzelSpecial={schnitzelSpecial}
-                  hasSizes={hasSizes}
-                />
+                <button
+                  onClick={() => handleItemClick(item)}
+                  className="flex items-center justify-center text-gray-900 hover:text-gray-700 transition-colors flex-shrink-0 mt-1"
+                  aria-label="Hinzufügen"
+                  title="Hinzufügen"
+                >
+                  <Plus className="w-5 h-5" strokeWidth={2.5} />
+                </button>
               </div>
 
-              <div
-                onClick={() => handleItemClick(item)}
-                className="cursor-pointer flex-shrink-0 text-right"
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => e.key === 'Enter' && handleItemClick(item)}
-                aria-label="Hinzufügen"
-              >
+              <div className="mb-3">
                 {hasSizes ? (
-                  <div className="text-sm font-bold text-gray-900">{formatPriceWithCurrency(minPrice)}</div>
+                  <div className="text-base font-bold text-gray-900">{formatPriceWithCurrency(minPrice)}</div>
                 ) : (
-                  <PriceDisplay item={item} specialRippchen={rippchenSpecial} specialSchnitzel={schnitzelSpecial} />
+                  <div className="text-base font-bold text-gray-900">
+                    {rippchenSpecial || schnitzelSpecial ? (
+                      <PriceDisplay item={item} specialRippchen={rippchenSpecial} specialSchnitzel={schnitzelSpecial} />
+                    ) : (
+                      formatPriceWithCurrency(item.price)
+                    )}
+                  </div>
                 )}
               </div>
 
-              <button
-                onClick={() => handleItemClick(item)}
-                className="flex items-center justify-center bg-light-blue-400 text-white w-9 h-9 rounded-full hover:bg-light-blue-500 transition-all transform hover:scale-105 shadow-sm hover:shadow-md flex-shrink-0"
-                aria-label="Hinzufügen"
-                title="Hinzufügen"
-              >
-                <ShoppingCart className="w-5 h-5" />
-              </button>
+              {item.description && <p className="text-xs text-gray-600 leading-relaxed mb-3">{item.description}</p>}
+              {item.pfand && item.pfand > 0 && (
+                <p className="text-xs text-gray-500 font-medium mb-2">
+                  zzgl. {formatPriceWithCurrency(item.pfand)} Pfand
+                </p>
+              )}
+
+              <MenuItemBadges
+                item={item}
+                isRippchenSpecial={rippchenSpecial}
+                isSchnitzelSpecial={schnitzelSpecial}
+                hasSizes={hasSizes}
+              />
             </div>
           );
         })}
