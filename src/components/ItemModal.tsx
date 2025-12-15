@@ -1201,14 +1201,14 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             (item.isMeatSelection && currentStep === 'sauce') ||
             item.isFalafel ||
             item.isBaguette ||
-            ([8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 61, 62, 74, 75, 76, 77, 78, 79].includes(item.number) || (item.number === 88 && currentStep === 'sauce'))) && (
+            ((!item.isPizza && [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 50, 51, 52, 53, 54, 55, 56, 57, 61, 62, 74, 75, 76, 77, 78, 79].includes(item.number)) || (item.number === 88 && currentStep === 'sauce'))) && (
             <div>
               <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
                 {item.id >= 564 && item.id <= 568 ? 'Dressing wählen (1. kostenlos, weitere +1,00€)' : [78, 79].includes(item.number) ? 'Soßen wählen (1. kostenlos, weitere +1,00€ / max. 3)' : ((item.isMeatSelection && currentStep === 'sauce') || [74, 75, 76, 77, 88].includes(item.number) ? 'Soßen wählen (max. 3)' : item.isFalafel ? 'Soßen wählen (max. 3)' : [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57].includes(item.number) ? 'Soße wählen' : item.isBaguette ? 'Soße wählen' : 'Soße wählen')}
                 {!item.isMeatSelection && !item.isFalafel && !item.isBaguette && ![8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 74, 75, 76, 77, 78, 79, 88].includes(item.number) && ((item.isSpezialitaet && ![81, 82].includes(item.id)) || (item.id >= 564 && item.id <= 568)) ? ' *' : ''}
               </h3>
 
-              {(item.isMeatSelection && currentStep === 'sauce') || item.isFalafel || (item.id >= 564 && item.id <= 568) || [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 61, 62, 74, 75, 76, 77, 78, 79, 88].includes(item.number) ? (
+              {(item.isMeatSelection && currentStep === 'sauce') || item.isFalafel || (item.id >= 564 && item.id <= 568) || (!item.isPizza && [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 50, 51, 52, 53, 54, 55, 56, 57, 61, 62, 74, 75, 76, 77, 78, 79, 88].includes(item.number)) ? (
                 // Multiple selection for meat selection items in step 2, falafel items, salad items, and snack items
                 <div className="space-y-2">
                   {getVisibleSauceOptions().map((sauce) => {
@@ -1271,7 +1271,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
               )}
 
               {/* Show More/Less Button for Sauce Selection in Step 2, falafel items, and Sucuk items */}
-              {((item.isMeatSelection && currentStep === 'sauce') || item.isFalafel || [6, 7, 8, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 50, 51, 52, 53, 54, 55, 56, 57, 61, 62, 74, 75, 76, 77, 78, 79, 88].includes(item.number)) && getSauceOptions().length > 3 && (
+              {((item.isMeatSelection && currentStep === 'sauce') || item.isFalafel || (!item.isPizza && [6, 7, 8, 10, 11, 12, 14, 15, 16, 17, 18, 19, 50, 51, 52, 53, 54, 55, 56, 57, 61, 62, 74, 75, 76, 77, 78, 79, 88].includes(item.number))) && getSauceOptions().length > 3 && (
                 <div className="mt-4 text-center">
                   <button
                     type="button"
