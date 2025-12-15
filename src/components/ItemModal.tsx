@@ -1196,7 +1196,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
           )}
 
           {/* Sauce Selection */}
-          {((item.isSpezialitaet && ![81, 82, 564, 565, 566, 567, 568].includes(item.id) && !item.isMeatSelection && item.id !== 520) ||
+          {((item.isSpezialitaet && ![81, 82, 564, 565, 566, 567, 568].includes(item.id) && !item.isMeatSelection) ||
             (item.id >= 564 && item.id <= 568 && item.isSpezialitaet) ||
             (item.isMeatSelection && currentStep === 'sauce') ||
             item.isFalafel ||
