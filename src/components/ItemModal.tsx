@@ -421,8 +421,8 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   // Allergen Info Popup
   if (showAllergenPopup) {
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-70 z-[70] flex items-center justify-center p-4">
-        <div className="bg-white rounded-3xl max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
+      <div className="fixed inset-0 bg-black bg-opacity-70 z-[70] flex items-center justify-center p-4" style={{ pointerEvents: 'auto' }}>
+        <div className="bg-white rounded-3xl max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-[0_20px_60px_rgba(0,0,0,0.4)]" style={{ pointerEvents: 'auto' }}>
           <div className="sticky top-0 bg-light-blue-400 text-white p-4 rounded-t-3xl flex justify-between items-center">
             <h2 className="text-xl font-bold flex items-center gap-2">
               <Info className="w-6 h-6" />
@@ -488,8 +488,8 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   // Age verification warning modal
   if (showAgeWarning) {
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-70 z-[60] flex items-center justify-center p-4">
-        <div className="bg-white rounded-3xl max-w-md w-full shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
+      <div className="fixed inset-0 bg-black bg-opacity-70 z-[60] flex items-center justify-center p-4" style={{ pointerEvents: 'auto' }}>
+        <div className="bg-white rounded-3xl max-w-md w-full shadow-[0_20px_60px_rgba(0,0,0,0.4)]" style={{ pointerEvents: 'auto' }}>
           <div className="p-6">
             <div className="flex items-start gap-3 mb-4">
               <AlertTriangle className="w-8 h-8 text-yellow-600 flex-shrink-0 mt-0.5" />
@@ -553,8 +553,8 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4">
-      <div className="bg-white rounded-3xl max-w-lg w-full max-h-[92vh] overflow-y-auto shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-[60] flex items-center justify-center p-2 sm:p-4" style={{ pointerEvents: 'auto' }}>
+      <div className="bg-white rounded-3xl max-w-lg w-full max-h-[92vh] overflow-y-auto shadow-[0_20px_60px_rgba(0,0,0,0.3)]" style={{ pointerEvents: 'auto' }}>
         {/* Header */}
         <div className="sticky top-0 bg-light-blue-400 text-white p-3 rounded-t-3xl flex justify-between items-center">
           <div>

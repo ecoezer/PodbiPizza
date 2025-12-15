@@ -73,6 +73,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
             <div
               key={`${item.id}-${i}`}
               className="menu-card-animated rounded-lg border border-gray-100 bg-white hover:bg-gray-50 transition-all p-4 relative"
+              style={{ zIndex: 1 }}
             >
               <div className="flex items-start justify-between gap-4 mb-3">
                 <div className="flex-1">
@@ -81,8 +82,9 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                       {item.name}
                     </h3>
                     <button
+                      type="button"
                       onClick={() => handleItemClick(item)}
-                      className="text-xs text-gray-700 underline hover:text-gray-900 transition-colors"
+                      className="text-xs text-gray-700 underline hover:text-gray-900 transition-colors z-10 relative cursor-pointer"
                       aria-label="Produktinfo"
                       title="Produktinfo"
                     >
@@ -99,11 +101,11 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                 <button
                   type="button"
                   onClick={() => handleItemClick(item)}
-                  className="flex items-center justify-center text-gray-900 hover:text-gray-600 hover:bg-gray-200 rounded-lg p-1.5 transition-all flex-shrink-0"
+                  className="flex items-center justify-center text-gray-900 hover:text-gray-600 hover:bg-gray-200 rounded-lg p-1.5 transition-all flex-shrink-0 z-10 relative cursor-pointer active:scale-95"
                   aria-label="Hinzufügen"
                   title="Hinzufügen"
                 >
-                  <Plus className="w-5 h-5" strokeWidth={2} />
+                  <Plus className="w-5 h-5 pointer-events-none" strokeWidth={2} />
                 </button>
               </div>
 

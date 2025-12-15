@@ -61,8 +61,8 @@ const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4">
-      <div className="bg-white rounded-3xl max-w-lg w-full max-h-[92vh] overflow-y-auto shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-[55] flex items-center justify-center p-2 sm:p-4" style={{ pointerEvents: 'auto' }}>
+      <div className="bg-white rounded-3xl max-w-lg w-full max-h-[92vh] overflow-y-auto shadow-[0_20px_60px_rgba(0,0,0,0.3)]" style={{ pointerEvents: 'auto' }}>
         {/* Header */}
         <div className="sticky top-0 bg-light-blue-400 text-white p-3 rounded-t-3xl flex justify-between items-center">
           <div>

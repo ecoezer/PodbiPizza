@@ -86,11 +86,19 @@
   mask-composite: exclude;
   opacity: 0;
   transition: opacity 0.2s ease;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .menu-card-animated:hover::before {
   opacity: 0.6;
   animation: border-spin 1.5s linear infinite;
+}
+
+.menu-card-animated button {
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
 }
 
 .animate-slide-up {
@@ -208,6 +216,18 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Global button and interactive element styles */
+button, [role="button"], input[type="button"], input[type="submit"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+button, [role="button"] {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 @media (hover: none) {
   /* Improve button touch responsiveness on mobile */
   button {
@@ -216,11 +236,17 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   /* Ensure form buttons are properly sized for touch */
-  button[type="submit"] {
+  button[type="submit"], button {
     min-height: 44px; /* iOS recommended minimum touch target */
     -webkit-appearance: none;
     -webkit-user-select: none;
     user-select: none;
+  }
+
+  /* Ensure menu item buttons are touch-friendly */
+  .menu-card-animated button {
+    min-height: 44px;
+    min-width: 44px;
   }
 }
 
