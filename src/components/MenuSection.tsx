@@ -97,12 +97,13 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title, description, subTitle,
                 </div>
 
                 <button
+                  type="button"
                   onClick={() => handleItemClick(item)}
-                  className="flex items-center justify-center text-gray-900 hover:text-gray-700 transition-colors flex-shrink-0 mt-1"
+                  className="flex items-center justify-center text-gray-900 hover:text-gray-600 hover:bg-gray-200 rounded-lg p-1.5 transition-all flex-shrink-0"
                   aria-label="Hinzufügen"
                   title="Hinzufügen"
                 >
-                  <Plus className="w-5 h-5" strokeWidth={2.5} />
+                  <Plus className="w-5 h-5" strokeWidth={2} />
                 </button>
               </div>
 
