@@ -44,8 +44,8 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   const [selectedSideDish, setSelectedSideDish] = useState<string>(
     (item.number === 9 || item.number === 10) ? sideDishOptions[0] : ''
   );
-  const [currentStep, setCurrentStep] = useState<'meat' | 'sauce' | 'extras' | 'exclusions' | 'sidedish' | 'saucetype' | 'burgerSalad' | 'burgerSauce' | 'burgerExtras' | 'complete'>(
-    item.isSauceSelection ? 'saucetype' : item.isBurger ? 'burgerSalad' : item.number === 88 ? 'sauce' : 'meat'
+  const [currentStep, setCurrentStep] = useState<'meat' | 'sauce' | 'extras' | 'exclusions' | 'sidedish' | 'saucetype' | 'burgerSalad' | 'burgerSauce' | 'burgerExtras' | 'pizzaSize' | 'pizzaExtras' | 'pizzaSauce' | 'complete'>(
+    item.isPizza ? 'pizzaSize' : item.isSauceSelection ? 'saucetype' : item.isBurger ? 'burgerSalad' : item.number === 88 ? 'sauce' : 'meat'
   );
   const [showAllSauces, setShowAllSauces] = useState(false);
   const [showAllExclusions, setShowAllExclusions] = useState(false);
@@ -56,6 +56,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   const [selectedBurgerSaladExclusions, setSelectedBurgerSaladExclusions] = useState<string[]>([]);
   const [selectedBurgerSauce, setSelectedBurgerSauce] = useState<string>('');
   const [selectedBurgerExtras, setSelectedBurgerExtras] = useState<string[]>([]);
+  const [selectedPizzaSauce, setSelectedPizzaSauce] = useState<string>('');
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [confirmationPrice, setConfirmationPrice] = useState(0);
 
@@ -211,6 +212,18 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   }, [item.price, item.id, item.number, item.isBurger, selectedSize, selectedExtras, selectedDonerExtras, selectedPideExtras, selectedSauces, selectedBurgerExtras]);
 
   const handleAddToCart = useCallback(() => {
+    // For pizza items, handle multi-step flow
+    if (item.isPizza && currentStep === 'pizzaSize') {
+      if (!selectedSize) return;
+      setCurrentStep('pizzaExtras');
+      return;
+    }
+
+    if (item.isPizza && currentStep === 'pizzaExtras') {
+      setCurrentStep('pizzaSauce');
+      return;
+    }
+
     // For sauce selection items (item #89), first select sauce type, then size
     if (item.isSauceSelection && currentStep === 'saucetype') {
       if (!selectedSauce) return;
@@ -348,7 +361,25 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
     setCurrentStep('burgerSauce');
   }, []);
 
+  const handleBackToPizzaSize = useCallback(() => {
+    setCurrentStep('pizzaSize');
+  }, []);
+
+  const handleBackToPizzaExtras = useCallback(() => {
+    setCurrentStep('pizzaExtras');
+    setSelectedPizzaSauce('');
+  }, []);
+
   const getModalTitle = useCallback(() => {
+    if (item.isPizza) {
+      if (currentStep === 'pizzaSize') {
+        return 'Schritt 1: Größe wählen';
+      } else if (currentStep === 'pizzaExtras') {
+        return 'Schritt 2: Extras wählen (optional)';
+      } else if (currentStep === 'pizzaSauce') {
+        return 'Schritt 3: Soße wählen';
+      }
+    }
     if (item.isSauceSelection) {
       if (currentStep === 'saucetype') {
         return 'Schritt 1: Soße wählen';
@@ -390,6 +421,13 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   }, [item, currentStep]);
 
   const getButtonText = useCallback(() => {
+    if (item.isPizza) {
+      if (currentStep === 'pizzaSize') {
+        return 'Weiter zur Extra-Auswahl';
+      } else if (currentStep === 'pizzaExtras') {
+        return 'Weiter zur Soßenauswahl';
+      }
+    }
     if (item.isSauceSelection && currentStep === 'saucetype') {
       return 'Weiter zur Größenauswahl';
     }
@@ -591,6 +629,17 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             )}
           </div>
           <div className="flex items-center gap-2">
+            {item.isPizza && (currentStep === 'pizzaExtras' || currentStep === 'pizzaSauce') && (
+              <button
+                onClick={currentStep === 'pizzaExtras' ? handleBackToPizzaSize : handleBackToPizzaExtras}
+                className="p-2 hover:bg-light-blue-500 rounded-full transition-colors"
+                title={currentStep === 'pizzaExtras' ? "Zurück zur Größenauswahl" : "Zurück zur Extra-Auswahl"}
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+            )}
             {item.isMeatSelection && (currentStep === 'sauce' || currentStep === 'exclusions' || currentStep === 'extras' || currentStep === 'sidedish') && (
               <button
                 onClick={
@@ -691,6 +740,41 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
               <div className="text-sm text-gray-600">
                 <p className="font-medium text-gray-900 mb-1">Produktinfo</p>
                 <p>4,8% vol, 0,33l, {(item.price / 0.33).toFixed(2).replace('.', ',')} €/1l</p>
+              </div>
+            </div>
+          )}
+
+          {/* Step indicator for pizza items */}
+          {item.isPizza && (
+            <div className="flex items-center justify-center space-x-1 sm:space-x-2 mb-2 sm:mb-3">
+              <div className={`flex items-center space-x-1 ${currentStep === 'pizzaSize' ? 'text-light-blue-600' : 'text-gray-400'}`}>
+                <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
+                  currentStep === 'pizzaSize' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
+                }`}>
+                  1
+                </div>
+                <span className="text-xs sm:text-sm font-medium hidden sm:inline">Größe</span>
+                <span className="text-xs font-medium sm:hidden">G</span>
+              </div>
+              <div className={`w-4 h-px ${currentStep === 'pizzaExtras' || currentStep === 'pizzaSauce' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
+              <div className={`flex items-center space-x-1 ${currentStep === 'pizzaExtras' ? 'text-light-blue-600' : 'text-gray-400'}`}>
+                <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
+                  currentStep === 'pizzaExtras' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
+                }`}>
+                  2
+                </div>
+                <span className="text-xs sm:text-sm font-medium hidden sm:inline">Extras</span>
+                <span className="text-xs font-medium sm:hidden">E</span>
+              </div>
+              <div className={`w-4 h-px ${currentStep === 'pizzaSauce' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
+              <div className={`flex items-center space-x-1 ${currentStep === 'pizzaSauce' ? 'text-light-blue-600' : 'text-gray-400'}`}>
+                <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
+                  currentStep === 'pizzaSauce' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
+                }`}>
+                  3
+                </div>
+                <span className="text-xs sm:text-sm font-medium hidden sm:inline">Soße</span>
+                <span className="text-xs font-medium sm:hidden">S</span>
               </div>
             </div>
           )}
@@ -871,7 +955,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
           )}
 
           {/* Size Selection */}
-          {item.sizes && (!item.isMeatSelection || (currentStep !== 'sauce' && currentStep !== 'exclusions')) && (!item.isSauceSelection || currentStep === 'complete') && (
+          {item.sizes && (!item.isMeatSelection || (currentStep !== 'sauce' && currentStep !== 'exclusions')) && (!item.isSauceSelection || currentStep === 'complete') && (!item.isPizza || currentStep === 'pizzaSize') && (
             <div>
               <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Größe wählen *</h3>
               <div className="space-y-2">
@@ -944,7 +1028,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
           )}
 
           {/* Pizza Extras */}
-          {(item.isPizza || item.isWunschPizza) && (!item.isMeatSelection || (currentStep !== 'sauce' && currentStep !== 'exclusions')) && (
+          {(item.isPizza || item.isWunschPizza) && (!item.isMeatSelection || (currentStep !== 'sauce' && currentStep !== 'exclusions')) && (!item.isPizza || currentStep === 'pizzaExtras') && (
             <div>
               <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
                 Extras (+{getExtraPricePerItem().toFixed(2).replace('.', ',')}€ pro Extra)
@@ -1180,6 +1264,35 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             </div>
           )}
 
+          {/* Pizza Sauce Selection - Only show in step 3 for pizza items */}
+          {item.isPizza && currentStep === 'pizzaSauce' && (
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Soße wählen (optional)</h3>
+              <div className="space-y-2">
+                {sauceTypes.map((sauce) => (
+                  <label
+                    key={sauce}
+                    className={`flex items-center space-x-2 p-2 rounded-lg border-2 cursor-pointer transition-all ${
+                      selectedPizzaSauce === sauce
+                        ? 'border-orange-500 bg-orange-50'
+                        : 'border-gray-200 hover:border-orange-300'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="pizzaSauce"
+                      value={sauce}
+                      checked={selectedPizzaSauce === sauce}
+                      onChange={(e) => setSelectedPizzaSauce(e.target.value)}
+                      className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
+                    />
+                    <span className="font-medium">{sauce}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Salad Exclusions - Only show in step 3 for meat selection items, or step 2 for item 88 */}
           {item.isMeatSelection && currentStep === 'exclusions' && (
             <div>
@@ -1402,8 +1515,40 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
               </div>
             </div>
 
-            {/* Buttons for Step 2, Step 3, Step 4, and Step 5 - Side by side */}
-            {item.isMeatSelection && (currentStep === 'sauce' || currentStep === 'exclusions' || currentStep === 'extras' || currentStep === 'sidedish') ? (
+            {/* Buttons for Pizza Steps */}
+            {item.isPizza && (currentStep === 'pizzaExtras' || currentStep === 'pizzaSauce') ? (
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={currentStep === 'pizzaExtras' ? handleBackToPizzaSize : handleBackToPizzaExtras}
+                  className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 px-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors border border-gray-300"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                  Zurück
+                </button>
+
+                <button
+                  onClick={handleAddToCart}
+                  className="flex-1 bg-light-blue-400 hover:bg-light-blue-500 text-white py-3 px-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors"
+                >
+                  {currentStep === 'pizzaExtras' ? (
+                    <>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                      Weiter
+                    </>
+                  ) : (
+                    <>
+                      <ShoppingCart className="w-5 h-5" />
+                      Hinzufügen
+                    </>
+                  )}
+                </button>
+              </div>
+            ) : item.isMeatSelection && (currentStep === 'sauce' || currentStep === 'exclusions' || currentStep === 'extras' || currentStep === 'sidedish') ? (
               <div className="flex gap-3">
                 <button
                   type="button"
@@ -1506,7 +1651,9 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
         selectedExtras={selectedExtras}
         selectedPastaType={selectedPastaType}
         selectedSauce={
-          item.isBurger
+          item.isPizza
+            ? selectedPizzaSauce
+            : item.isBurger
             ? selectedBurgerSauce
             : selectedSauces.length > 0
             ? selectedSauces.join(', ')
