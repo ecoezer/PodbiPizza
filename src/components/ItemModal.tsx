@@ -607,6 +607,41 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             {currentStep === 'meat' && item.description && (
               <p className="text-xs sm:text-sm opacity-90 mt-0.5">{item.description}</p>
             )}
+            {currentStep === 'pizzaSize' && (
+              <p className="text-xs sm:text-sm opacity-90 mt-0.5">
+                Nr. {item.number} {item.name}
+              </p>
+            )}
+            {currentStep === 'pizzaExtras' && (
+              <p className="text-xs sm:text-sm opacity-90 mt-0.5">
+                Nr. {item.number} {item.name} - {selectedSize?.name}
+              </p>
+            )}
+            {currentStep === 'pizzaSauce' && (
+              <p className="text-xs sm:text-sm opacity-90 mt-0.5">
+                Nr. {item.number} {item.name} - {selectedSize?.name}
+              </p>
+            )}
+            {currentStep === 'saucetype' && (
+              <p className="text-xs sm:text-sm opacity-90 mt-0.5">
+                Nr. {item.number} {item.name}
+              </p>
+            )}
+            {currentStep === 'burgerSalad' && (
+              <p className="text-xs sm:text-sm opacity-90 mt-0.5">
+                Nr. {item.number} {item.name}
+              </p>
+            )}
+            {currentStep === 'burgerSauce' && (
+              <p className="text-xs sm:text-sm opacity-90 mt-0.5">
+                Nr. {item.number} {item.name}
+              </p>
+            )}
+            {currentStep === 'burgerExtras' && (
+              <p className="text-xs sm:text-sm opacity-90 mt-0.5">
+                Nr. {item.number} {item.name}
+              </p>
+            )}
             {currentStep === 'sauce' && (
               <p className="text-xs sm:text-sm opacity-90 mt-0.5">
                 Nr. {item.number} {item.name}
