@@ -86,15 +86,26 @@ export class FirebaseService {
 
   static async fetchOrders(): Promise<OrderData[]> {
     try {
+      console.log('Fetching orders from collection:', this.ORDERS_COLLECTION);
       const ordersQuery = query(collection(db, this.ORDERS_COLLECTION), orderBy('created_at', 'desc'));
       const querySnapshot = await getDocs(ordersQuery);
 
-      return querySnapshot.docs.map(doc => ({
+      console.log('Orders fetched successfully. Count:', querySnapshot.docs.length);
+      const orders = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       })) as OrderData[];
+
+      return orders;
     } catch (error) {
       console.error('Error fetching orders:', error);
+      if (error instanceof Error) {
+        console.error('Error details:', {
+          message: error.message,
+          code: (error as any).code,
+          name: error.name
+        });
+      }
       throw error;
     }
   }

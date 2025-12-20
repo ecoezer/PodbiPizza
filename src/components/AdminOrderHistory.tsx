@@ -88,7 +88,8 @@ const AdminOrderHistory: React.FC<AdminOrderHistoryProps> = ({ onLogout }) => {
 
       setFilteredOrders(filterOrders(fetchedOrders, timeFilter, customStartDate, customEndDate));
     } catch (err) {
-      setError('Failed to load orders. Please try again.');
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      setError(`Failed to load orders: ${errorMessage}. Please check Firebase configuration and try again.`);
       console.error('Error loading orders:', err);
     } finally {
       setIsLoading(false);

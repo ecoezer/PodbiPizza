@@ -11,5 +11,23 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
+if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
+  console.warn('Firebase configuration incomplete. Check .env file for required variables:', {
+    hasApiKey: !!firebaseConfig.apiKey,
+    hasProjectId: !!firebaseConfig.projectId,
+    hasAuthDomain: !!firebaseConfig.authDomain,
+    hasAppId: !!firebaseConfig.appId
+  });
+}
+
+let db;
+try {
+  const app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+  console.log('Firebase initialized successfully with project:', firebaseConfig.projectId);
+} catch (error) {
+  console.error('Failed to initialize Firebase:', error);
+  throw error;
+}
+
+export { db };
