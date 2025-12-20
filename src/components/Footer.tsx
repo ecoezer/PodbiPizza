@@ -7,8 +7,8 @@ const Footer = () => {
   const [showImpressum, setShowImpressum] = useState(false);
   const allergensRef = React.useRef<HTMLDivElement>(null);
   const impressumRef = React.useRef<HTMLDivElement>(null);
-  const phoneNumber = '+495069899999';
-  const displayNumber = '05069 8989997';
+  const phoneNumber = '+4915224290621';
+  const displayNumber = '01522 429 06 21';
 
   const handleAllergensToggle = () => {
     const newState = !showAllergens;
