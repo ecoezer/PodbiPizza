@@ -180,7 +180,7 @@ function App() {
             <h1 className='text-sm font-bold text-gray-900 leading-tight'>
               <div>Saray Kebap</div>
               <div>Café54</div>
-              <div className='text-red-600 text-xs font-medium mt-0.5'>Lieferservice</div>
+              <div className='text-red-900 text-xs font-medium mt-0.5'>Lieferservice</div>
             </h1>
             <div className="flex-1">
               <SearchBar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
