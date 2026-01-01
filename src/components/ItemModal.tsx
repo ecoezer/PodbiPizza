@@ -1801,7 +1801,14 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
         selectedSideDish={selectedSideDish}
         totalPrice={confirmationPrice}
         onConfirm={(quantity) => {
-          const finalExtras = item.isBurger ? selectedBurgerExtras : selectedExtras;
+          let finalExtras: string[] = [];
+          if (item.isBurger) {
+            finalExtras = selectedBurgerExtras;
+          } else if (item.isMeatSelection) {
+            finalExtras = selectedDonerExtras;
+          } else {
+            finalExtras = selectedExtras;
+          }
           const finalExclusions = item.isBurger ? selectedBurgerSaladExclusions : selectedExclusions;
 
           for (let i = 0; i < quantity; i++) {

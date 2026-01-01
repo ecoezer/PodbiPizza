@@ -19,8 +19,7 @@ A modern food delivery website for Saray Kebap Café54 with WhatsApp ordering an
 - **Styling**: Tailwind CSS
 - **State Management**: Zustand
 - **Forms**: React Hook Form + Zod validation
-- **Backend**: Supabase Edge Functions
-- **Email Service**: Resend
+- **Backend**: Firebase Firestore
 - **Icons**: Lucide React
 
 ## Setup Instructions
@@ -35,41 +34,28 @@ npm install
 
 ### 2. Environment Configuration
 
-Create a `.env` file based on `.env.example`:
-
-```bash
-cp .env.example .env
-```
-
-Fill in your configuration:
+Create a `.env` file with your Firebase configuration:
 
 ```env
-# Supabase Configuration
-VITE_SUPABASE_URL=your_supabase_project_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-
-# Email Configuration (for Edge Function)
-RESEND_API_KEY=your_resend_api_key
-RESTAURANT_EMAIL=orders@your-restaurant.com
+# Firebase Configuration
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_project.firebasestorage.app
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+VITE_FIREBASE_MEASUREMENT_ID=your_measurement_id
+VITE_FIREBASE_DATABASE_URL=https://your_project.firebaseio.com
 ```
 
-### 3. Supabase Setup
+### 3. Firebase Setup
 
-1. Create a new Supabase project at [supabase.com](https://supabase.com)
-2. Get your project URL and anon key from the project settings
-3. The Edge Function will be automatically deployed when you connect to Supabase
+1. Create a new Firebase project at [console.firebase.google.com](https://console.firebase.google.com)
+2. Enable Firestore Database for your project
+3. Get your configuration from Firebase Console → Project Settings
+4. Add the credentials to your `.env` file
 
-### 4. Email Service Setup
-
-1. Sign up for [Resend](https://resend.com)
-2. Get your API key from the Resend dashboard
-3. Add your API key to the Supabase Edge Function environment variables:
-   - Go to your Supabase project dashboard
-   - Navigate to Edge Functions → Environment Variables
-   - Add `RESEND_API_KEY` with your Resend API key
-   - Add `RESTAURANT_EMAIL` with your restaurant's email address
-
-### 5. Development
+### 4. Development
 
 ```bash
 npm run dev
@@ -77,28 +63,21 @@ npm run dev
 
 The application will be available at `http://localhost:5173`
 
-### 6. Production Build
+### 5. Production Build
 
 ```bash
 npm run build
 npm run preview
 ```
 
-## Email Notification System
+## Order Management
 
-The application includes an automated email notification system:
+Orders are stored in Firebase Firestore with the following features:
 
-- **Trigger**: Automatically sends when an order is submitted
-- **Content**: Complete order details, customer info, and totals
-- **Fallback**: WhatsApp ordering continues to work even if email fails
-- **Service**: Uses Resend for reliable email delivery
-
-### Email Features:
-- Professional HTML email template
-- Complete order breakdown with pricing
-- Customer contact information
-- Delivery details and special instructions
-- Mobile-responsive email design
+- **Real-time Order Tracking**: Orders are saved to Firestore as they're submitted
+- **Complete Order Details**: Customer info, items, pricing, and special requests
+- **WhatsApp Integration**: Orders are also sent via WhatsApp for immediate notification
+- **Order History**: Admin panel for viewing all submitted orders
 
 ## Menu Management
 
