@@ -62,6 +62,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   const [selectedCalzoneSauces, setSelectedCalzoneSauces] = useState<string[]>([]);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [confirmationPrice, setConfirmationPrice] = useState(0);
+  const [calzoneExtrasPage, setCalzoneExtrasPage] = useState(0);
 
   const handleIngredientToggle = useCallback((ingredient: string) => {
     setSelectedIngredients(prev => {
@@ -338,10 +339,19 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
     if (item.isCalzone && currentStep === 'calzoneSize') {
       if (!selectedSize) return;
       setCurrentStep('calzoneExtras');
+      setCalzoneExtrasPage(0);
       return;
     }
 
     if (item.isCalzone && currentStep === 'calzoneExtras') {
+      const EXTRAS_PER_PAGE = 8;
+      const totalPages = Math.ceil(calzoneExtras.length / EXTRAS_PER_PAGE);
+
+      if (calzoneExtrasPage < totalPages - 1) {
+        setCalzoneExtrasPage(prev => prev + 1);
+        return;
+      }
+
       setCurrentStep('calzoneSauce');
       return;
     }
@@ -498,12 +508,24 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
 
   const handleBackToCalzoneSize = useCallback(() => {
     setCurrentStep('calzoneSize');
+    setCalzoneExtrasPage(0);
   }, []);
 
   const handleBackToCalzoneExtras = useCallback(() => {
     setCurrentStep('calzoneExtras');
     setSelectedCalzoneSauces([]);
+    const EXTRAS_PER_PAGE = 8;
+    const totalPages = Math.ceil(calzoneExtras.length / EXTRAS_PER_PAGE);
+    setCalzoneExtrasPage(totalPages - 1);
   }, []);
+
+  const handleCalzoneExtrasPrevPage = useCallback(() => {
+    if (calzoneExtrasPage > 0) {
+      setCalzoneExtrasPage(prev => prev - 1);
+    } else {
+      setCurrentStep('calzoneSize');
+    }
+  }, [calzoneExtrasPage]);
 
   const getModalTitle = useCallback(() => {
     if (item.isPizza) {
@@ -519,7 +541,9 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
       if (currentStep === 'calzoneSize') {
         return 'Schritt 1: Größe wählen';
       } else if (currentStep === 'calzoneExtras') {
-        return 'Schritt 2: Extras wählen (optional)';
+        const EXTRAS_PER_PAGE = 8;
+        const totalPages = Math.ceil(calzoneExtras.length / EXTRAS_PER_PAGE);
+        return `Schritt 2: Extras wählen (${calzoneExtrasPage + 1}/${totalPages})`;
       } else if (currentStep === 'calzoneSauce') {
         return 'Schritt 3: Soße wählen';
       }
@@ -576,6 +600,11 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
       if (currentStep === 'calzoneSize') {
         return 'Weiter zur Extra-Auswahl';
       } else if (currentStep === 'calzoneExtras') {
+        const EXTRAS_PER_PAGE = 8;
+        const totalPages = Math.ceil(calzoneExtras.length / EXTRAS_PER_PAGE);
+        if (calzoneExtrasPage < totalPages - 1) {
+          return `Nächste Extras (${calzoneExtrasPage + 2}/${totalPages})`;
+        }
         return 'Weiter zur Soßenauswahl';
       }
     }
@@ -843,9 +872,9 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             )}
             {item.isCalzone && (currentStep === 'calzoneExtras' || currentStep === 'calzoneSauce') && (
               <button
-                onClick={currentStep === 'calzoneExtras' ? handleBackToCalzoneSize : handleBackToCalzoneExtras}
+                onClick={currentStep === 'calzoneExtras' ? handleCalzoneExtrasPrevPage : handleBackToCalzoneExtras}
                 className="p-2 hover:bg-light-blue-500 rounded-full transition-colors"
-                title={currentStep === 'calzoneExtras' ? "Zurück zur Größenauswahl" : "Zurück zur Extra-Auswahl"}
+                title={currentStep === 'calzoneExtras' ? (calzoneExtrasPage > 0 ? "Vorherige Extras" : "Zurück zur Größenauswahl") : "Zurück zur Extra-Auswahl"}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -1304,33 +1333,44 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
           )}
 
           {/* Calzone Extras */}
-          {item.isCalzone && currentStep === 'calzoneExtras' && (
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
-                Extras {selectedSize ? `(+${(selectedSize.name === 'Normal' ? 0.75 : 1.00).toFixed(2).replace('.', ',')}€ pro Extra)` : ''}
-              </h3>
-              <div className="grid grid-cols-2 gap-2 max-h-60 overflow-y-auto">
-                {calzoneExtras.map((extra) => (
-                  <label
-                    key={extra}
-                    className={`flex items-center space-x-2 p-1.5 rounded-lg border cursor-pointer transition-all text-sm ${
-                      selectedCalzoneExtras.includes(extra)
-                        ? 'border-light-blue-400 bg-light-blue-50'
-                        : 'border-gray-200 hover:border-light-blue-300'
-                    }`}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={selectedCalzoneExtras.includes(extra)}
-                      onChange={() => handleCalzoneExtraToggle(extra)}
-                      className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
-                    />
-                    <span>{extra}</span>
-                  </label>
-                ))}
+          {item.isCalzone && currentStep === 'calzoneExtras' && (() => {
+            const EXTRAS_PER_PAGE = 8;
+            const startIndex = calzoneExtrasPage * EXTRAS_PER_PAGE;
+            const endIndex = startIndex + EXTRAS_PER_PAGE;
+            const currentPageExtras = calzoneExtras.slice(startIndex, endIndex);
+            const totalPages = Math.ceil(calzoneExtras.length / EXTRAS_PER_PAGE);
+
+            return (
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
+                  Extras {selectedSize ? `(+${(selectedSize.name === 'Normal' ? 0.75 : 1.00).toFixed(2).replace('.', ',')}€ pro Extra)` : ''}
+                </h3>
+                <div className="mb-3 text-sm text-gray-600">
+                  Seite {calzoneExtrasPage + 1} von {totalPages} - {selectedCalzoneExtras.length} ausgewählt
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  {currentPageExtras.map((extra) => (
+                    <label
+                      key={extra}
+                      className={`flex items-center space-x-2 p-1.5 rounded-lg border cursor-pointer transition-all text-sm ${
+                        selectedCalzoneExtras.includes(extra)
+                          ? 'border-light-blue-400 bg-light-blue-50'
+                          : 'border-gray-200 hover:border-light-blue-300'
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={selectedCalzoneExtras.includes(extra)}
+                        onChange={() => handleCalzoneExtraToggle(extra)}
+                        className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
+                      />
+                      <span>{extra}</span>
+                    </label>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
 
           {/* Pide Extras */}
           {item.isPide && (
