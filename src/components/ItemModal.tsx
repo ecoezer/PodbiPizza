@@ -62,7 +62,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   const [selectedCalzoneSauces, setSelectedCalzoneSauces] = useState<string[]>([]);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [confirmationPrice, setConfirmationPrice] = useState(0);
-  const [calzoneExtrasPage, setCalzoneExtrasPage] = useState(0);
+  const [showAllCalzoneExtras, setShowAllCalzoneExtras] = useState(false);
 
   const handleIngredientToggle = useCallback((ingredient: string) => {
     setSelectedIngredients(prev => {
@@ -339,19 +339,11 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
     if (item.isCalzone && currentStep === 'calzoneSize') {
       if (!selectedSize) return;
       setCurrentStep('calzoneExtras');
-      setCalzoneExtrasPage(0);
+      setShowAllCalzoneExtras(false);
       return;
     }
 
     if (item.isCalzone && currentStep === 'calzoneExtras') {
-      const EXTRAS_PER_PAGE = 8;
-      const totalPages = Math.ceil(calzoneExtras.length / EXTRAS_PER_PAGE);
-
-      if (calzoneExtrasPage < totalPages - 1) {
-        setCalzoneExtrasPage(prev => prev + 1);
-        return;
-      }
-
       setCurrentStep('calzoneSauce');
       return;
     }
@@ -508,24 +500,13 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
 
   const handleBackToCalzoneSize = useCallback(() => {
     setCurrentStep('calzoneSize');
-    setCalzoneExtrasPage(0);
   }, []);
 
   const handleBackToCalzoneExtras = useCallback(() => {
     setCurrentStep('calzoneExtras');
     setSelectedCalzoneSauces([]);
-    const EXTRAS_PER_PAGE = 8;
-    const totalPages = Math.ceil(calzoneExtras.length / EXTRAS_PER_PAGE);
-    setCalzoneExtrasPage(totalPages - 1);
+    setShowAllCalzoneExtras(false);
   }, []);
-
-  const handleCalzoneExtrasPrevPage = useCallback(() => {
-    if (calzoneExtrasPage > 0) {
-      setCalzoneExtrasPage(prev => prev - 1);
-    } else {
-      setCurrentStep('calzoneSize');
-    }
-  }, [calzoneExtrasPage]);
 
   const getModalTitle = useCallback(() => {
     if (item.isPizza) {
@@ -541,9 +522,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
       if (currentStep === 'calzoneSize') {
         return 'Schritt 1: Größe wählen';
       } else if (currentStep === 'calzoneExtras') {
-        const EXTRAS_PER_PAGE = 8;
-        const totalPages = Math.ceil(calzoneExtras.length / EXTRAS_PER_PAGE);
-        return `Schritt 2: Extras wählen (${calzoneExtrasPage + 1}/${totalPages})`;
+        return 'Schritt 2: Extras wählen (optional)';
       } else if (currentStep === 'calzoneSauce') {
         return 'Schritt 3: Soße wählen';
       }
@@ -600,11 +579,6 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
       if (currentStep === 'calzoneSize') {
         return 'Weiter zur Extra-Auswahl';
       } else if (currentStep === 'calzoneExtras') {
-        const EXTRAS_PER_PAGE = 8;
-        const totalPages = Math.ceil(calzoneExtras.length / EXTRAS_PER_PAGE);
-        if (calzoneExtrasPage < totalPages - 1) {
-          return `Nächste Extras (${calzoneExtrasPage + 2}/${totalPages})`;
-        }
         return 'Weiter zur Soßenauswahl';
       }
     }
@@ -872,9 +846,9 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             )}
             {item.isCalzone && (currentStep === 'calzoneExtras' || currentStep === 'calzoneSauce') && (
               <button
-                onClick={currentStep === 'calzoneExtras' ? handleCalzoneExtrasPrevPage : handleBackToCalzoneExtras}
+                onClick={currentStep === 'calzoneExtras' ? handleBackToCalzoneSize : handleBackToCalzoneExtras}
                 className="p-2 hover:bg-light-blue-500 rounded-full transition-colors"
-                title={currentStep === 'calzoneExtras' ? (calzoneExtrasPage > 0 ? "Vorherige Extras" : "Zurück zur Größenauswahl") : "Zurück zur Extra-Auswahl"}
+                title={currentStep === 'calzoneExtras' ? "Zurück zur Größenauswahl" : "Zurück zur Extra-Auswahl"}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -1334,11 +1308,9 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
 
           {/* Calzone Extras */}
           {item.isCalzone && currentStep === 'calzoneExtras' && (() => {
-            const EXTRAS_PER_PAGE = 8;
-            const startIndex = calzoneExtrasPage * EXTRAS_PER_PAGE;
-            const endIndex = startIndex + EXTRAS_PER_PAGE;
-            const currentPageExtras = calzoneExtras.slice(startIndex, endIndex);
-            const totalPages = Math.ceil(calzoneExtras.length / EXTRAS_PER_PAGE);
+            const INITIAL_ITEMS = 8;
+            const isExpandable = calzoneExtras.length > INITIAL_ITEMS;
+            const displayedExtras = showAllCalzoneExtras ? calzoneExtras : calzoneExtras.slice(0, INITIAL_ITEMS);
 
             return (
               <div>
@@ -1346,10 +1318,10 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                   Extras {selectedSize ? `(+${(1.00).toFixed(2).replace('.', ',')}€ pro Extra)` : ''}
                 </h3>
                 <div className="mb-3 text-sm text-gray-600">
-                  Seite {calzoneExtrasPage + 1} von {totalPages} - {selectedCalzoneExtras.length} ausgewählt
+                  {selectedCalzoneExtras.length} ausgewählt
                 </div>
-                <div className="grid grid-cols-2 gap-2">
-                  {currentPageExtras.map((extra) => (
+                <div className={`grid grid-cols-2 gap-2 ${showAllCalzoneExtras ? 'max-h-80 overflow-y-auto pr-2' : ''}`}>
+                  {displayedExtras.map((extra) => (
                     <label
                       key={extra}
                       className={`flex items-center space-x-2 p-1.5 rounded-lg border cursor-pointer transition-all text-sm ${
@@ -1368,6 +1340,22 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                     </label>
                   ))}
                 </div>
+                {isExpandable && !showAllCalzoneExtras && (
+                  <button
+                    onClick={() => setShowAllCalzoneExtras(true)}
+                    className="mt-3 text-light-blue-600 hover:text-light-blue-700 font-medium text-sm underline"
+                  >
+                    Mehr anzeigen ({calzoneExtras.length - INITIAL_ITEMS} weitere)
+                  </button>
+                )}
+                {showAllCalzoneExtras && isExpandable && (
+                  <button
+                    onClick={() => setShowAllCalzoneExtras(false)}
+                    className="mt-3 text-light-blue-600 hover:text-light-blue-700 font-medium text-sm underline"
+                  >
+                    Weniger anzeigen
+                  </button>
+                )}
               </div>
             );
           })()}
