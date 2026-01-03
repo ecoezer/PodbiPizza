@@ -18,6 +18,7 @@ export interface MenuItem {
   isPide?: boolean;
   isBaguette?: boolean;
   isBurger?: boolean;
+  isCalzone?: boolean;
 }
 
 export interface PizzaSize {

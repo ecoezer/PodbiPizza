@@ -91,6 +91,41 @@ export const burgerSauceTypes = [
   'mit Chilisauce'
 ] as const;
 
+// Calzone extras (same as pizza, but with different size pricing)
+export const calzoneExtras = [
+  'Ananas', 'Brokkoli', 'Champignons frisch', 'Doppelt Käse', 'Gewürzgurken',
+  'Hähnchenbrust', 'Jalapeños', 'Mais', 'Mozzarella', 'Oliven', 'Paprika',
+  'Peperoni mild', 'Putenschinken', 'Rindersalami', 'Sauce Hollandaise', 'Spinat',
+  'Sucuk', 'Tomaten', 'Zwiebeln', 'Dönerfleisch Kalb', 'Dönerfleisch Hähnchen', 'Weichkäse', 'Thunfisch'
+] as const;
+
+// Calzone extras pricing by size (Normal and Groß)
+export const calzoneExtrasPricing: { [key: string]: { 'Normal': number; 'Groß': number } } = {
+  'Ananas': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Brokkoli': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Champignons frisch': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Doppelt Käse': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Gewürzgurken': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Hähnchenbrust': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Jalapeños': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Mais': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Mozzarella': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Oliven': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Paprika': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Peperoni mild': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Putenschinken': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Rindersalami': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Sauce Hollandaise': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Spinat': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Sucuk': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Tomaten': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Zwiebeln': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Dönerfleisch Kalb': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Dönerfleisch Hähnchen': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Weichkäse': { 'Normal': 0.75, 'Groß': 1.00 },
+  'Thunfisch': { 'Normal': 0.75, 'Groß': 1.00 }
+} as const;
+
 // Burger extras with pricing
 export const burgerExtras = [
   { name: 'Extra Schmelzkäse', price: 0.50 },
@@ -320,23 +355,23 @@ export const calzoneSizes = [
 
 // Calzone
 export const calzone: readonly MenuItem[] = [
-  { id: 601, number: 46, name: "Döner", description: "mit Dönerfleisch & Sauce", price: 10.50, allergens: "Aa, G, I, M, 14, 17, 18", sizes: [
+  { id: 601, number: 46, name: "Döner", description: "mit Dönerfleisch & Sauce", price: 10.50, allergens: "Aa, G, I, M, 14, 17, 18", isCalzone: true, sizes: [
     { name: 'Normal', price: 10.50, description: 'Normal' },
     { name: 'Groß', price: 12.50, description: 'Groß' }
   ]},
-  { id: 602, number: 47, name: "Hähnchendöner", description: "mit Hähnchendönerfleisch & Sauce", price: 10.50, allergens: "Aa, G, I, M, 14, 17, 18", sizes: [
+  { id: 602, number: 47, name: "Hähnchendöner", description: "mit Hähnchendönerfleisch & Sauce", price: 10.50, allergens: "Aa, G, I, M, 14, 17, 18", isCalzone: true, sizes: [
     { name: 'Normal', price: 10.50, description: 'Normal' },
     { name: 'Groß', price: 12.50, description: 'Groß' }
   ]},
-  { id: 603, number: 48, name: "Döner Mais", description: "mit Dönerfleisch, Zwiebeln, Mais & Tabasco", price: 11.00, allergens: "Aa, G, I, M, 14, 17, 18", sizes: [
+  { id: 603, number: 48, name: "Döner Mais", description: "mit Dönerfleisch, Zwiebeln, Mais & Tabasco", price: 11.00, allergens: "Aa, G, I, M, 14, 17, 18", isCalzone: true, sizes: [
     { name: 'Normal', price: 11.00, description: 'Normal' },
     { name: 'Groß', price: 13.00, description: 'Groß' }
   ]},
-  { id: 604, number: 49, name: "Schinken-Salami", description: "mit Geflügelformschinken, Geflügelsalami & Champignons", price: 10.00, allergens: "Aa, B, I, G, 6, 9, 9.I, 17", sizes: [
+  { id: 604, number: 49, name: "Schinken-Salami", description: "mit Geflügelformschinken, Geflügelsalami & Champignons", price: 10.00, allergens: "Aa, B, I, G, 6, 9, 9.I, 17", isCalzone: true, sizes: [
     { name: 'Normal', price: 10.00, description: 'Normal' },
     { name: 'Groß', price: 12.00, description: 'Groß' }
   ]},
-  { id: 605, number: 50, name: "Spinat", description: "mit Spinat, Weichkäse & Knoblauch", price: 9.00, allergens: "Aa, I", sizes: [
+  { id: 605, number: 50, name: "Spinat", description: "mit Spinat, Weichkäse & Knoblauch", price: 9.00, allergens: "Aa, I", isCalzone: true, sizes: [
     { name: 'Normal', price: 9.00, description: 'Normal' },
     { name: 'Groß', price: 11.50, description: 'Groß' }
   ]},

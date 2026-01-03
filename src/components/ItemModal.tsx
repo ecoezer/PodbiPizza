@@ -3,7 +3,7 @@ import { X, Plus, ShoppingCart, AlertTriangle, Info } from 'lucide-react';
 import { MenuItem, PizzaSize } from '../types';
 import {
   wunschPizzaIngredients, pizzaExtras, pastaTypes,
-  sauceTypes, saladSauceTypes, saladExclusionOptions, sideDishOptions, drehspiessaSauceTypes, snackSauceTypes, pizzabroetchenSauceTypes, sauceBottleTypes, pizzaExtrasPricing, donerExtras, baguetteSauceTypes, granatapfelOptions, burgerSaladExclusions, burgerSauceTypes, burgerExtras
+  sauceTypes, saladSauceTypes, saladExclusionOptions, sideDishOptions, drehspiessaSauceTypes, snackSauceTypes, pizzabroetchenSauceTypes, sauceBottleTypes, pizzaExtrasPricing, donerExtras, baguetteSauceTypes, granatapfelOptions, burgerSaladExclusions, burgerSauceTypes, burgerExtras, calzoneExtras, calzoneExtrasPricing
 } from '../data/menuItems';
 import { parseAllergens } from '../data/allergenData';
 import { getSizePrice } from '../utils/sizeNormalization';
@@ -45,8 +45,8 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   const [selectedSideDish, setSelectedSideDish] = useState<string>(
     (item.number === 9 || item.number === 10) ? sideDishOptions[0] : ''
   );
-  const [currentStep, setCurrentStep] = useState<'meat' | 'sauce' | 'extras' | 'exclusions' | 'sidedish' | 'saucetype' | 'burgerSalad' | 'burgerSauce' | 'burgerExtras' | 'pizzaSize' | 'pizzaExtras' | 'pizzaSauce' | 'complete'>(
-    item.isPizza ? 'pizzaSize' : item.isSauceSelection ? 'saucetype' : item.isBurger ? 'burgerSalad' : item.number === 88 ? 'sauce' : 'meat'
+  const [currentStep, setCurrentStep] = useState<'meat' | 'sauce' | 'extras' | 'exclusions' | 'sidedish' | 'saucetype' | 'burgerSalad' | 'burgerSauce' | 'burgerExtras' | 'pizzaSize' | 'pizzaExtras' | 'pizzaSauce' | 'calzoneSize' | 'calzoneExtras' | 'calzoneSauce' | 'complete'>(
+    item.isPizza ? 'pizzaSize' : item.isCalzone ? 'calzoneSize' : item.isSauceSelection ? 'saucetype' : item.isBurger ? 'burgerSalad' : item.number === 88 ? 'sauce' : 'meat'
   );
   const [showAllSauces, setShowAllSauces] = useState(false);
   const [showAllExclusions, setShowAllExclusions] = useState(false);
@@ -58,6 +58,8 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
   const [selectedBurgerSauce, setSelectedBurgerSauce] = useState<string>('');
   const [selectedBurgerExtras, setSelectedBurgerExtras] = useState<string[]>([]);
   const [selectedPizzaSauces, setSelectedPizzaSauces] = useState<string[]>([]);
+  const [selectedCalzoneExtras, setSelectedCalzoneExtras] = useState<string[]>([]);
+  const [selectedCalzoneSauces, setSelectedCalzoneSauces] = useState<string[]>([]);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [confirmationPrice, setConfirmationPrice] = useState(0);
 
@@ -172,6 +174,35 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
     });
   }, []);
 
+  const handleCalzoneExtraToggle = useCallback((extra: string) => {
+    setSelectedCalzoneExtras(prev =>
+      prev.includes(extra)
+        ? prev.filter(e => e !== extra)
+        : [...prev, extra]
+    );
+  }, []);
+
+  const handleCalzoneSauceToggle = useCallback((sauce: string) => {
+    setSelectedCalzoneSauces(prev => {
+      if (sauce === 'ohne Soße') {
+        return prev.includes(sauce) ? [] : ['ohne Soße'];
+      }
+
+      const withoutOhneSose = prev.filter(s => s !== 'ohne Soße');
+
+      if (withoutOhneSose.includes(sauce)) {
+        return withoutOhneSose.filter(s => s !== sauce);
+      }
+
+      // Limit to 3 sauces for calzone
+      if (withoutOhneSose.length >= 3) {
+        return withoutOhneSose;
+      }
+
+      return [...withoutOhneSose, sauce];
+    });
+  }, []);
+
   const getExtraPricePerItem = useCallback(() => {
     if (!selectedSize) return 1.00;
     const normalizedSizeName = getSizePrice(selectedSize.name);
@@ -234,6 +265,19 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
       extrasPrice = selectedExtras.length * 1.00;
     }
 
+    // Calzone extras pricing
+    let calzoneExtrasPrice = 0;
+    if (item.isCalzone && selectedCalzoneExtras.length > 0 && selectedSize) {
+      selectedCalzoneExtras.forEach(extra => {
+        const extraPricing = calzoneExtrasPricing[extra as keyof typeof calzoneExtrasPricing];
+        if (extraPricing) {
+          calzoneExtrasPrice += extraPricing[selectedSize.name as 'Normal' | 'Groß'] || 0.75;
+        } else {
+          calzoneExtrasPrice += 0.75;
+        }
+      });
+    }
+
     // Add döner extras pricing (1.00€ each)
     const donerExtrasPrice = selectedDonerExtras.length * 1.00;
 
@@ -268,8 +312,14 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
       pizzaSaucePricing = (selectedPizzaSauces.length - 1) * 1.00;
     }
 
-    return basePrice + extrasPrice + donerExtrasPrice + pideExtrasPrice + saucePricing + burgerExtrasPrice + pizzaSaucePricing;
-  }, [item.price, item.id, item.number, item.isBurger, item.isPizza, selectedSize, selectedExtras, selectedDonerExtras, selectedPideExtras, selectedSauces, selectedBurgerExtras, selectedPizzaSauces]);
+    // Add calzone sauce pricing: first sauce is free, additional sauces cost 1 euro
+    let calzoneSaucePricing = 0;
+    if (item.isCalzone && selectedCalzoneSauces.length > 1) {
+      calzoneSaucePricing = (selectedCalzoneSauces.length - 1) * 1.00;
+    }
+
+    return basePrice + extrasPrice + calzoneExtrasPrice + donerExtrasPrice + pideExtrasPrice + saucePricing + burgerExtrasPrice + pizzaSaucePricing + calzoneSaucePricing;
+  }, [item.price, item.id, item.number, item.isBurger, item.isPizza, item.isCalzone, selectedSize, selectedExtras, selectedCalzoneExtras, selectedDonerExtras, selectedPideExtras, selectedSauces, selectedBurgerExtras, selectedPizzaSauces, selectedCalzoneSauces]);
 
   const handleAddToCart = useCallback(() => {
     // For pizza items, handle multi-step flow
@@ -281,6 +331,18 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
 
     if (item.isPizza && currentStep === 'pizzaExtras') {
       setCurrentStep('pizzaSauce');
+      return;
+    }
+
+    // For calzone items, handle multi-step flow
+    if (item.isCalzone && currentStep === 'calzoneSize') {
+      if (!selectedSize) return;
+      setCurrentStep('calzoneExtras');
+      return;
+    }
+
+    if (item.isCalzone && currentStep === 'calzoneExtras') {
+      setCurrentStep('calzoneSauce');
       return;
     }
 
@@ -342,9 +404,13 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
     const price = calculatePrice();
     setConfirmationPrice(price);
     setShowConfirmationModal(true);
-  }, [item, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedSauces, selectedMeatType, selectedExclusions, selectedSideDish, selectedBurgerSauce, selectedBurgerSaladExclusions, selectedBurgerExtras, currentStep, showAgeWarning, calculatePrice]);
+  }, [item, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedSauces, selectedMeatType, selectedExclusions, selectedSideDish, selectedBurgerSauce, selectedBurgerSaladExclusions, selectedBurgerExtras, selectedCalzoneExtras, selectedCalzoneSauces, currentStep, showAgeWarning, calculatePrice]);
 
   const getSauceOptions = useCallback(() => {
+    // Calzone items use same sauce types as pizza
+    if (item.isCalzone) {
+      return sauceTypes;
+    }
     // Drehspieß items use special sauce types
     if (item.isMeatSelection) {
       return drehspiessaSauceTypes;
@@ -377,7 +443,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
       return sauceTypes.filter(sauce => !['Tzatziki', 'Kräutersoße', 'Curry Sauce'].includes(sauce)).concat('Burger Sauce').sort();
     }
     return sauceTypes;
-  }, [item.id, item.number, item.isSpezialitaet, item.isMeatSelection, item.isFalafel, item.isBaguette]);
+  }, [item.id, item.number, item.isSpezialitaet, item.isMeatSelection, item.isFalafel, item.isBaguette, item.isCalzone]);
 
   const getVisibleSauceOptions = useCallback(() => {
     const allSauces = getSauceOptions();
@@ -430,6 +496,15 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
     setSelectedPizzaSauce('');
   }, []);
 
+  const handleBackToCalzoneSize = useCallback(() => {
+    setCurrentStep('calzoneSize');
+  }, []);
+
+  const handleBackToCalzoneExtras = useCallback(() => {
+    setCurrentStep('calzoneExtras');
+    setSelectedCalzoneSauces([]);
+  }, []);
+
   const getModalTitle = useCallback(() => {
     if (item.isPizza) {
       if (currentStep === 'pizzaSize') {
@@ -437,6 +512,15 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
       } else if (currentStep === 'pizzaExtras') {
         return 'Schritt 2: Extras wählen (optional)';
       } else if (currentStep === 'pizzaSauce') {
+        return 'Schritt 3: Soße wählen';
+      }
+    }
+    if (item.isCalzone) {
+      if (currentStep === 'calzoneSize') {
+        return 'Schritt 1: Größe wählen';
+      } else if (currentStep === 'calzoneExtras') {
+        return 'Schritt 2: Extras wählen (optional)';
+      } else if (currentStep === 'calzoneSauce') {
         return 'Schritt 3: Soße wählen';
       }
     }
@@ -485,6 +569,13 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
       if (currentStep === 'pizzaSize') {
         return 'Weiter zur Extra-Auswahl';
       } else if (currentStep === 'pizzaExtras') {
+        return 'Weiter zur Soßenauswahl';
+      }
+    }
+    if (item.isCalzone) {
+      if (currentStep === 'calzoneSize') {
+        return 'Weiter zur Extra-Auswahl';
+      } else if (currentStep === 'calzoneExtras') {
         return 'Weiter zur Soßenauswahl';
       }
     }
@@ -722,6 +813,21 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                 mit {selectedSauces.length > 0 ? selectedSauces.join(', ') : 'ohne Soße'} - Nr. {item.number} {item.name}
               </p>
             )}
+            {currentStep === 'calzoneSize' && (
+              <p className="text-xs sm:text-sm opacity-90 mt-0.5">
+                Nr. {item.number} {item.name}
+              </p>
+            )}
+            {currentStep === 'calzoneExtras' && (
+              <p className="text-xs sm:text-sm opacity-90 mt-0.5">
+                Nr. {item.number} {item.name} - {selectedSize?.name}
+              </p>
+            )}
+            {currentStep === 'calzoneSauce' && (
+              <p className="text-xs sm:text-sm opacity-90 mt-0.5">
+                Nr. {item.number} {item.name} - {selectedSize?.name}
+              </p>
+            )}
           </div>
           <div className="flex items-center gap-2">
             {item.isPizza && (currentStep === 'pizzaExtras' || currentStep === 'pizzaSauce') && (
@@ -729,6 +835,17 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                 onClick={currentStep === 'pizzaExtras' ? handleBackToPizzaSize : handleBackToPizzaExtras}
                 className="p-2 hover:bg-light-blue-500 rounded-full transition-colors"
                 title={currentStep === 'pizzaExtras' ? "Zurück zur Größenauswahl" : "Zurück zur Extra-Auswahl"}
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+            )}
+            {item.isCalzone && (currentStep === 'calzoneExtras' || currentStep === 'calzoneSauce') && (
+              <button
+                onClick={currentStep === 'calzoneExtras' ? handleBackToCalzoneSize : handleBackToCalzoneExtras}
+                className="p-2 hover:bg-light-blue-500 rounded-full transition-colors"
+                title={currentStep === 'calzoneExtras' ? "Zurück zur Größenauswahl" : "Zurück zur Extra-Auswahl"}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -865,6 +982,41 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
               <div className={`flex items-center space-x-1 ${currentStep === 'pizzaSauce' ? 'text-light-blue-600' : 'text-gray-400'}`}>
                 <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
                   currentStep === 'pizzaSauce' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
+                }`}>
+                  3
+                </div>
+                <span className="text-xs sm:text-sm font-medium hidden sm:inline">Soße</span>
+                <span className="text-xs font-medium sm:hidden">S</span>
+              </div>
+            </div>
+          )}
+
+          {/* Step indicator for calzone items */}
+          {item.isCalzone && (
+            <div className="flex items-center justify-center space-x-1 sm:space-x-2 mb-2 sm:mb-3">
+              <div className={`flex items-center space-x-1 ${currentStep === 'calzoneSize' ? 'text-light-blue-600' : 'text-gray-400'}`}>
+                <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
+                  currentStep === 'calzoneSize' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
+                }`}>
+                  1
+                </div>
+                <span className="text-xs sm:text-sm font-medium hidden sm:inline">Größe</span>
+                <span className="text-xs font-medium sm:hidden">G</span>
+              </div>
+              <div className={`w-4 h-px ${currentStep === 'calzoneExtras' || currentStep === 'calzoneSauce' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
+              <div className={`flex items-center space-x-1 ${currentStep === 'calzoneExtras' ? 'text-light-blue-600' : 'text-gray-400'}`}>
+                <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
+                  currentStep === 'calzoneExtras' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
+                }`}>
+                  2
+                </div>
+                <span className="text-xs sm:text-sm font-medium hidden sm:inline">Extras</span>
+                <span className="text-xs font-medium sm:hidden">E</span>
+              </div>
+              <div className={`w-4 h-px ${currentStep === 'calzoneSauce' ? 'bg-light-blue-400' : 'bg-gray-300'}`}></div>
+              <div className={`flex items-center space-x-1 ${currentStep === 'calzoneSauce' ? 'text-light-blue-600' : 'text-gray-400'}`}>
+                <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
+                  currentStep === 'calzoneSauce' ? 'bg-light-blue-400 text-white' : 'bg-gray-200'
                 }`}>
                   3
                 </div>
@@ -1151,6 +1303,35 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             </div>
           )}
 
+          {/* Calzone Extras */}
+          {item.isCalzone && currentStep === 'calzoneExtras' && (
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
+                Extras {selectedSize ? `(+${(selectedSize.name === 'Normal' ? 0.75 : 1.00).toFixed(2).replace('.', ',')}€ pro Extra)` : ''}
+              </h3>
+              <div className="grid grid-cols-2 gap-2 max-h-60 overflow-y-auto">
+                {calzoneExtras.map((extra) => (
+                  <label
+                    key={extra}
+                    className={`flex items-center space-x-2 p-1.5 rounded-lg border cursor-pointer transition-all text-sm ${
+                      selectedCalzoneExtras.includes(extra)
+                        ? 'border-light-blue-400 bg-light-blue-50'
+                        : 'border-gray-200 hover:border-light-blue-300'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={selectedCalzoneExtras.includes(extra)}
+                      onChange={() => handleCalzoneExtraToggle(extra)}
+                      className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
+                    />
+                    <span>{extra}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Pide Extras */}
           {item.isPide && (
             <div>
@@ -1391,6 +1572,49 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                         <span className="font-medium">{sauce}</span>
                       </div>
                       {isFree && selectedPizzaSauces.length > 0 && (
+                        <span className="text-sm text-green-600 font-semibold">kostenlos</span>
+                      )}
+                      {isPriced && (
+                        <span className="text-sm text-gray-600 font-semibold">+1,00 €</span>
+                      )}
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {item.isCalzone && currentStep === 'calzoneSauce' && (
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Soße wählen (1. kostenlos, weitere +1,00€ / max. 3)</h3>
+              <div className="space-y-2">
+                {sauceTypes.map((sauce, index) => {
+                  const isDisabled = !selectedCalzoneSauces.includes(sauce) && selectedCalzoneSauces.length >= 3 && selectedCalzoneSauces[0] !== 'ohne Soße';
+                  const isPriced = selectedCalzoneSauces.includes(sauce) && selectedCalzoneSauces.indexOf(sauce) > 0;
+                  const isFree = selectedCalzoneSauces.includes(sauce) && selectedCalzoneSauces.indexOf(sauce) === 0;
+
+                  return (
+                    <label
+                      key={sauce}
+                      className={`flex items-center justify-between p-2 rounded-lg border-2 transition-all ${
+                        selectedCalzoneSauces.includes(sauce)
+                          ? 'border-orange-500 bg-orange-50'
+                          : isDisabled
+                          ? 'border-gray-200 opacity-50 cursor-not-allowed'
+                          : 'border-gray-200 hover:border-orange-300 cursor-pointer'
+                      }`}
+                    >
+                      <div className="flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          checked={selectedCalzoneSauces.includes(sauce)}
+                          onChange={() => handleCalzoneSauceToggle(sauce)}
+                          disabled={isDisabled}
+                          className="text-light-blue-400 focus:ring-light-blue-400 w-4 h-4"
+                        />
+                        <span className="font-medium">{sauce}</span>
+                      </div>
+                      {isFree && selectedCalzoneSauces.length > 0 && (
                         <span className="text-sm text-green-600 font-semibold">kostenlos</span>
                       )}
                       {isPriced && (
