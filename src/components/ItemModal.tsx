@@ -1231,7 +1231,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
           )}
 
           {/* Size Selection */}
-          {item.sizes && (!item.isMeatSelection || (currentStep !== 'sauce' && currentStep !== 'exclusions')) && (!item.isSauceSelection || currentStep === 'complete') && (!item.isPizza || currentStep === 'pizzaSize') && (
+          {item.sizes && (!item.isMeatSelection || (currentStep !== 'sauce' && currentStep !== 'exclusions')) && (!item.isSauceSelection || currentStep === 'complete') && (!item.isPizza || currentStep === 'pizzaSize') && (!item.isCalzone || currentStep === 'calzoneSize') && (
             <div>
               <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Größe wählen *</h3>
               <div className="space-y-2">
@@ -1343,7 +1343,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             return (
               <div>
                 <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
-                  Extras {selectedSize ? `(+${(selectedSize.name === 'Normal' ? 0.75 : 1.00).toFixed(2).replace('.', ',')}€ pro Extra)` : ''}
+                  Extras {selectedSize ? `(+${(1.00).toFixed(2).replace('.', ',')}€ pro Extra)` : ''}
                 </h3>
                 <div className="mb-3 text-sm text-gray-600">
                   Seite {calzoneExtrasPage + 1} von {totalPages} - {selectedCalzoneExtras.length} ausgewählt
