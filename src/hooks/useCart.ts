@@ -18,7 +18,8 @@ export const useCart = () => {
     selectedSauce?: string,
     selectedExclusions?: string[],
     selectedSideDish?: string,
-    selectedPizzaSauces?: string[]
+    selectedPizzaSauces?: string[],
+    selectedCalzoneSauces?: string[]
   ) => {
     addItemToStore(
       menuItem,
@@ -29,7 +30,8 @@ export const useCart = () => {
       selectedSauce,
       selectedExclusions,
       selectedSideDish,
-      selectedPizzaSauces
+      selectedPizzaSauces,
+      selectedCalzoneSauces
     );
   }, [addItemToStore]);
 
@@ -42,7 +44,8 @@ export const useCart = () => {
     selectedSauce?: string,
     selectedExclusions?: string[],
     selectedSideDish?: string,
-    selectedPizzaSauces?: string[]
+    selectedPizzaSauces?: string[],
+    selectedCalzoneSauces?: string[]
   ) => {
     removeItemFromStore(
       id,
@@ -53,7 +56,8 @@ export const useCart = () => {
       selectedSauce,
       selectedExclusions,
       selectedSideDish,
-      selectedPizzaSauces
+      selectedPizzaSauces,
+      selectedCalzoneSauces
     );
   }, [removeItemFromStore]);
 
@@ -67,7 +71,8 @@ export const useCart = () => {
     selectedSauce?: string,
     selectedExclusions?: string[],
     selectedSideDish?: string,
-    selectedPizzaSauces?: string[]
+    selectedPizzaSauces?: string[],
+    selectedCalzoneSauces?: string[]
   ) => {
     updateQuantityInStore(
       id,
@@ -79,7 +84,8 @@ export const useCart = () => {
       selectedSauce,
       selectedExclusions,
       selectedSideDish,
-      selectedPizzaSauces
+      selectedPizzaSauces,
+      selectedCalzoneSauces
     );
   }, [updateQuantityInStore]);
 

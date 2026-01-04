@@ -92,16 +92,16 @@ function App() {
   }, []);
 
   // Add/remove/update item callbacks
-  const memoizedAddItem = useCallback((menuItem, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedExclusions, selectedSideDish, selectedPizzaSauces) => {
-    addItem(menuItem, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedExclusions, selectedSideDish, selectedPizzaSauces);
+  const memoizedAddItem = useCallback((menuItem, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedExclusions, selectedSideDish, selectedPizzaSauces, selectedCalzoneSauces) => {
+    addItem(menuItem, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedExclusions, selectedSideDish, selectedPizzaSauces, selectedCalzoneSauces);
     triggerCartAnimation();
     setNotificationItemName(menuItem.name);
     setShowNotification(true);
   }, [addItem, triggerCartAnimation]);
-  const memoizedRemoveItem = useCallback((id, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedExclusions, selectedSideDish, selectedPizzaSauces) =>
-    removeItem(id, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedExclusions, selectedSideDish, selectedPizzaSauces), [removeItem]);
-  const memoizedUpdateQuantity = useCallback((id, quantity, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedExclusions, selectedSideDish, selectedPizzaSauces) =>
-    updateQuantity(id, quantity, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedExclusions, selectedSideDish, selectedPizzaSauces), [updateQuantity]);
+  const memoizedRemoveItem = useCallback((id, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedExclusions, selectedSideDish, selectedPizzaSauces, selectedCalzoneSauces) =>
+    removeItem(id, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedExclusions, selectedSideDish, selectedPizzaSauces, selectedCalzoneSauces), [removeItem]);
+  const memoizedUpdateQuantity = useCallback((id, quantity, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedExclusions, selectedSideDish, selectedPizzaSauces, selectedCalzoneSauces) =>
+    updateQuantity(id, quantity, selectedSize, selectedIngredients, selectedExtras, selectedPastaType, selectedSauce, selectedExclusions, selectedSideDish, selectedPizzaSauces, selectedCalzoneSauces), [updateQuantity]);
   const memoizedClearCart = useCallback(() => clearCart(), [clearCart]);
 
   // Mobile cart toggling
