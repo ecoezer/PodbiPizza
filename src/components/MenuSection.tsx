@@ -22,7 +22,9 @@ interface MenuSectionProps {
     selectedPastaType?: string,
     selectedSauce?: string,
     selectedExclusions?: string[],
-    selectedSideDish?: string
+    selectedSideDish?: string,
+    selectedPizzaSauces?: string[],
+    selectedCalzoneSauces?: string[]
   ) => void;
   onModalStateChange?: (isOpen: boolean) => void;
 }

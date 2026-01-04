@@ -35,8 +35,8 @@ interface OrderItem {
 
 interface OrderFormProps {
   orderItems: OrderItem[];
-  onRemoveItem: (id: number, selectedSize?: any, selectedIngredients?: string[], selectedExtras?: string[], selectedPastaType?: string, selectedSauce?: string, selectedExclusions?: string[], selectedSideDish?: string, selectedPizzaSauces?: string[]) => void;
-  onUpdateQuantity: (id: number, quantity: number, selectedSize?: any, selectedIngredients?: string[], selectedExtras?: string[], selectedPastaType?: string, selectedSauce?: string, selectedExclusions?: string[], selectedSideDish?: string, selectedPizzaSauces?: string[]) => void;
+  onRemoveItem: (id: number, selectedSize?: any, selectedIngredients?: string[], selectedExtras?: string[], selectedPastaType?: string, selectedSauce?: string, selectedExclusions?: string[], selectedSideDish?: string, selectedPizzaSauces?: string[], selectedCalzoneSauces?: string[]) => void;
+  onUpdateQuantity: (id: number, quantity: number, selectedSize?: any, selectedIngredients?: string[], selectedExtras?: string[], selectedPastaType?: string, selectedSauce?: string, selectedExclusions?: string[], selectedSideDish?: string, selectedPizzaSauces?: string[], selectedCalzoneSauces?: string[]) => void;
   onClearCart: () => void;
   onCloseMobileCart?: () => void;
   hideTitle?: boolean;
@@ -358,7 +358,8 @@ const OrderForm: React.FC<OrderFormProps> = ({
         item.selectedSauce,
         item.selectedExclusions,
         item.selectedSideDish,
-        item.selectedPizzaSauces
+        item.selectedPizzaSauces,
+        item.selectedCalzoneSauces
       );
     } else {
       onUpdateQuantity(
@@ -371,7 +372,8 @@ const OrderForm: React.FC<OrderFormProps> = ({
         item.selectedSauce,
         item.selectedExclusions,
         item.selectedSideDish,
-        item.selectedPizzaSauces
+        item.selectedPizzaSauces,
+        item.selectedCalzoneSauces
       );
     }
   }, [onRemoveItem, onUpdateQuantity]);
@@ -386,7 +388,8 @@ const OrderForm: React.FC<OrderFormProps> = ({
       item.selectedSauce,
       item.selectedExclusions,
       item.selectedSideDish,
-      item.selectedPizzaSauces
+      item.selectedPizzaSauces,
+      item.selectedCalzoneSauces
     );
   }, [onRemoveItem]);
 
