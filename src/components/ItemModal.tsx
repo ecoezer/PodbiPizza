@@ -2058,6 +2058,8 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
             finalExtras = selectedBurgerExtras;
           } else if (item.isMeatSelection) {
             finalExtras = selectedDonerExtras;
+          } else if (item.isCalzone) {
+            finalExtras = selectedCalzoneExtras;
           } else {
             finalExtras = selectedExtras;
           }
@@ -2077,7 +2079,9 @@ const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose, onAddToOrd
                 : selectedSauce || selectedMeatType || undefined,
               finalExclusions,
               selectedSideDish || undefined,
-              selectedPizzaSauces.length > 0 ? selectedPizzaSauces : undefined
+              item.isCalzone
+                ? (selectedCalzoneSauces.length > 0 ? selectedCalzoneSauces : undefined)
+                : (selectedPizzaSauces.length > 0 ? selectedPizzaSauces : undefined)
             );
           }
           setShowConfirmationModal(false);

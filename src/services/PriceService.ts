@@ -1,5 +1,5 @@
 import { MenuItem, PizzaSize } from '../types';
-import { pizzaExtrasPricing } from '../data/menuItems';
+import { pizzaExtrasPricing, calzoneExtrasPricing } from '../data/menuItems';
 import { getSizePrice } from '../utils/sizeNormalization';
 
 interface OrderItem {
@@ -25,17 +25,29 @@ export class PriceService {
       return (item.selectedExtras.length) * this.EXTRA_PRICE;
     }
 
-    const normalizedSizeName = getSizePrice(item.selectedSize.name);
     let totalExtrasPrice = 0;
 
-    item.selectedExtras.forEach(extra => {
-      const extraPricing = pizzaExtrasPricing[extra as keyof typeof pizzaExtrasPricing];
-      if (extraPricing) {
-        totalExtrasPrice += extraPricing[normalizedSizeName] || this.EXTRA_PRICE;
-      } else {
-        totalExtrasPrice += this.EXTRA_PRICE;
-      }
-    });
+    if (item.menuItem.isCalzone) {
+      const calzoneSizeName = item.selectedSize.name as 'Normal' | 'Groß';
+      item.selectedExtras.forEach(extra => {
+        const extraPricing = calzoneExtrasPricing[extra as keyof typeof calzoneExtrasPricing];
+        if (extraPricing) {
+          totalExtrasPrice += extraPricing[calzoneSizeName] || 0.75;
+        } else {
+          totalExtrasPrice += 0.75;
+        }
+      });
+    } else {
+      const normalizedSizeName = getSizePrice(item.selectedSize.name);
+      item.selectedExtras.forEach(extra => {
+        const extraPricing = pizzaExtrasPricing[extra as keyof typeof pizzaExtrasPricing];
+        if (extraPricing) {
+          totalExtrasPrice += extraPricing[normalizedSizeName] || this.EXTRA_PRICE;
+        } else {
+          totalExtrasPrice += this.EXTRA_PRICE;
+        }
+      });
+    }
 
     return totalExtrasPrice;
   }
