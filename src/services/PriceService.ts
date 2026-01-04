@@ -7,6 +7,8 @@ interface OrderItem {
   quantity: number;
   selectedSize?: PizzaSize;
   selectedExtras?: string[];
+  selectedPizzaSauces?: string[];
+  selectedCalzoneSauces?: string[];
 }
 
 export class PriceService {
@@ -52,8 +54,22 @@ export class PriceService {
     return totalExtrasPrice;
   }
 
+  static calculateSaucePrice(item: OrderItem): number {
+    let saucePrice = 0;
+
+    if (item.menuItem.isPizza && item.selectedPizzaSauces && item.selectedPizzaSauces.length > 1) {
+      saucePrice = (item.selectedPizzaSauces.length - 1) * 1.00;
+    }
+
+    if (item.menuItem.isCalzone && item.selectedCalzoneSauces && item.selectedCalzoneSauces.length > 1) {
+      saucePrice = (item.selectedCalzoneSauces.length - 1) * 1.00;
+    }
+
+    return saucePrice;
+  }
+
   static calculateItemPrice(item: OrderItem): number {
-    return this.calculateItemBasePrice(item) + this.calculateExtrasPrice(item);
+    return this.calculateItemBasePrice(item) + this.calculateExtrasPrice(item) + this.calculateSaucePrice(item);
   }
 
   static calculateItemTotal(item: OrderItem): number {

@@ -13,17 +13,22 @@ interface OrderItem {
     name: string;
     price: number;
     number: string | number;
+    isPizza?: boolean;
+    isCalzone?: boolean;
+    pfand?: number;
   };
   quantity: number;
   selectedSize?: {
     name: string;
     description?: string;
+    price?: number;
   };
   selectedIngredients?: string[];
   selectedExtras?: string[];
   selectedPastaType?: string;
   selectedSauce?: string;
   selectedPizzaSauces?: string[];
+  selectedCalzoneSauces?: string[];
   selectedExclusions?: string[];
   selectedSideDish?: string;
 }
@@ -101,7 +106,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
   const watchDeliveryZone = watch('deliveryZone');
   const watchDeliveryTime = watch('deliveryTime');
 
-  // Helper function to calculate item price including extras
+  // Helper function to calculate item price including extras and sauces
   const calculateItemPrice = useCallback((item: OrderItem) => {
     const priceServiceItem = {
       menuItem: item.menuItem,
@@ -110,7 +115,9 @@ const OrderForm: React.FC<OrderFormProps> = ({
         name: item.selectedSize.name,
         price: item.selectedSize.price
       } : undefined,
-      selectedExtras: item.selectedExtras || []
+      selectedExtras: item.selectedExtras || [],
+      selectedPizzaSauces: item.selectedPizzaSauces || [],
+      selectedCalzoneSauces: item.selectedCalzoneSauces || []
     };
     return PriceService.calculateItemPrice(priceServiceItem);
   }, []);
@@ -184,7 +191,25 @@ const OrderForm: React.FC<OrderFormProps> = ({
       }
 
       if (item.selectedPizzaSauces && item.selectedPizzaSauces.length > 0) {
-        itemText += ` - Soße: ${item.selectedPizzaSauces.join(', ')}`;
+        const sauceText = item.selectedPizzaSauces.map((sauce, idx) => {
+          if (idx === 0) {
+            return `${sauce} (kostenlos)`;
+          } else {
+            return `${sauce} (+1,00€)`;
+          }
+        }).join(', ');
+        itemText += ` - Soße: ${sauceText}`;
+      }
+
+      if (item.selectedCalzoneSauces && item.selectedCalzoneSauces.length > 0) {
+        const sauceText = item.selectedCalzoneSauces.map((sauce, idx) => {
+          if (idx === 0) {
+            return `${sauce} (kostenlos)`;
+          } else {
+            return `${sauce} (+1,00€)`;
+          }
+        }).join(', ');
+        itemText += ` - Soße: ${sauceText}`;
       }
 
       if (item.selectedExclusions && item.selectedExclusions.length > 0) {
@@ -266,6 +291,8 @@ const OrderForm: React.FC<OrderFormProps> = ({
           selectedExtras: item.selectedExtras || null,
           selectedPastaType: item.selectedPastaType || null,
           selectedSauce: item.selectedSauce || null,
+          selectedPizzaSauces: item.selectedPizzaSauces || null,
+          selectedCalzoneSauces: item.selectedCalzoneSauces || null,
           selectedExclusions: item.selectedExclusions || null,
           selectedSideDish: item.selectedSideDish || null,
           totalPrice: calculateItemPrice(item) * item.quantity
@@ -474,6 +501,19 @@ const OrderForm: React.FC<OrderFormProps> = ({
                           {idx === 0 && item.selectedPizzaSauces.length > 1 && <span className="text-green-600"> (kostenlos)</span>}
                           {idx > 0 && <span className="text-gray-500"> (+1,00€)</span>}
                           {idx < item.selectedPizzaSauces.length - 1 && ', '}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {item.selectedCalzoneSauces && item.selectedCalzoneSauces.length > 0 && (
+                    <div className="text-xs text-gray-600">
+                      Soße: {item.selectedCalzoneSauces.map((sauce, idx) => (
+                        <span key={idx}>
+                          {sauce}
+                          {idx === 0 && item.selectedCalzoneSauces.length > 1 && <span className="text-green-600"> (kostenlos)</span>}
+                          {idx > 0 && <span className="text-gray-500"> (+1,00€)</span>}
+                          {idx < item.selectedCalzoneSauces.length - 1 && ', '}
                         </span>
                       ))}
                     </div>
