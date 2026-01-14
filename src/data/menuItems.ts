@@ -130,7 +130,7 @@ export const calzoneExtrasPricing: { [key: string]: { 'Normal': number; 'Groß':
 export const burgerExtras = [
   { name: 'Extra Schmelzkäse', price: 0.50 },
   { name: 'Extra Jalapeños', price: 0.50 },
-  { name: 'Extra Burger Patty', price: 1.50 }
+  { name: 'Extra Burger Patty', price: 2.50 }
 ] as const;
 
 // Pizza extras pricing by size
