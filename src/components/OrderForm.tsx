@@ -709,6 +709,16 @@ const OrderForm: React.FC<OrderFormProps> = ({
             </div>
           </div>
 
+          {watchOrderType === 'pickup' && (
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 flex items-start gap-3">
+              <Clock className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-blue-900">ca. 15–25 Minuten abholbereit.</p>
+                <p className="text-xs text-blue-700 mt-1">Ihre Bestellung wird in diesem Zeitraum zubereitet.</p>
+              </div>
+            </div>
+          )}
+
           {watchOrderType === 'delivery' && (
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-900">
