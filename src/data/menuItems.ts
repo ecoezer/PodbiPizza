@@ -101,29 +101,29 @@ export const calzoneExtras = [
 
 // Calzone extras pricing by size (Normal and Groß)
 export const calzoneExtrasPricing: { [key: string]: { 'Normal': number; 'Groß': number } } = {
-  'Ananas': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Brokkoli': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Champignons frisch': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Doppelt Käse': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Gewürzgurken': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Hähnchenbrust': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Jalapeños': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Mais': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Mozzarella': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Oliven': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Paprika': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Peperoni mild': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Putenschinken': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Rindersalami': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Sauce Hollandaise': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Spinat': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Sucuk': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Tomaten': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Zwiebeln': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Dönerfleisch Kalb': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Dönerfleisch Hähnchen': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Weichkäse': { 'Normal': 1.00, 'Groß': 1.00 },
-  'Thunfisch': { 'Normal': 1.00, 'Groß': 1.00 }
+  'Ananas': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Brokkoli': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Champignons frisch': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Doppelt Käse': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Gewürzgurken': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Hähnchenbrust': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Jalapeños': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Mais': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Mozzarella': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Oliven': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Paprika': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Peperoni mild': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Putenschinken': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Rindersalami': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Sauce Hollandaise': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Spinat': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Sucuk': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Tomaten': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Zwiebeln': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Dönerfleisch Kalb': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Dönerfleisch Hähnchen': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Weichkäse': { 'Normal': 1.00, 'Groß': 1.50 },
+  'Thunfisch': { 'Normal': 1.00, 'Groß': 1.50 }
 } as const;
 
 // Burger extras with pricing
@@ -356,24 +356,24 @@ export const calzoneSizes = [
 // Calzone
 export const calzone: readonly MenuItem[] = [
   { id: 601, number: 46, name: "Döner", description: "mit Dönerfleisch & Sauce", price: 10.50, allergens: "Aa, G, I, M, 14, 17, 18", isCalzone: true, sizes: [
-    { name: 'Normal', price: 10.50, description: 'Normal' },
-    { name: 'Groß', price: 12.50, description: 'Groß' }
+    { name: 'Normal', price: 10.00, description: 'Normal' },
+    { name: 'Groß', price: 12.00, description: 'Groß' }
   ]},
   { id: 602, number: 47, name: "Hähnchendöner", description: "mit Hähnchendönerfleisch & Sauce", price: 10.50, allergens: "Aa, G, I, M, 14, 17, 18", isCalzone: true, sizes: [
-    { name: 'Normal', price: 10.50, description: 'Normal' },
-    { name: 'Groß', price: 12.50, description: 'Groß' }
+    { name: 'Normal', price: 10.00, description: 'Normal' },
+    { name: 'Groß', price: 12.00, description: 'Groß' }
   ]},
   { id: 603, number: 48, name: "Döner Mais", description: "mit Dönerfleisch, Zwiebeln, Mais & Tabasco", price: 11.00, allergens: "Aa, G, I, M, 14, 17, 18", isCalzone: true, sizes: [
     { name: 'Normal', price: 11.00, description: 'Normal' },
     { name: 'Groß', price: 13.00, description: 'Groß' }
   ]},
   { id: 604, number: 49, name: "Schinken-Salami", description: "mit Geflügelformschinken, Geflügelsalami & Champignons", price: 10.00, allergens: "Aa, B, I, G, 6, 9, 9.I, 17", isCalzone: true, sizes: [
-    { name: 'Normal', price: 10.00, description: 'Normal' },
-    { name: 'Groß', price: 12.00, description: 'Groß' }
+    { name: 'Normal', price: 9.00, description: 'Normal' },
+    { name: 'Groß', price: 11.50, description: 'Groß' }
   ]},
   { id: 605, number: 50, name: "Spinat", description: "mit Spinat, Weichkäse & Knoblauch", price: 9.00, allergens: "Aa, I", isCalzone: true, sizes: [
     { name: 'Normal', price: 9.00, description: 'Normal' },
-    { name: 'Groß', price: 11.50, description: 'Groß' }
+    { name: 'Groß', price: 11.00, description: 'Groß' }
   ]},
   { id: 606, number: 52, name: "Partypizza", description: "mit Tomatensauce & Käse (60x40cm) - Jeder Extra-Belag +3 €", price: 22.00, allergens: "Aa, I" }
 ];
